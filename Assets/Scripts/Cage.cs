@@ -16,6 +16,8 @@ public class Cage : MonoBehaviour
 
     public LineRenderer ropeLineRendererLeft;
     public LineRenderer ropeLineRendererRight;
+
+    public Collider2D myCollider;
     
     // sinking up or raising down
     private float sinkProgress;
@@ -36,6 +38,12 @@ public class Cage : MonoBehaviour
             case CageState.Rising:
                 // make the player a child of the cage
                 World.Instance.player.transform.SetParent(this.transform);
+                // make all the things on the cage a child of the cage
+                var things = GetThingsOnPlatform();
+                foreach (var thing in things)
+                {
+                    thing.transform.SetParent(this.transform);
+                }
                 // Disable the ship collider
                 World.Instance.aboveSea.shipCollider.enabled = false;
                 sinkProgress = 0;
@@ -69,10 +77,38 @@ public class Cage : MonoBehaviour
                     SetState(state == CageState.Sinking ? CageState.Underwater : CageState.OnShip);
                     // make the player a child of the game scene
                     World.Instance.player.transform.SetParent(null);
+                    // make all the things on the cage a child of the game scene
+                    var things = GetThingsOnPlatform();
+                    foreach (var thing in things)
+                    {
+                        thing.transform.SetParent(null);
+                    }
                     // Enable the ship collider
                     World.Instance.aboveSea.shipCollider.enabled = true;
                 }
                 break;
         }
+    }
+    
+    // get all colliding "Things" (layer) on the cage
+    // todo, need to add a separate collider
+    public Collider2D[] GetThingsOnPlatform()
+    {
+        var contacts = new Collider2D[50];
+        var contactCount = myCollider.Overlap(new ContactFilter2D(), contacts);
+        Collider2D[] things = new Collider2D[contactCount];
+        int index = 0;
+        for (int i = 0; i < contactCount; i++)
+        {
+            var contact = contacts[i];
+            if (contact != null && contact.gameObject.layer == LayerMask.NameToLayer("Things"))
+            {
+                things[index] = contact;
+                index++;
+            }
+        }
+        // resize the array to the number of things found
+        System.Array.Resize(ref things, index);
+        return things;
     }
 }
