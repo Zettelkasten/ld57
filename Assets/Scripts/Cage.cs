@@ -94,7 +94,7 @@ public class Cage : MonoBehaviour
                 this.transform.position = Vector3.Lerp(fromPos, toPos, Helpers.EaseInOutQuad(sinkProgress));
                 if (sinkProgress >= 1)
                 {
-                    SetState(state == CageState.Sinking ? CageState.Underwater : CageState.SellingItems);
+                    SetState(state == CageState.Sinking ? CageState.Underwater : CageState.Rising);
                     // make the player a child of the game scene
                     //World.Instance.player.transform.SetParent(null);
                     // destroy the joints
