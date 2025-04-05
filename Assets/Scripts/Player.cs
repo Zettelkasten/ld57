@@ -2,26 +2,32 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
-    Rigidbody2D playerrigidbody;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    public Rigidbody2D rigidbody;
+
     void Update()
     {
-        
+        // A and D keys to move left and right
+        var speed = new Vector2(0, 0);
+        if (Input.GetKey(KeyCode.A))
+        {
+            speed.x = -1;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            speed.x = 1;
+        }
+        else
+        {
+            speed.x = 0;
+        }
+        Walk(speed, 0.1f);
     }
     
     void Walk(Vector2 speed, float strength)
     {
-        var dif = speed - playerrigidbody.linearVelocity;
+        var dif = speed - rigidbody.linearVelocity;
         var traction = 1 / (Vector3.Magnitude(dif) + 1); // the larger the speed difference, the lower the traction
-        playerrigidbody.linearVelocity += traction * strength * dif;
+        rigidbody.linearVelocity += traction * strength * dif;
     }
-
 }
