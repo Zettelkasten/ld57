@@ -9,7 +9,7 @@ public class Waterphysics : MonoBehaviour
     public float waterdrag_angular = 0.98f;
     
     float transition_height = 0.3f;
-    private float waterlevel = 95f;
+    private float waterlevel = 98f;
     private bool applyGravity = false;
     public bool upright = true;
     
