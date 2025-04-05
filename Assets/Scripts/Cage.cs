@@ -61,7 +61,7 @@ public class Cage : MonoBehaviour
                 
                 //World.Instance.player.transform.SetParent(this.transform);
                 // make all the things on the cage a child of the cage
-                var things = GetThingsOnPlatform();
+                var things = GetTreasuresOnPlatform();
                 foreach (var thing in things)
                 {
                     thing.transform.SetParent(this.transform);
@@ -73,7 +73,7 @@ public class Cage : MonoBehaviour
         }
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         // update the line renderer
         ropeLineRendererLeft.SetPosition(0, ropePivotLeft.position);
@@ -92,11 +92,11 @@ public class Cage : MonoBehaviour
                     (fromPos, toPos) = (toPos, fromPos);
                 }
 
-                sinkProgress += Time.deltaTime * sinkSpeed;
+                sinkProgress += Time.fixedDeltaTime * sinkSpeed;
                 this.transform.position = Vector3.Lerp(fromPos, toPos, Helpers.EaseInOutQuad(sinkProgress));
                 if (sinkProgress >= 1)
                 {
-                    SetState(state == CageState.Sinking ? CageState.Underwater : CageState.Rising);
+                    SetState(state == CageState.Sinking ? CageState.Underwater : CageState.OnShip);
                     // make the player a child of the game scene
                     //World.Instance.player.transform.SetParent(null);
                     // destroy the joints
@@ -107,7 +107,7 @@ public class Cage : MonoBehaviour
                     //World.Instance.player.transform.SetParent(null);
                     World.Instance.player.fixJoints();
                     // make all the things on the cage a child of the game scene
-                    var things = GetThingsOnPlatform();
+                    var things = GetTreasuresOnPlatform();
                     foreach (var thing in things)
                     {
                         thing.transform.SetParent(null);
@@ -119,8 +119,8 @@ public class Cage : MonoBehaviour
         }
     }
     
-    // get all colliding "Things" (layer) on the cage
-    public Collider2D[] GetThingsOnPlatform()
+    // get all colliding Treasures
+    public Collider2D[] GetTreasuresOnPlatform()
     {
         var contacts = new Collider2D[50];
         var contactCount = myCollider.Overlap(new ContactFilter2D(), contacts);
@@ -129,7 +129,8 @@ public class Cage : MonoBehaviour
         for (int i = 0; i < contactCount; i++)
         {
             var contact = contacts[i];
-            if (contact != null && contact.gameObject.layer == LayerMask.NameToLayer("Things"))
+            // check if contact is not null and game object is of class Treasure
+            if (contact != null && contact.gameObject.GetComponent<Treasure>() != null) 
             {
                 things[index] = contact;
                 index++;
