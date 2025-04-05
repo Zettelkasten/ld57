@@ -3,13 +3,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     
-    Rigidbody2D rigidbody;
+    Rigidbody2D playerRigidbody;
     public Vector2 armPosition = new Vector2(0, 0.45f);
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        playerRigidbody = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -33,8 +33,8 @@ public class Player : MonoBehaviour
     
     void Walk(Vector2 speed, float strength)
     {
-        var dif = speed - rigidbody.linearVelocity;
+        var dif = speed - playerRigidbody.linearVelocity;
         var traction = 1 / (Vector3.Magnitude(dif) + 1); // the larger the speed difference, the lower the traction
-        rigidbody.linearVelocity += traction * strength * dif;
+        playerRigidbody.linearVelocity += traction * strength * dif;
     }
 }

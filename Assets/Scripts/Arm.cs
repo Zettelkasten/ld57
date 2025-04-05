@@ -5,13 +5,21 @@ public class Arm : MonoBehaviour
     public Player player;
     private float armLength = 6.0f;
     private float armStrength = 300f;
-    public Rigidbody2D armRigidbody;
+    private Rigidbody2D armRigidbody;
+    FixedJoint2D joint;
     
-    
+    public Sprite grabberSpriteOpen;
+    public Sprite grabberSpriteClosed;
+    SpriteRenderer grabberSpriteRenderer;
+
+    bool isGrabbing = false;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         armRigidbody = GetComponent<Rigidbody2D>();
+        grabberSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -26,19 +34,78 @@ public class Arm : MonoBehaviour
         {
             dif = dif.normalized * armLength; // Limit the length of the arm
         }
+
         // Rotate the arm to point towards the mouse position
         float angle = Mathf.Atan2(dif.y, dif.x) * Mathf.Rad2Deg;
         // Set the rotation of the arm
         float angleDiff = angle - transform.rotation.eulerAngles.z;
         armRigidbody.angularVelocity = angleDiff * armStrength * Time.deltaTime;
         //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        
+
         // Set the arm position to the player's arm position plus the direction vector without breaking physics
         Vector2 targetposition = attachmentPoint + dif;
         Vector2 dif2 = targetposition - (Vector2)transform.position;
         armRigidbody.linearVelocity += armStrength * Time.deltaTime * dif2;
-        
-        
 
+        // grab the object if the mouse is clicked
+        
+        if (Input.GetMouseButton(0))
+        {
+            if (!isGrabbing)
+            {
+                UpdateGrabberSprite(true);
+                isGrabbing = true;
+                if (joint is null)
+                {
+
+                    // create a joint to the object
+                    float distance = 0.7f;
+                    // find all colliders in the area
+                    Vector2 grabberPos = transform.position;
+                    Collider2D[] colliders = Physics2D.OverlapCircleAll(grabberPos, distance);
+                    // find the first collider that is not the player
+                    Collider2D hit = null;
+                    foreach (Collider2D collider in colliders)
+                    {
+                        if (collider.gameObject != player.gameObject && collider.gameObject != gameObject)
+                        {
+                            hit = collider;
+                            break;
+                        }
+                    }
+
+                    if (hit != null)
+                    {
+                        GameObject obj = hit.gameObject;
+                        joint = gameObject.AddComponent<FixedJoint2D>();
+                        joint.connectedBody = obj.GetComponent<Rigidbody2D>();
+                        isGrabbing = true;
+                    }
+                }
+            }
+        }else{
+            // if the mouse is released, release the object
+            if (isGrabbing)
+            {
+                UpdateGrabberSprite(false);
+                isGrabbing = false;
+            }
+            if (joint is not null)
+            {
+                Destroy(joint);
+                joint = null;
+            }
+        }
+    }
+    void UpdateGrabberSprite(bool closed)
+    {
+        if (closed)
+        {
+            grabberSpriteRenderer.sprite = grabberSpriteClosed;
+        }
+        else
+        {
+            grabberSpriteRenderer.sprite = grabberSpriteOpen;
+        }
     }
 }
