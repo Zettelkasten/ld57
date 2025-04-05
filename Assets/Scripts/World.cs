@@ -40,6 +40,8 @@ public class World : MonoBehaviour
         // move the ship above the current anchor
         aboveSea.transform.position = currentAnchor.pivot.position + aboveSeaOffset;
         cage.transform.position = currentAnchor.pivot.position + aboveSeaOffset;
+        // set z to 0
+        aboveSea.transform.position = new Vector3(aboveSea.transform.position.x, aboveSea.transform.position.y, 0);
         cage.SetState(CageState.OnShip);
     }
 }

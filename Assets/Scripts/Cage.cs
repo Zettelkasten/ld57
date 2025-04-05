@@ -11,9 +11,11 @@ public class Cage : MonoBehaviour
 {
     public CageState state;
     public Transform playerPivot;
-    public Transform ropePivot;
+    public Transform ropePivotLeft;
+    public Transform ropePivotRight;
 
-    public LineRenderer ropeLineRenderer;
+    public LineRenderer ropeLineRendererLeft;
+    public LineRenderer ropeLineRendererRight;
     
     // sinking up or raising down
     private float sinkProgress;
@@ -34,6 +36,8 @@ public class Cage : MonoBehaviour
             case CageState.Rising:
                 // make the player a child of the cage
                 World.Instance.player.transform.SetParent(this.transform);
+                // Disable the ship collider
+                World.Instance.aboveSea.shipCollider.enabled = false;
                 sinkProgress = 0;
                 break;
         }
@@ -42,8 +46,10 @@ public class Cage : MonoBehaviour
     public void Update()
     {
         // update the line renderer
-        ropeLineRenderer.SetPosition(0, ropePivot.position);
-        ropeLineRenderer.SetPosition(1, World.Instance.aboveSea.shipRopePivot.position);
+        ropeLineRendererLeft.SetPosition(0, ropePivotLeft.position);
+        ropeLineRendererLeft.SetPosition(1, World.Instance.aboveSea.shipRopePivotLeft.position);
+        ropeLineRendererRight.SetPosition(0, ropePivotRight.position);
+        ropeLineRendererRight.SetPosition(1, World.Instance.aboveSea.shipRopePivotRight.position);
         
         switch (state)
         {
@@ -58,11 +64,13 @@ public class Cage : MonoBehaviour
 
                 sinkProgress += Time.deltaTime * sinkSpeed;
                 this.transform.position = Vector3.Lerp(fromPos, toPos, Helpers.EaseInOutQuad(sinkProgress));
-                if (sinkProgress > 1)
+                if (sinkProgress >= 1)
                 {
                     SetState(state == CageState.Sinking ? CageState.Underwater : CageState.OnShip);
                     // make the player a child of the game scene
                     World.Instance.player.transform.SetParent(null);
+                    // Enable the ship collider
+                    World.Instance.aboveSea.shipCollider.enabled = true;
                 }
                 break;
         }

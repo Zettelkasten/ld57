@@ -102,9 +102,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 3
-  m_AngularDamping: 3
+  m_Mass: 0.1
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -179,11 +179,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3152281386714092225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 766fd2b7818473e1194a4dfafa5d065d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bff4a1d760c479e8f051c450f640b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6265956234999310228}
-  armRigidbody: {fileID: 0}
+  grabberSpriteOpen: {fileID: 9115818560615454415, guid: fad7a90e7b9206bbebcfdfa597c5ddfe, type: 3}
+  grabberSpriteClosed: {fileID: -5434602241720839258, guid: 8b99671288de75278ae6a47635a536c5, type: 3}
+  grabberSpriteRenderer: {fileID: 0}
 --- !u!1 &5110726411937644665
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,8 +288,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDamping: 3
-  m_AngularDamping: 3
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -428,8 +430,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDamping: 3
-  m_AngularDamping: 3
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
