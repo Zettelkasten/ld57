@@ -24,11 +24,19 @@ public class World : MonoBehaviour
         RepositionShip();
     }
 
+    public void Update()
+    {
+        if (cage.state == CageState.OnShip && Input.GetKeyDown(KeyCode.Space))
+        {
+            cage.SetState(CageState.Sinking);
+        }
+    }
+
     public void RepositionShip()
     {
         // move the ship above the current anchor
         aboveSea.transform.position = currentAnchor.pivot.position + aboveSeaOffset;
         cage.transform.position = currentAnchor.pivot.position + aboveSeaOffset;
-        cage.state = CageState.OnShip;
+        cage.SetState(CageState.OnShip);
     }
 }
