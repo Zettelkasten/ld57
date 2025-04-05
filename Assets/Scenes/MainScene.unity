@@ -1536,7 +1536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be5be458c16452ebe4a602bad89169d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 506043683}
+  player: {fileID: 0}
   cage: {fileID: 1710518957}
   currentAnchor: {fileID: 822711505}
   aboveSea: {fileID: 2138570114}
@@ -2015,6 +2015,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1021729251 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6265956234999310228, guid: 4e5955f0efee5dceb8469b28d449842b, type: 3}
+  m_PrefabInstance: {fileID: 166347845}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f33d9f13f913e82b2eb0b860ae9eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1022330028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2562522777615184982, guid: cab868fd6ddd24635910b5bfea91d3ee, type: 3}
@@ -2840,9 +2851,7 @@ Transform:
   m_LocalPosition: {x: 1.23, y: -0.02, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 25573234}
-  - {fileID: 411793652}
+  m_Children: [{fileID: 25573234}, {fileID: 411793652}]
   m_Father: {fileID: 2138570113}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2053367332

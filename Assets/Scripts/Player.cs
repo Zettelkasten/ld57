@@ -5,6 +5,8 @@ public class Player : MonoBehaviour
     
     Rigidbody2D playerRigidbody;
     public Vector2 armPosition = new Vector2(0, 0.45f);
+    public PolygonCollider2D gearCollider;
+    private float speed = 5f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -15,26 +17,65 @@ public class Player : MonoBehaviour
     void Update()
     {
         // A and D keys to move left and right
-        var speed = new Vector2(0, 0);
+        float verticalSpeed = 0;
         if (Input.GetKey(KeyCode.A))
         {
-            speed.x = -1;
+            verticalSpeed = -1;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            speed.x = 1;
+            verticalSpeed = 1;
         }
         else
         {
-            speed.x = 0;
+            verticalSpeed = 0;
         }
-        Walk(speed, 0.1f);
+        verticalSpeed *= speed;
+
+        if (verticalSpeed != 0)
+        {
+            // get objects that contact the gear collider
+            var contacts = new Collider2D[5];
+            var contactCount = gearCollider.Overlap(new ContactFilter2D(), contacts);
+            Collider2D ground = null;
+            for (int i = 0; i < contactCount; i++)
+            {
+                var contact = contacts[i];
+                if (contact != null && contact.gameObject != playerRigidbody.gameObject &&
+                    contact.gameObject != gearCollider.gameObject)
+                {
+                    ground = contact;
+                    break;
+                }
+            }
+
+            // if the player is on the ground, move the player
+            if (ground != null)
+            {
+                float direction = transform.rotation.eulerAngles.z;
+                // force in the forward direction of the player with the speed of the player
+                Vector2 movespeed = new Vector2(verticalSpeed * Mathf.Cos(direction * Mathf.Deg2Rad),
+                    verticalSpeed * Mathf.Sin(direction * Mathf.Deg2Rad));
+                
+                Vector2 speeddif = movespeed - playerRigidbody.linearVelocity;
+                float traction = 1 / (1 + speeddif.magnitude);
+                Vector2 moveforce = traction * 500 * speeddif;
+                
+                
+                Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.2f;
+                playerRigidbody.AddForceAtPosition(moveforce, forcepos, ForceMode2D.Force);
+                //playerRigidbody.linearVelocity += moveforce;
+                Rigidbody2D groundRigidbody = ground.attachedRigidbody;
+                if (groundRigidbody != null && groundRigidbody.bodyType == RigidbodyType2D.Dynamic)
+                {
+                    groundRigidbody.AddForceAtPosition(-moveforce, groundRigidbody.position, ForceMode2D.Force);
+                }
+
+            }
+        }
+        
     }
+
     
-    void Walk(Vector2 speed, float strength)
-    {
-        var dif = speed - playerRigidbody.linearVelocity;
-        var traction = 1 / (Vector3.Magnitude(dif) + 1); // the larger the speed difference, the lower the traction
-        playerRigidbody.linearVelocity += traction * strength * dif;
-    }
 }
+
