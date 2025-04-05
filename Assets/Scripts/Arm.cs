@@ -3,6 +3,7 @@ using UnityEngine;
 public class Arm : MonoBehaviour
 {
     public Player player;
+    private Rigidbody2D playerRigidbody;
     private float armLength = 6.0f;
     private float armStrength = 300f;
     private Rigidbody2D armRigidbody;
@@ -20,6 +21,7 @@ public class Arm : MonoBehaviour
     {
         armRigidbody = GetComponent<Rigidbody2D>();
         grabberSpriteRenderer = GetComponent<SpriteRenderer>();
+        playerRigidbody = player.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -46,8 +48,16 @@ public class Arm : MonoBehaviour
         Vector2 targetposition = attachmentPoint + dif;
         Vector2 dif2 = targetposition - (Vector2)transform.position;
         armRigidbody.linearVelocity += armStrength * Time.deltaTime * dif2;
-
-        // grab the object if the mouse is clicked
+        if (joint is not null)
+        {
+            Vector2 force = dif2 * armStrength * 0.3f;
+            if(joint.connectedBody.bodyType == RigidbodyType2D.Dynamic)
+                joint.connectedBody.AddForceAtPosition(force, transform.position);
+            playerRigidbody.AddForce(-force);//, transform.position);
+            
+        }
+        
+        
         
         if (Input.GetMouseButton(0))
         {
