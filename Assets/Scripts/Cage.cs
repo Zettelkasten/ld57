@@ -29,6 +29,8 @@ public class Cage : MonoBehaviour
         {
             case CageState.Sinking:
             case CageState.Rising:
+                // make the player a child of the cage
+                World.Instance.player.transform.SetParent(this.transform);
                 sinkProgress = 0;
                 break;
         }
@@ -46,6 +48,8 @@ public class Cage : MonoBehaviour
                 if (sinkProgress > 1)
                 {
                     SetState(CageState.Underwater);
+                    // make the player a child of the game scene
+                    World.Instance.player.transform.SetParent(null);
                 }
                 break;
         }
