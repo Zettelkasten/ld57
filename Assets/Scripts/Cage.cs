@@ -46,13 +46,15 @@ public class Cage : MonoBehaviour
             case CageState.Rising:
                 // make the player a child of the cage
                 //World.Instance.player.transform.SetParent(this.transform);
+                World.Instance.player.fixJoints();
+                
                 FixedJoint2D joint = cageRigidbody.gameObject.AddComponent<FixedJoint2D>();
                 joint.connectedBody = playerRigidbody;
                 joint.autoConfigureConnectedAnchor = false;
                 //joint.anchor = playerPivot.localPosition;
                 joints.Add(joint);
                 
-                World.Instance.player.transform.SetParent(this.transform);
+                //World.Instance.player.transform.SetParent(this.transform);
                 // make all the things on the cage a child of the cage
                 var things = GetThingsOnPlatform();
                 foreach (var thing in things)
@@ -97,7 +99,8 @@ public class Cage : MonoBehaviour
                     {
                         Destroy(joint2D);
                     }
-                    World.Instance.player.transform.SetParent(null);
+                    //World.Instance.player.transform.SetParent(null);
+                    World.Instance.player.fixJoints();
                     // make all the things on the cage a child of the game scene
                     var things = GetThingsOnPlatform();
                     foreach (var thing in things)
