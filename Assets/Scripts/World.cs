@@ -15,7 +15,7 @@ public class World : MonoBehaviour
     public Cage cage;
 
     public CageAnchor currentAnchor;
-    public GameObject aboveSea;
+    public AboveSea aboveSea;
 
     public Vector3 aboveSeaOffset;
 
@@ -26,9 +26,12 @@ public class World : MonoBehaviour
 
     public void Update()
     {
-        if (cage.state == CageState.OnShip && Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            cage.SetState(CageState.Sinking);
+            if (cage.state == CageState.OnShip)
+                cage.SetState(CageState.Sinking);
+            else if (cage.state == CageState.Underwater)
+                cage.SetState(CageState.Rising);
         }
     }
 
