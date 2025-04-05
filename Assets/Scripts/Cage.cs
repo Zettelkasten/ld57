@@ -1,18 +1,20 @@
-using System;
 using UnityEngine;
 
-public class CageController : MonoBehaviour
+public enum CageState
 {
-    public Transform shipPivot;
-    public Transform underwaterPivot;
+    OnShip = 0,
+    Sinking = 1,
+    Underwater = 2,
+    Rising = 3
+}
+public class Cage : MonoBehaviour
+{
+    public CageState state;
+    public Transform playerPivot;
 
-    public void Start()
+    void Start()
     {
-        this.transform.position = shipPivot.position;
-    }
-
-    public void PrepositionShip()
-    {
-        
+        state = CageState.OnShip;
+        World.Instance.player.transform.position = playerPivot.position;
     }
 }
