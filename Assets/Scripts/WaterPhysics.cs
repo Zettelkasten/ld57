@@ -10,10 +10,10 @@ public class Waterphysics : MonoBehaviour
     public Transform waterlevel_transform = null;
     public float wobble = 1f;
     public bool upright = true;
+    public bool applyGravity = false;
     
     float transition_height = 0.3f;
     private float waterlevel = 98f;
-    private bool applyGravity = false;
     long nextwobble = 0;
     
     Rigidbody2D rb;
@@ -62,7 +62,7 @@ public class Waterphysics : MonoBehaviour
 
             if(boyant)
                 rb.AddForce(transition_factor * rb.mass * boyancy * Vector2.up, ForceMode2D.Force); //buoyancy
-            if (wobble > 0)
+            if (wobble > 0 && transition_factor < 1)
             {
                 if(System.DateTime.Now.Ticks > nextwobble)
                 {
