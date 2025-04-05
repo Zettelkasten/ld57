@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7420010031327858827}
   - component: {fileID: 7740904508644562735}
   - component: {fileID: 1905696697084431169}
+  - component: {fileID: 8087781659878032970}
   m_Layer: 6
   m_Name: Gripper
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3152281386714092225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3}
+  m_LocalPosition: {x: 0.1, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,8 +103,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0
+  m_LinearDamping: 3
+  m_AngularDamping: 3
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -169,6 +170,20 @@ PolygonCollider2D:
       - {x: 0.30786633, y: -0.1961359}
       - {x: 0.30719683, y: 0.19178614}
   m_UseDelaunayMesh: 0
+--- !u!114 &8087781659878032970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3152281386714092225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 766fd2b7818473e1194a4dfafa5d065d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 6265956234999310228}
+  armRigidbody: {fileID: 0}
 --- !u!1 &5110726411937644665
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,8 +286,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDamping: 0
-  m_AngularDamping: 0
+  m_LinearDamping: 3
+  m_AngularDamping: 3
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -280,7 +295,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -413,8 +428,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDamping: 0
-  m_AngularDamping: 0
+  m_LinearDamping: 3
+  m_AngularDamping: 3
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -422,7 +437,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -443,7 +458,7 @@ HingeJoint2D:
   m_BreakAction: 0
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.6, y: 0}
-  m_ConnectedAnchor: {x: -0.16473588, y: 0.0017359257}
+  m_ConnectedAnchor: {x: -0.26473588, y: 0.0017359257}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -466,6 +481,7 @@ GameObject:
   - component: {fileID: 5221533566072193150}
   - component: {fileID: 5925641037587273387}
   - component: {fileID: 7005870425557559757}
+  - component: {fileID: 6265956234999310228}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -653,3 +669,16 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!114 &6265956234999310228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091427803588185070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f33d9f13f913e82b2eb0b860ae9eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armPosition: {x: 0, y: 0.45}

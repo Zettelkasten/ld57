@@ -15,7 +15,7 @@ public class World : MonoBehaviour
     public Cage cage;
 
     public CageAnchor currentAnchor;
-    public GameObject aboveSea;
+    public AboveSea aboveSea;
 
     public Vector3 aboveSeaOffset;
 
@@ -24,11 +24,22 @@ public class World : MonoBehaviour
         RepositionShip();
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (cage.state == CageState.OnShip)
+                cage.SetState(CageState.Sinking);
+            else if (cage.state == CageState.Underwater)
+                cage.SetState(CageState.Rising);
+        }
+    }
+
     public void RepositionShip()
     {
         // move the ship above the current anchor
         aboveSea.transform.position = currentAnchor.pivot.position + aboveSeaOffset;
         cage.transform.position = currentAnchor.pivot.position + aboveSeaOffset;
-        cage.state = CageState.OnShip;
+        cage.SetState(CageState.OnShip);
     }
 }
