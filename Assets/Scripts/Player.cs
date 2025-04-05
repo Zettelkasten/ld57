@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
-    public Rigidbody2D rigidbody;
+    
+    Rigidbody2D rigidbody;
+    public Vector2 armPosition = new Vector2(0, 0.45f);
+    
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
+    }
 
     void Update()
     {
