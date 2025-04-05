@@ -4,8 +4,8 @@ public class Arm : MonoBehaviour
 {
     public Player player;
     private Rigidbody2D playerRigidbody;
-    private float armLength = 6.0f;
-    private float armStrength = 300f;
+    private float armLength = 4.0f;
+    private float armStrength = 50f;
     private Rigidbody2D armRigidbody;
     FixedJoint2D joint;
     
@@ -27,6 +27,17 @@ public class Arm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(joint is not null)
+        {
+            if (joint.connectedBody == null)
+            {
+                Destroy(joint);
+                joint = null;
+            }
+        }
+        
+            
+        
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 playerPos = player.transform.position;
         Vector2 attachmentPoint = playerPos + player.armPosition;
@@ -47,13 +58,16 @@ public class Arm : MonoBehaviour
         // Set the arm position to the player's arm position plus the direction vector without breaking physics
         Vector2 targetposition = attachmentPoint + dif;
         Vector2 dif2 = targetposition - (Vector2)transform.position;
-        armRigidbody.linearVelocity += armStrength * Time.deltaTime * dif2;
+        Vector2 force = armStrength * dif2;
+        if (joint is null)
+            force *= 0.2f;
+        armRigidbody.AddForce(force);
+        playerRigidbody.AddForce(-force);
         if (joint is not null)
-        {
-            Vector2 force = dif2 * armStrength * 0.3f;
-            if(joint.connectedBody.bodyType == RigidbodyType2D.Dynamic)
-                joint.connectedBody.AddForceAtPosition(force, transform.position);
-            playerRigidbody.AddForce(-force);//, transform.position);
+        { 
+            //if(joint.connectedBody.bodyType == RigidbodyType2D.Dynamic)
+            //    joint.connectedBody.AddForceAtPosition(force, transform.position);
+            //, transform.position);
             
         }
         

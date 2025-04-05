@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        upright();
+        
+        
         // A and D keys to move left and right
         float verticalSpeed = 0;
         if (Input.GetKey(KeyCode.A))
@@ -76,6 +79,24 @@ public class Player : MonoBehaviour
         
     }
 
-    
+    private void upright()
+    {
+        float angle = transform.rotation.eulerAngles.z;
+        float targetAngle = 0;
+        if (angle > 180)
+        {
+            targetAngle = 360 - angle;
+        }
+        else
+        {
+            targetAngle = angle;
+        }
+        float angleDiff = targetAngle - transform.rotation.eulerAngles.z;
+        // rotate the player to the target angle
+        float rotationSpeed = 0.1f;
+        float rotation = angleDiff * rotationSpeed * Time.deltaTime;
+        playerRigidbody.angularVelocity += rotation;
+        // 
+    }
 }
 
