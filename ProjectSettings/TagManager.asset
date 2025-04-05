@@ -41,5 +41,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Player
+    uniqueID: 1961069071
+    locked: 0
+  - name: Terrain
+    uniqueID: 2106751683
+    locked: 0
+  - name: CollectibleObject
+    uniqueID: 837221651
+    locked: 0
+  - name: Background
+    uniqueID: 3252987759
+    locked: 0
   m_RenderingLayers:
   - Default
