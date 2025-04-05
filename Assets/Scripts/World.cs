@@ -12,13 +12,12 @@ public class World : MonoBehaviour
     }
 
     public Player player;
+    public Cage cage;
 
     public CageAnchor currentAnchor;
     public GameObject aboveSea;
 
     public Vector3 aboveSeaOffset;
-
-    public CageState cageState;
 
     public void Start()
     {
@@ -29,5 +28,7 @@ public class World : MonoBehaviour
     {
         // move the ship above the current anchor
         aboveSea.transform.position = currentAnchor.pivot.position + aboveSeaOffset;
+        cage.transform.position = currentAnchor.pivot.position + aboveSeaOffset;
+        cage.state = CageState.OnShip;
     }
 }
