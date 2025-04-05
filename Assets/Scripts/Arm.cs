@@ -4,7 +4,7 @@ public class Arm : MonoBehaviour
 {
     public Player player;
     private Rigidbody2D playerRigidbody;
-    private float armLength = 4.0f;
+    private float armLength = 2.5f;
     private float armStrength = 50f;
     private Rigidbody2D armRigidbody;
     FixedJoint2D joint;
