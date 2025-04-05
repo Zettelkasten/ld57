@@ -6,7 +6,8 @@ public enum CageState
     OnShip = 0,
     Sinking = 1,
     Underwater = 2,
-    Rising = 3
+    Rising = 3,
+    SellingItems = 4
 }
 public class Cage : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class Cage : MonoBehaviour
     // sinking up or raising down
     private float sinkProgress;
     public float sinkSpeed;
+    
+    // selling items
+    public float sellingItemProgress;
+    public float sellingItemSpeed;
     
     Rigidbody2D cageRigidbody;
     Rigidbody2D playerRigidbody;
@@ -89,7 +94,7 @@ public class Cage : MonoBehaviour
                 this.transform.position = Vector3.Lerp(fromPos, toPos, Helpers.EaseInOutQuad(sinkProgress));
                 if (sinkProgress >= 1)
                 {
-                    SetState(state == CageState.Sinking ? CageState.Underwater : CageState.OnShip);
+                    SetState(state == CageState.Sinking ? CageState.Underwater : CageState.SellingItems);
                     // make the player a child of the game scene
                     //World.Instance.player.transform.SetParent(null);
                     // destroy the joints
@@ -112,7 +117,6 @@ public class Cage : MonoBehaviour
     }
     
     // get all colliding "Things" (layer) on the cage
-    // todo, need to add a separate collider
     public Collider2D[] GetThingsOnPlatform()
     {
         var contacts = new Collider2D[50];
