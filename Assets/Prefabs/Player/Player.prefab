@@ -636,8 +636,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1961069071
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -556605250114939763, guid: f335b83cfad9331dd99883e2fa544590, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -788,4 +788,7 @@ MonoBehaviour:
   gravity: 9.81
   waterdrag: 0.98
   waterdrag_angular: 0.98
+  waterlevel_transform: {fileID: 0}
+  wobble: 1
   upright: 1
+  applyGravity: 0

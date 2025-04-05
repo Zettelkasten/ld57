@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,11 +8,41 @@ public class Player : MonoBehaviour
     public Vector2 armPosition = new Vector2(0, 0.45f);
     public PolygonCollider2D gearCollider;
     private float speed = 5f;
+
+    private HingeJoint2D joint1;
+    Vector2 joint1Pos;
+    GameObject joint1Object;
+    
+    HingeJoint2D joint2;
+    Vector2 joint2Pos; 
+    GameObject joint2Object;
+    
+    HingeJoint2D joint3;
+    Vector2 joint3Pos;
+    GameObject joint3Object;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
+        joint1 = GetComponent<HingeJoint2D>();
+        joint1Pos = joint1.anchor;
+        joint1Object = joint1.connectedBody.gameObject;
+        joint2 = joint1Object.GetComponent<HingeJoint2D>();
+        joint2Pos = joint2.anchor;
+        joint2Object = joint2.connectedBody.gameObject;
+        joint3 = joint2Object.GetComponent<HingeJoint2D>();
+        joint3Pos = joint3.anchor;
+        joint3Object = joint3.connectedBody.gameObject;
+        
+        
+    }
+
+    public void fixJoints()
+    {
+        joint1.anchor = joint1Pos;
+        joint2.anchor = joint2Pos;
+        joint3.anchor = joint3Pos;
     }
 
     void Update()
