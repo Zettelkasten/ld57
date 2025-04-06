@@ -5,7 +5,7 @@ public class Arm : MonoBehaviour
     public Player player;
     private Rigidbody2D playerRigidbody;
     private float armLength = 2.5f;
-    private float armStrength = 100f;
+    private float armStrength = 500f;
     private Rigidbody2D armRigidbody;
     FixedJoint2D joint;
     
@@ -41,25 +41,30 @@ public class Arm : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 playerPos = player.transform.position;
         Vector2 attachmentPoint = playerPos + player.armPosition;
-        Vector2 dif = (mousePos - attachmentPoint);
-        float length = dif.magnitude;
+        Vector2 dif_to_attach = (mousePos - attachmentPoint);
+        Vector2 dif_to_grapper = mousePos - (Vector2)transform.position;
+        float length = dif_to_attach.magnitude;
         if (length > armLength)
         {
-            dif = dif.normalized * armLength; // Limit the length of the arm
+            float newlength = Mathf.Min(length, armLength);
+            dif_to_attach = dif_to_attach.normalized * newlength; // Limit the length of the arm
         }
 
         // Rotate the arm to point towards the mouse position
-        float angle = Mathf.Atan2(dif.y, dif.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(dif_to_attach.y, dif_to_attach.x) * Mathf.Rad2Deg;
+        float currentAngle = transform.rotation.eulerAngles.z;
         // Set the rotation of the arm
-        float angleDiff = angle - transform.rotation.eulerAngles.z;
-        armRigidbody.angularVelocity = 2 * angleDiff * armStrength * Time.fixedDeltaTime;
-        armRigidbody.angularVelocity *= 0.95f; // Dampen the rotation
+        float angleDiff = angle - currentAngle;
+        if (angleDiff > 180)
+            angleDiff -= 360;
+        else if (angleDiff < -180)
+            angleDiff += 360;
+        armRigidbody.angularVelocity = angleDiff * armStrength * Time.fixedDeltaTime * 0.01f;
+        armRigidbody.angularVelocity *= 0.90f; // Dampen the rotation
         //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         // Set the arm position to the player's arm position plus the direction vector without breaking physics
-        Vector2 targetposition = attachmentPoint + dif;
-        Vector2 dif2 = targetposition - (Vector2)transform.position;
-        Vector2 force = armStrength * dif2;
+        Vector2 force = armStrength * dif_to_grapper.normalized;
         if (joint is null)
             force *= 0.2f;
         armRigidbody.AddForce(force);
