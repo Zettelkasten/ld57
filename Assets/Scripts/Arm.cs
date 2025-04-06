@@ -83,7 +83,7 @@ public class Arm : MonoBehaviour
                 {
 
                     // create a joint to the object
-                    float distance = 0.7f;
+                    float distance = 0.4f;
                     // find all colliders in the area
                     Vector2 grabberPos = transform.position;
                     Collider2D[] colliders = Physics2D.OverlapCircleAll(grabberPos, distance);
@@ -91,7 +91,7 @@ public class Arm : MonoBehaviour
                     Collider2D hit = null;
                     foreach (Collider2D collider in colliders)
                     {
-                        if (collider.gameObject != player.gameObject && collider.gameObject != gameObject)
+                        if (collider.gameObject != player.gameObject && collider.gameObject != gameObject && !collider.gameObject.CompareTag("Cage"))
                         {
                             hit = collider;
                             break;
