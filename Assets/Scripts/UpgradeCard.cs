@@ -30,6 +30,8 @@ public class UpgradeCard : MonoBehaviour
 			currLevelSelectButton.myUpgradeCard = this;
 			currLevelSelectButton.upgradeLevel = i;
 		}
+		// choose the correct display icon
+		AdjustUpgradeIcon();
 	}
 
 	public void Update()
