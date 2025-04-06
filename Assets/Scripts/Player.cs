@@ -11,13 +11,13 @@ public class Player : MonoBehaviour
 
     public float maxEnergy;
     public float energyDecreaseFactor;
-    
+
     Rigidbody2D playerRigidbody;
     public PolygonCollider2D gearCollider;
     private float speed = 8f;
     public float floatingSpeedFactor;
 
-    private ParticleSystem particleSystem;    
+    private ParticleSystem particleSystem;
     public ParticleSystem burstParticleSystem;
 
     private Waterphysics waterPhysics;
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     private float counterUntilRespawn = 0;
     private float respawnTime = 5f;
-    
+
     public float jumpForce;
     public float verticalJumpForce;
     public float jumpCooldown;
@@ -36,13 +36,15 @@ public class Player : MonoBehaviour
     private int currentNumberOfJumps = 0;
 
     public GameObject directionalChild;
-    
-    public GameObject [] arms;
+
+    public GameObject[] arms;
     int activatedArm = 0;
-    
-    
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public int [] armStrengths;
+
+
+
+// Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
@@ -113,6 +115,14 @@ public class Player : MonoBehaviour
         joint.connectedBody = arm.GetComponentInChildren<Arm>().Link1.GetComponent<Rigidbody2D>();
         
         activatedArm = i_arm;
+    }
+    
+    public void setArmStrengthLevel(int level)
+    {
+        for(int i = 0; i < arms.Length; i++)
+        {
+            arms[i].GetComponent<Arm>().armStrength = armStrengths[level];
+        }
     }
 
     private void FixedUpdate()

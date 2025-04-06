@@ -5,7 +5,7 @@ public class Arm : MonoBehaviour
 {
     public Rigidbody2D userrigidbody;
     private float armLength = 2.5f;
-    private float armStrength = 500f;
+    public float armStrength = 500f;
     private Rigidbody2D armRigidbody;
     FixedJoint2D joint;
 

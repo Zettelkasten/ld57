@@ -647,6 +647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userrigidbody: {fileID: 5221533566072193150}
+  armStrength: 500
   Link1: {fileID: 5110726411937644665}
   Link2: {fileID: 7696769429669878185}
   armOrigin: {fileID: 6713523760750836313}
@@ -1059,6 +1060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userrigidbody: {fileID: 5221533566072193150}
+  armStrength: 500
   Link1: {fileID: 4609527265563330213}
   Link2: {fileID: 737970445213229745}
   armOrigin: {fileID: 3595321714784153296}
@@ -1461,6 +1463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userrigidbody: {fileID: 5221533566072193150}
+  armStrength: 500
   Link1: {fileID: 8878277530116347547}
   Link2: {fileID: 8373507761437382039}
   armOrigin: {fileID: 1041356065934384184}
@@ -2252,7 +2255,7 @@ HingeJoint2D:
   m_BreakAction: 0
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.45}
-  m_ConnectedAnchor: {x: 0.5916555, y: 0.00065274234}
+  m_ConnectedAnchor: {x: 0.59686494, y: -0.008776544}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -2290,6 +2293,7 @@ MonoBehaviour:
   - {fileID: 5980033007931944418}
   - {fileID: 3234256995472838890}
   - {fileID: 8291678842677593576}
+  armStrengths: 2c0100005802000020030000
 --- !u!114 &3152553891418280007
 MonoBehaviour:
   m_ObjectHideFlags: 0
