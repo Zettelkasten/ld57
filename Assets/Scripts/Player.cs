@@ -65,10 +65,13 @@ public class Player : MonoBehaviour
         // get the angle and rotate the directional child
         float angle = Mathf.Atan2(mousePos.y - playerPos.y, mousePos.x - playerPos.x) * Mathf.Rad2Deg;
         directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        check_cheats();
+
+        // don't change it too suddenly,
+        // iterpolate it a bit directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         Vector3 targetRotation = new Vector3(0, 0, angle);
         directionalChild.transform.rotation = Quaternion.RotateTowards(directionalChild.transform.rotation, Quaternion.Euler(targetRotation), 360 * Time.deltaTime);
 
+        check_cheats();
     }
 
     private void check_cheats()
@@ -194,10 +197,10 @@ public class Player : MonoBehaviour
         if (World.Instance.cage.state == CageState.OnShip)
         {
             // if we fell 10 blocks into the water, respawn
-            if (transform.position.y < Waterphysics.waterlevel - 10)
+            if (transform.position.y < Waterphysics.waterlevel - 10 && transform.position.y > Waterphysics.waterlevel - 20)
             {
                 World.Instance.RespawnPlayer();
-                return;
+                Debug.Log("Respawning player because they fell of the ship");
             }
         }
         if (energy <= 0 && World.Instance.cage.state == CageState.Underwater)
