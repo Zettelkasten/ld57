@@ -92,7 +92,6 @@ public class Player : MonoBehaviour
                 char flickerState = lightFlickerStates[index];
                 // a is dimmest, z is lightest
                 float lightIntensity = (float) (flickerState - 'a') / ('z' - 'a');
-                Debug.Log(lightIntensity);
                 directionalChild.GetComponentInChildren<Light2D>().intensity = lightIntensity;
             }
         }
@@ -226,6 +225,12 @@ public class Player : MonoBehaviour
             energy = maxEnergy;
         }
 
+        if (World.Instance.cage.state != CageState.OnShip && World.Instance.cage.state != CageState.Underwater)
+        {
+            // player cannot move in other states
+            return;
+        }
+
         if (World.Instance.cage.state == CageState.OnShip)
         {
             // if we fell 10 blocks into the water, respawn
@@ -290,8 +295,10 @@ public class Player : MonoBehaviour
         for (int i = 0; i < contactCount; i++)
         {
             var contact = contacts[i];
+            // don't want objects on layer Playerconstruction
             if (contact != null && contact.gameObject != playerRigidbody.gameObject &&
-                contact.gameObject != gearCollider.gameObject)
+                contact.gameObject.layer != LayerMask.NameToLayer("Playerconstruction") &&
+                contact.gameObject.layer != LayerMask.NameToLayer("Player"))
             {
                 ground = contact;
                 break;
