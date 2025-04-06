@@ -2,15 +2,11 @@ using UnityEngine;
 
 public class Treasure : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public int value;
+    
+    public void Sell()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        World.Instance.player.money += value;
+        Destroy(gameObject);
     }
 }

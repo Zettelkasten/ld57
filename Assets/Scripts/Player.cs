@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public int money;
     
     Rigidbody2D playerRigidbody;
     public Vector2 armPosition = new Vector2(0, 0.45f);
