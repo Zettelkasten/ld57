@@ -27,7 +27,7 @@ public class Cage : MonoBehaviour
     // sinking up or raising down
     private float sinkProgress;
     public float sinkSpeed;
-    private List<Treasure> sinkingAttachedTreasures;
+    private List<Rigidbody2D> sinkingAttachedObjects;
     
     // selling items
     private float sellingItemProgress;
@@ -61,23 +61,17 @@ public class Cage : MonoBehaviour
                 if (state != CageState.SinkingWithoutPlayer)
                 {
                     // make the player a child of the cage
-                    //World.Instance.player.transform.SetParent(this.transform);
-
-                    FixedJoint2D joint = cageRigidbody.gameObject.AddComponent<FixedJoint2D>();
-                    joint.connectedBody = playerRigidbody;
-                    joint.autoConfigureConnectedAnchor = false;
-                    //joint.anchor = playerPivot.localPosition;
-                    joints.Add(joint);
-
-                    //World.Instance.player.transform.SetParent(this.transform);
-                    // make all the things on the cage a child of the cage
-                    sinkingAttachedTreasures = GetTreasuresOnPlatform();
-                    foreach (var thing in sinkingAttachedTreasures)
+                    sinkingAttachedObjects = GetObjectsToAttachToPlatform();
+                    foreach (var thing in sinkingAttachedObjects)
                     {
-                        thing.transform.SetParent(this.transform);
+                        // add a joint
+                        FixedJoint2D joint2D = cageRigidbody.gameObject.AddComponent<FixedJoint2D>();
+                        joint2D.connectedBody = thing;
+                        joint2D.autoConfigureConnectedAnchor = false;
+                        joints.Add(joint2D);
                     }
 
-                    Debug.Log("Sinking treasures: " + sinkingAttachedTreasures.Count);
+                    Debug.Log("Sinking treasures: " + sinkingAttachedObjects.Count);
                     
                     sinkProgress = 0;
                 }
@@ -134,16 +128,25 @@ public class Cage : MonoBehaviour
                         }
                         //World.Instance.player.transform.SetParent(null);
                         // make all the things on the cage a child of the game scene
-                        foreach (var thing in sinkingAttachedTreasures)
+                        foreach (var thing in sinkingAttachedObjects)
                         {
                             thing.transform.SetParent(null);
                         }
                         // populate items to sell
-                        Debug.Log("Sinking treasures: " + sinkingAttachedTreasures.Count);
+                        Debug.Log("Sinking treasures: " + sinkingAttachedObjects.Count);
                         if (state == CageState.Rising)
                         {
                             Debug.Log("Selling them");
-                            itemsToBeSold = sinkingAttachedTreasures;
+                            // filter all rigidbodies which are treasures
+                            itemsToBeSold = new List<Treasure>();
+                            foreach (var thing in sinkingAttachedObjects)
+                            {
+                                var treasure = thing.GetComponent<Treasure>();
+                                if (treasure != null)
+                                {
+                                    itemsToBeSold.Add(treasure);
+                                }
+                            }
                         }
                     }
                     else
@@ -191,20 +194,21 @@ public class Cage : MonoBehaviour
         }
     }
     
-    // get all colliding Treasures
-    public List<Treasure> GetTreasuresOnPlatform()
+    public List<Rigidbody2D> GetObjectsToAttachToPlatform()
     {
         var contacts = new Collider2D[50];
         var contactCount = myCollider.Overlap(new ContactFilter2D(), contacts);
-        var treasures = new List<Treasure>(); 
+        var treasures = new List<Rigidbody2D>(); 
         for (int i = 0; i < contactCount; i++)
         {
             var contact = contacts[i];
             // check if contact is not null and game object is of class Treasure
-            if (contact != null && contact.gameObject.GetComponent<Treasure>() != null) 
+            if (contact != null && contact.gameObject.GetComponent<Rigidbody2D>() != null && (
+                    contact.gameObject.layer == LayerMask.NameToLayer("Playerconstruction")
+                    || contact.gameObject.layer == LayerMask.NameToLayer("Player")
+                    || contact.gameObject.GetComponent<Treasure>() != null)) 
             {
-                var treasure = contact.gameObject.GetComponent<Treasure>();
-                treasures.Add(treasure);
+                treasures.Add(contact.gameObject.GetComponent<Rigidbody2D>());
             }
         }
         return treasures;
