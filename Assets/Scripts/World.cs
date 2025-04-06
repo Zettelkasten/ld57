@@ -29,9 +29,15 @@ public class World : MonoBehaviour
     public CanvasGroup topButton;
     public TextMeshProUGUI topButtonText;
     
+    public Transform overwriteSpawnPoint;
+    
     public void Start()
     {
         RepositionShip();
+        if (overwriteSpawnPoint != null)
+        {
+            player.transform.position = overwriteSpawnPoint.position;
+        }
     }
     public void RepositionShip()
     {
@@ -71,7 +77,12 @@ public class World : MonoBehaviour
     public void RespawnPlayer()
     {
         RepositionShip();
-        player.transform.position = cage.playerPivot.position;
+        if (overwriteSpawnPoint != null)
+        {
+            player.transform.position = overwriteSpawnPoint.position;
+        } else {
+            player.transform.position = cage.playerPivot.position;
+        }
         player.transform.rotation = Quaternion.identity;
         // reset player velocity
         player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
