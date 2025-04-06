@@ -71,6 +71,12 @@ public class Cage : MonoBehaviour
                         joint2D.autoConfigureConnectedAnchor = false;
                         joints.Add(joint2D);
                     }
+                    // for all real-sub rigid body of the player, disable simulation
+                    foreach (var thing in World.Instance.player.GetComponentsInChildren<Rigidbody2D>())
+                    {
+                        thing.simulated = false;
+                    }
+                    World.Instance.player.GetComponent<Rigidbody2D>().simulated = true;
 
                     Debug.Log("Sinking treasures: " + sinkingAttachedObjects.Count);
                     
@@ -128,6 +134,11 @@ public class Cage : MonoBehaviour
                             Destroy(joint);
                         }
                         joints.Clear();
+                        // re-enable simulations
+                        foreach (var playerthing in World.Instance.player.GetComponentsInChildren<Rigidbody2D>())
+                        {
+                            playerthing.simulated = true;
+                        }
                         // populate items to sell
                         Debug.Log("Sinking treasures: " + sinkingAttachedObjects.Count);
                         if (state == CageState.Rising)

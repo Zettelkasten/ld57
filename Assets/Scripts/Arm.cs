@@ -39,6 +39,7 @@ public class Arm : MonoBehaviour
         if (World.Instance.cage.state != CageState.OnShip && World.Instance.cage.state != CageState.Underwater)
         {
             // player cannot move in other states
+            // disable the arm
             return;
         }
         
