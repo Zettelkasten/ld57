@@ -3,6 +3,7 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     public int lightUpgradeLevel = 0;
+    public int selectedLightLevel = 0;
     public Upgrade lightUpgrade;
 
     public void IncreaseLightsLevel()
