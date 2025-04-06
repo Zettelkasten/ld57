@@ -1,20 +1,96 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class UpgradeManager : MonoBehaviour
 {
-    public int lightUpgradeLevel = 0;
-    public int selectedLightLevel = 0;
-    public Upgrade lightUpgrade;
+	// Singleton instance.
+	public static UpgradeManager Instance = null;
 
-    public void IncreaseLightsLevel()
-    {
-        if (lightUpgradeLevel >= lightUpgrade.levelCosts.Count)
+	// Initialize the singleton instance.
+	private void Awake()
+	{
+		// If there is not already an instance of SoundManager, set it to this.
+		if (Instance == null)
+		{
+			Instance = this;
+		}
+		//If an instance already exists, destroy whatever this object is to enforce the singleton.
+		else if (Instance != this)
+		{
+			Destroy(gameObject);
+		}
+	}
+
+	public Upgrade[] knownUpgrades = new Upgrade[0];
+
+    private Dictionary<string, int> upgradeLevelsOfKnownUpgrades;
+    private Dictionary<string, int> selectedLevelsOfKnownUpgrades;
+
+	public void Start()
+	{
+        upgradeLevelsOfKnownUpgrades = new Dictionary<string, int>();
+        selectedLevelsOfKnownUpgrades = new Dictionary<string, int>();
+		foreach (Upgrade currUpgrade in knownUpgrades)
         {
-            return; // max level, no upgrade
+            upgradeLevelsOfKnownUpgrades.Add(currUpgrade.upgradeID, 0);
+            selectedLevelsOfKnownUpgrades.Add(currUpgrade.upgradeID, 0);
         }
-        lightUpgradeLevel++;
-        lightUpgrade.Raise(); // Tell all listeners that the light upgrade changed!
-        Debug.Log("Lights upgraded!");
+	}
+
+    public int GetUpgradeLevelOfUpgrade(Upgrade upgrade)
+    {
+        return upgradeLevelsOfKnownUpgrades[upgrade.upgradeID];
+    }
+
+    public int GetSelectedLevelOfUpgrade(Upgrade upgrade)
+    {
+        return selectedLevelsOfKnownUpgrades[upgrade.upgradeID];
+    }
+
+	public void UpgradeAnUpgrade(Upgrade targetUpgrade)
+    {
+        string upgradeID = targetUpgrade.upgradeID;
+        if (upgradeLevelsOfKnownUpgrades.ContainsKey(upgradeID))
+        {
+            int currentLevel = upgradeLevelsOfKnownUpgrades[upgradeID];
+            if (currentLevel < targetUpgrade.levelCosts.Count)
+            {
+                upgradeLevelsOfKnownUpgrades[upgradeID]++;
+                targetUpgrade.Raise(); // Tell all listeners that an upgrade happened!
+				Debug.Log("Upgraded: " + upgradeID);
+			}
+		}
+        else
+        {
+            Debug.Log("Tried to upgrade a missing upgrade!");
+        }        
     }
     
+    public void SelectAnUpgradeLevel(Upgrade targetUpgrade, int targetLevel)
+    {
+		string upgradeID = targetUpgrade.upgradeID;
+		if (upgradeLevelsOfKnownUpgrades.ContainsKey(upgradeID))
+		{
+			int currentMaxLevel = upgradeLevelsOfKnownUpgrades[upgradeID];
+            int currentSelection = selectedLevelsOfKnownUpgrades[upgradeID];
+            if (targetLevel == currentSelection)
+            {
+                return; // nothing happens
+            }
+            if (targetLevel > currentMaxLevel)
+            {
+                Debug.Log("Tried to select an upgrade not unlocked yet!");
+                return;
+            }
+            selectedLevelsOfKnownUpgrades[upgradeID] = targetLevel;
+            targetUpgrade.Raise();
+			Debug.Log("Selection changed: " + upgradeID);
+		}
+		else
+		{
+			Debug.Log("Tried to upgrade a missing upgrade!");
+		}
+	}
+
 }

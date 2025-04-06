@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class LightUpgradeHandler : MonoBehaviour
 {
     private Light2D myLight;
-    public UpgradeManager upgradeManager;
+    public Upgrade lightUpgrade;
 
     public float[] lightIntensities = new float[] { 1.0f, 2.0f, 3.0f, 4.0f };
     public float[] lightRanges = new float[] { 5.0f, 8.0f, 15.0f, 30.0f };
@@ -18,8 +18,8 @@ public class LightUpgradeHandler : MonoBehaviour
 
     public void HandleLightUpgradeEvent()
     {
-        myLight.intensity = lightIntensities[upgradeManager.lightUpgradeLevel];
-        myLight.pointLightOuterRadius = lightRanges[upgradeManager.lightUpgradeLevel];
+        myLight.intensity = lightIntensities[UpgradeManager.Instance.GetSelectedLevelOfUpgrade(lightUpgrade)];
+        myLight.pointLightOuterRadius = lightRanges[UpgradeManager.Instance.GetSelectedLevelOfUpgrade(lightUpgrade)];
     }
 
 }
