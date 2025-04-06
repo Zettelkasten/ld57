@@ -23,18 +23,6 @@ public class World : MonoBehaviour
     {
         RepositionShip();
     }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (cage.state == CageState.OnShip)
-                cage.SetState(CageState.Sinking);
-            else if (cage.state == CageState.Underwater)
-                cage.SetState(CageState.Rising);
-        }
-    }
-
     public void RepositionShip()
     {
         // move the ship above the current anchor
