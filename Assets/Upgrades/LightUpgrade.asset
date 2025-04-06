@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2a717a5b0a3894f837bbc5a8958002, type: 3}
   m_Name: LightUpgrade
   m_EditorClassIdentifier: 
-  currentLevel: 0
-  levelCosts: 64000000c8000000f4010000
-  sprites: []
+  upgradeID: LIGHT
+  levelCosts: 000000003200000064000000
+  sprites:
+  - {fileID: -1853091812240255975, guid: 458338b7df01517429b4327b58870ce4, type: 3}
