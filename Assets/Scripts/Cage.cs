@@ -33,6 +33,8 @@ public class Cage : MonoBehaviour
     public float sellingItemSpeed;
     // items to be sold
     private List<Treasure> itemsToBeSold;
+    // wait for this item to end its dialogue
+    private Treasure waitingForSellDialogue = null;
     
     Rigidbody2D cageRigidbody;
     Rigidbody2D playerRigidbody;
@@ -156,6 +158,18 @@ public class Cage : MonoBehaviour
                 }
                 break;
             case CageState.SellingItems:
+                if (waitingForSellDialogue != null)
+                {
+                    if (!World.Instance.DialogueUI.activeSelf)
+                    {
+                        waitingForSellDialogue.Sell();
+                        waitingForSellDialogue = null;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
                 if (itemsToBeSold.Count == 0)
                 {
                     SetState(CageState.OnShip);
@@ -168,7 +182,8 @@ public class Cage : MonoBehaviour
                         var item = itemsToBeSold[0];
                         itemsToBeSold.RemoveAt(0);
                         // sell the item
-                        item.Sell();
+                        item.SellDialogue();
+                        waitingForSellDialogue = item;
                         sellingItemProgress = 0;
                     }
                 }

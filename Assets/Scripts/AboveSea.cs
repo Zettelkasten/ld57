@@ -11,7 +11,7 @@ public class AboveSea : MonoBehaviour
     public void Update()
     {
         // if player is in the cage enter collider and presses "E", set the cage state to Sinking
-        if (cageEnterCollider.OverlapPoint(World.Instance.player.transform.position))
+        if (cageEnterCollider.OverlapPoint(World.Instance.player.transform.position) && World.Instance.BottomUIAvailable())
         {
             if (World.Instance.cage.state == CageState.OnShip)
             {
