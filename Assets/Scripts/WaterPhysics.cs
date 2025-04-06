@@ -100,31 +100,15 @@ public class Waterphysics : MonoBehaviour
             {
                 var velocity = rb.linearVelocity;
                 var speed = velocity.magnitude;
-                if(speed > bubbletailspeed)
-                {
-                    float emission_factor = (speed - bubbletailspeed) / bubbletailspeed;
-                    emission_factor = Mathf.Clamp(Mathf.Pow(emission_factor, 1.5f), 0, 10);
-                    
-                    var emission = bubbletail_particle.emission;
-                    emission.rateOverTime = emission_factor * bubbletail_base_emission;
-                    
-                    if (!bubbletail_active)
-                    {
-                        emission.enabled = true;
-                        bubbletail_active = true;
-                    }
-                }
-                else
-                {
-                    if (bubbletail_active)
-                    {
-                        var emission = bubbletail_particle.emission;
-                        emission.enabled = false;
-                        bubbletail_active = false;
-                    }
-                }
+                UpdateEmissioning(speed > bubbletailspeed);
+                if(bubbletail_active)
+                    UpdateEmissionRate(speed);
+                
             }
                 
+        }else
+        {
+            UpdateEmissioning(false);
         }
         if(applyGravity)
             rb.AddForce(transition_factor * rb.mass * gravity * Vector2.down, ForceMode2D.Force); //gravity
@@ -135,5 +119,36 @@ public class Waterphysics : MonoBehaviour
             if (uprighting)
                 rb.angularVelocity -= rb.rotation * uprighting_force;
         }
+    }
+
+    private void UpdateEmissioning(bool b)
+    {
+        if(b)
+        {
+            if (!bubbletail_active)
+            {
+                var emission = bubbletail_particle.emission;
+                emission.enabled = true;
+                bubbletail_active = true;
+            }
+        }
+        else
+        {
+            if (bubbletail_active)
+            {
+                var emission = bubbletail_particle.emission;
+                emission.enabled = false;
+                bubbletail_active = false;
+            }
+        }
+    }
+
+    private void UpdateEmissionRate(float speed)
+    {
+        float emission_factor = (speed - bubbletailspeed) / bubbletailspeed;
+        emission_factor = Mathf.Clamp(Mathf.Pow(emission_factor, 1.5f), 0, 10);
+                    
+        var emission = bubbletail_particle.emission;
+        emission.rateOverTime = emission_factor * bubbletail_base_emission;
     }
 }
