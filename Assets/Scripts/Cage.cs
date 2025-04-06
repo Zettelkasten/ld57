@@ -62,6 +62,7 @@ public class Cage : MonoBehaviour
                 {
                     // make the player a child of the cage
                     sinkingAttachedObjects = GetObjectsToAttachToPlatform();
+                    joints.Clear();
                     foreach (var thing in sinkingAttachedObjects)
                     {
                         // add a joint
@@ -70,6 +71,12 @@ public class Cage : MonoBehaviour
                         joint2D.autoConfigureConnectedAnchor = false;
                         joints.Add(joint2D);
                     }
+                    // for all real-sub rigid body of the player, disable simulation
+                    foreach (var thing in World.Instance.player.GetComponentsInChildren<Rigidbody2D>())
+                    {
+                        thing.simulated = false;
+                    }
+                    World.Instance.player.GetComponent<Rigidbody2D>().simulated = true;
 
                     Debug.Log("Sinking treasures: " + sinkingAttachedObjects.Count);
                     
@@ -122,15 +129,15 @@ public class Cage : MonoBehaviour
                         // make the player a child of the game scene
                         //World.Instance.player.transform.SetParent(null);
                         // destroy the joints
-                        foreach (var joint2D in joints)
+                        foreach (var joint in joints)
                         {
-                            Destroy(joint2D);
+                            Destroy(joint);
                         }
-                        //World.Instance.player.transform.SetParent(null);
-                        // make all the things on the cage a child of the game scene
-                        foreach (var thing in sinkingAttachedObjects)
+                        joints.Clear();
+                        // re-enable simulations
+                        foreach (var playerthing in World.Instance.player.GetComponentsInChildren<Rigidbody2D>())
                         {
-                            thing.transform.SetParent(null);
+                            playerthing.simulated = true;
                         }
                         // populate items to sell
                         Debug.Log("Sinking treasures: " + sinkingAttachedObjects.Count);
@@ -204,8 +211,9 @@ public class Cage : MonoBehaviour
             var contact = contacts[i];
             // check if contact is not null and game object is of class Treasure
             if (contact != null && contact.gameObject.GetComponent<Rigidbody2D>() != null && (
-                    contact.gameObject.layer == LayerMask.NameToLayer("Playerconstruction")
-                    || contact.gameObject.layer == LayerMask.NameToLayer("Player")
+                    // contact.gameObject.layer == LayerMask.NameToLayer("Playerconstruction")
+                    // || 
+                    contact.gameObject.layer == LayerMask.NameToLayer("Player")
                     || contact.gameObject.GetComponent<Treasure>() != null)) 
             {
                 treasures.Add(contact.gameObject.GetComponent<Rigidbody2D>());

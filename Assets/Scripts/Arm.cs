@@ -4,10 +4,10 @@ using UnityEngine;
 public class Arm : MonoBehaviour
 {
     public Rigidbody2D userrigidbody;
-    private float armLength = 2.5f;
+    public float armLength = 2.5f;
     public float armStrength = 500f;
     private Rigidbody2D armRigidbody;
-    FixedJoint2D joint;
+    HingeJoint2D joint;
 
     public GameObject Link1;
     public GameObject Link2;
@@ -19,6 +19,9 @@ public class Arm : MonoBehaviour
     
 
     bool isGrabbing = false;
+    
+    GameObject grappedObject;
+    public bool grappedObjectIsTreasure = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,6 +39,12 @@ public class Arm : MonoBehaviour
             // if the player is in a dialogue, don't move
             return;
         }
+        if (World.Instance.cage.state != CageState.OnShip && World.Instance.cage.state != CageState.Underwater)
+        {
+            // player cannot move in other states
+            // disable the arm
+            return;
+        }
         
         if(joint is not null)
         {
@@ -51,7 +60,6 @@ public class Arm : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 attachmentPoint = armOrigin.position;
         Vector2 dif_to_attach = (mousePos - attachmentPoint);
-        Vector2 dif_to_grapper = mousePos - (Vector2)transform.position;
         float length = dif_to_attach.magnitude;
         if (length > armLength)
         {
@@ -73,11 +81,15 @@ public class Arm : MonoBehaviour
         //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         // Set the arm position to the player's arm position plus the direction vector without breaking physics
+        Vector2 dif_to_grapper = dif_to_attach + attachmentPoint - (Vector2)transform.position;
         Vector2 force = armStrength * dif_to_grapper.normalized;
         if (joint is null)
             force *= 0.2f;
+        
         armRigidbody.AddForce(force);
-        userrigidbody.AddForce(-force);
+        if(!grappedObjectIsTreasure)
+            userrigidbody.AddForce(-force);
+        
         if (joint is not null)
         { 
             //if(joint.connectedBody.bodyType == RigidbodyType2D.Dynamic)
@@ -109,6 +121,7 @@ public class Arm : MonoBehaviour
                         if (collider.gameObject != userrigidbody.gameObject &&
                             collider.gameObject != gameObject &&
                             collider.gameObject.layer != LayerMask.NameToLayer("Playerconstruction") &&
+                            collider.gameObject.layer != LayerMask.NameToLayer("Player") &&
                             !collider.gameObject.CompareTag("Cage"))
                         {
                             hit = collider;
@@ -119,7 +132,13 @@ public class Arm : MonoBehaviour
                     if (hit is not null)
                     {
                         GameObject obj = hit.gameObject;
-                        joint = gameObject.AddComponent<FixedJoint2D>();
+                        grappedObject = obj;
+                        grappedObjectIsTreasure = false;
+                        if (obj.GetComponent<Treasure>() is not null)
+                        {
+                            grappedObjectIsTreasure = true;
+                        }
+                        joint = gameObject.AddComponent<HingeJoint2D>();
                         joint.connectedBody = obj.GetComponent<Rigidbody2D>();
                         isGrabbing = true;
                     }
