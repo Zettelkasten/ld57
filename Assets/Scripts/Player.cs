@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     public Vector2 armPosition = new Vector2(0, 0.45f);
     public PolygonCollider2D gearCollider;
     private float speed = 8f;
-    private bool isMoving = false;
     public float floatingSpeedFactor;
 
     private ParticleSystem particleSystem;
@@ -147,25 +146,8 @@ public class Player : MonoBehaviour
             verticalSpeed = 0;
         }
 
-        if (moveButtonPressed)
-        {
-            if(!isMoving)
-            {
-                isMoving = true;
-                // enable emission
-                if (waterPhysics.Submerged())
-                {
-                    var emission = particleSystem.emission;
-                    emission.enabled = true;
-                }
-            }
-        }else if (isMoving)
-        {
-            isMoving = false;
-            // disable emission
-            var emission = particleSystem.emission;
-            emission.enabled = false;
-        }
+        var emission = particleSystem.emission;
+        emission.enabled = moveButtonPressed && waterPhysics.Submerged();
         
         verticalSpeed *= speed;
         
@@ -201,7 +183,8 @@ public class Player : MonoBehaviour
             Vector2 speeddif = movespeed - playerRigidbody.linearVelocity;
             float traction = 1 / (1 + speeddif.magnitude);
             Vector2 moveforce = traction * 500 * speeddif;
-
+            // hack by frithjof, we don't want the force to influence the y axis
+            moveforce.y = 0;
 
             Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.2f;
             playerRigidbody.AddForceAtPosition(moveforce, forcepos, ForceMode2D.Force);
