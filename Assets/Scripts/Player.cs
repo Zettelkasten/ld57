@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class Player : MonoBehaviour
     Rigidbody2D playerRigidbody;
     public Vector2 armPosition = new Vector2(0, 0.45f);
     public PolygonCollider2D gearCollider;
-    private float speed = 5f;
+    private float speed = 8f;
 
     private HingeJoint2D joint1;
     Vector2 joint1Pos;
@@ -44,6 +45,13 @@ public class Player : MonoBehaviour
         joint1.anchor = joint1Pos;
         joint2.anchor = joint2Pos;
         joint3.anchor = joint3Pos;
+    }
+
+    private void FixedUpdate()
+    {
+        // upright the player a bit
+        playerRigidbody.angularVelocity *= 0.99f;
+        playerRigidbody.angularVelocity -= playerRigidbody.rotation * 0.1f;
     }
 
     void Update()

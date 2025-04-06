@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Waterphysics : MonoBehaviour
 {
@@ -9,11 +10,12 @@ public class Waterphysics : MonoBehaviour
     public float waterdrag_angular = 0.98f;
     public Transform waterlevel_transform = null;
     public float wobble = 1f;
-    public bool upright = true;
+    [FormerlySerializedAs("upright")] public bool uprighting = true;
     public bool applyGravity = false;
+    public float uprighting_force = 0.2f;
+    public float waterlevel = 98f;
     
     float transition_height = 0.3f;
-    private float waterlevel = 98f;
     long nextwobble = 0;
     
     Rigidbody2D rb;
@@ -80,8 +82,8 @@ public class Waterphysics : MonoBehaviour
         //angular drag and uprighting
         if(Submerged()){
             rb.angularVelocity *= waterdrag_angular;
-            if(upright)
-                rb.angularVelocity -= rb.rotation * 0.1f;
+            if (uprighting)
+                rb.angularVelocity -= rb.rotation * uprighting_force;
         }
     }
 }
