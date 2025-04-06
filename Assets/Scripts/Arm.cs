@@ -25,7 +25,7 @@ public class Arm : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(joint is not null)
         {
@@ -52,7 +52,7 @@ public class Arm : MonoBehaviour
         float angle = Mathf.Atan2(dif.y, dif.x) * Mathf.Rad2Deg;
         // Set the rotation of the arm
         float angleDiff = angle - transform.rotation.eulerAngles.z;
-        armRigidbody.angularVelocity = angleDiff * armStrength * Time.deltaTime;
+        armRigidbody.angularVelocity = angleDiff * armStrength * Time.fixedDeltaTime;
         //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         // Set the arm position to the player's arm position plus the direction vector without breaking physics
