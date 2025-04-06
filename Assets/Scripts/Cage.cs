@@ -24,10 +24,13 @@ public class Cage : MonoBehaviour
     // sinking up or raising down
     private float sinkProgress;
     public float sinkSpeed;
+    private List<Treasure> sinkingAttachedTreasures;
     
     // selling items
-    public float sellingItemProgress;
+    private float sellingItemProgress;
     public float sellingItemSpeed;
+    // items to be sold
+    private List<Treasure> itemsToBeSold;
     
     Rigidbody2D cageRigidbody;
     Rigidbody2D playerRigidbody;
@@ -61,14 +64,18 @@ public class Cage : MonoBehaviour
                 
                 //World.Instance.player.transform.SetParent(this.transform);
                 // make all the things on the cage a child of the cage
-                var things = GetTreasuresOnPlatform();
-                foreach (var thing in things)
+                sinkingAttachedTreasures = GetTreasuresOnPlatform();
+                foreach (var thing in sinkingAttachedTreasures)
                 {
                     thing.transform.SetParent(this.transform);
                 }
+                Debug.Log("Sinking treasures: " + sinkingAttachedTreasures.Count);
                 // Disable the ship collider
                 World.Instance.aboveSea.shipCollider.enabled = false;
                 sinkProgress = 0;
+                break;
+            case CageState.SellingItems:
+                sellingItemProgress = 0;
                 break;
         }
     }
@@ -96,7 +103,6 @@ public class Cage : MonoBehaviour
                 this.transform.position = Vector3.Lerp(fromPos, toPos, Helpers.EaseInOutQuad(sinkProgress));
                 if (sinkProgress >= 1)
                 {
-                    SetState(state == CageState.Sinking ? CageState.Underwater : CageState.OnShip);
                     // make the player a child of the game scene
                     //World.Instance.player.transform.SetParent(null);
                     // destroy the joints
@@ -107,37 +113,60 @@ public class Cage : MonoBehaviour
                     //World.Instance.player.transform.SetParent(null);
                     World.Instance.player.fixJoints();
                     // make all the things on the cage a child of the game scene
-                    var things = GetTreasuresOnPlatform();
-                    foreach (var thing in things)
+                    foreach (var thing in sinkingAttachedTreasures)
                     {
                         thing.transform.SetParent(null);
                     }
                     // Enable the ship collider
                     World.Instance.aboveSea.shipCollider.enabled = true;
+                    // populate items to sell
+                    
+                    Debug.Log("Sinking treasures: " + sinkingAttachedTreasures.Count);
+                    if (state == CageState.Rising)
+                    {
+                        Debug.Log("Selling them");
+                        itemsToBeSold = sinkingAttachedTreasures;
+                    }
+                    SetState(state == CageState.Sinking ? CageState.Underwater : CageState.SellingItems);
+                }
+                break;
+            case CageState.SellingItems:
+                if (itemsToBeSold.Count == 0)
+                {
+                    SetState(CageState.OnShip);
+                }
+                else
+                {
+                    sellingItemProgress += Time.fixedDeltaTime * sellingItemSpeed;
+                    if (sellingItemProgress >= 1)
+                    {
+                        var item = itemsToBeSold[0];
+                        itemsToBeSold.RemoveAt(0);
+                        // sell the item
+                        item.Sell();
+                        sellingItemProgress = 0;
+                    }
                 }
                 break;
         }
     }
     
     // get all colliding Treasures
-    public Collider2D[] GetTreasuresOnPlatform()
+    public List<Treasure> GetTreasuresOnPlatform()
     {
         var contacts = new Collider2D[50];
         var contactCount = myCollider.Overlap(new ContactFilter2D(), contacts);
-        Collider2D[] things = new Collider2D[contactCount];
-        int index = 0;
+        var treasures = new List<Treasure>(); 
         for (int i = 0; i < contactCount; i++)
         {
             var contact = contacts[i];
             // check if contact is not null and game object is of class Treasure
             if (contact != null && contact.gameObject.GetComponent<Treasure>() != null) 
             {
-                things[index] = contact;
-                index++;
+                var treasure = contact.gameObject.GetComponent<Treasure>();
+                treasures.Add(treasure);
             }
         }
-        // resize the array to the number of things found
-        System.Array.Resize(ref things, index);
-        return things;
+        return treasures;
     }
 }

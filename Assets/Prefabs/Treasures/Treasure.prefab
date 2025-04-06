@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5065354939550349343}
   - component: {fileID: 5505279466840998981}
   - component: {fileID: 2656838930801100925}
+  - component: {fileID: 4880632743388827231}
   m_Layer: 8
   m_Name: Treasure
   m_TagString: Untagged
@@ -201,3 +202,17 @@ MonoBehaviour:
   waterlevel_transform: {fileID: 0}
   wobble: 0
   upright: 0
+  applyGravity: 0
+--- !u!114 &4880632743388827231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580300060370451180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db6a8f2ba4b9454f9d49b06d095a177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 5
