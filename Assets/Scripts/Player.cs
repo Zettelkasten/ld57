@@ -40,7 +40,9 @@ public class Player : MonoBehaviour
     public GameObject[] arms;
     int activatedArm = 0;
 
-    public int [] armStrengths;
+    int [] armStrengths = { 400, 600, 800, 1200 };
+
+    int [] speeds = { 6, 8, 12, 16 };
 
 
 
@@ -63,16 +65,19 @@ public class Player : MonoBehaviour
         // get the angle and rotate the directional child
         float angle = Mathf.Atan2(mousePos.y - playerPos.y, mousePos.x - playerPos.x) * Mathf.Rad2Deg;
         directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        check_cheats();
+
+        // don't change it too suddenly,
+        // iterpolate it a bit directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         Vector3 targetRotation = new Vector3(0, 0, angle);
         directionalChild.transform.rotation = Quaternion.RotateTowards(directionalChild.transform.rotation, Quaternion.Euler(targetRotation), 360 * Time.deltaTime);
 
+        check_cheats();
     }
 
     private void check_cheats()
     {
-        // activate arm on strg + number
-        if (Keyboard.current.leftShiftKey.isPressed)
+        // arm
+        if (Keyboard.current.aKey.isPressed)
         {
             if(Keyboard.current.digit1Key.wasPressedThisFrame)
             {
@@ -86,9 +91,45 @@ public class Player : MonoBehaviour
             {
                 activate_arm(2);
             }
+        }
+        // speed
+        if (Keyboard.current.sKey.isPressed)
+        {
+            if(Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                setSpeedLevel(0);
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                setSpeedLevel(1);
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                setSpeedLevel(2);
+            }
             else if (Keyboard.current.digit4Key.wasPressedThisFrame)
             {
-                activate_arm(3);
+                setSpeedLevel(3);
+            }
+        }
+        // arm strength k
+        if (Keyboard.current.kKey.isPressed)
+        {
+            if(Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                setArmStrengthLevel(0);
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                setArmStrengthLevel(1);
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                setArmStrengthLevel(2);
+            }
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+            {
+                setArmStrengthLevel(3);
             }
         }
     }
@@ -124,6 +165,11 @@ public class Player : MonoBehaviour
             arms[i].GetComponent<Arm>().armStrength = armStrengths[level];
         }
     }
+    
+    public void setSpeedLevel(int level)
+    {
+        speed = speeds[level];
+    }
 
     private void FixedUpdate()
     {
@@ -151,10 +197,10 @@ public class Player : MonoBehaviour
         if (World.Instance.cage.state == CageState.OnShip)
         {
             // if we fell 10 blocks into the water, respawn
-            if (transform.position.y < Waterphysics.waterlevel - 10)
+            if (transform.position.y < Waterphysics.waterlevel - 10 && transform.position.y > Waterphysics.waterlevel - 20)
             {
                 World.Instance.RespawnPlayer();
-                return;
+                Debug.Log("Respawning player because they fell of the ship");
             }
         }
         if (energy <= 0 && World.Instance.cage.state == CageState.Underwater)

@@ -34,7 +34,12 @@ public class World : MonoBehaviour
     public GameObject DialogueUI;
     public TextMeshProUGUI DialogueText;
 
+    public GameObject[] speakerUIs;
+    public string[] speakerUINames;
+
     public float discoverTreasureDistance;
+
+    public GameObject Bubbletail;
     
     public void Start()
     {
@@ -43,6 +48,7 @@ public class World : MonoBehaviour
         {
             player.transform.position = overwriteSpawnPoint.position;
         }
+        DialogueUI.SetActive(false);
     }
     public void RepositionShip()
     {
@@ -62,7 +68,40 @@ public class World : MonoBehaviour
     
     public void ShowDialogueText(string text)
     {
-        DialogueText.text = text;
+        // if the text starts with ROBOT: or similar, then show the first part in the SpeakerText:
+        // and the rest in the DialogueText
+        if (text.Contains(":"))
+        {
+            var split = text.Split(':');
+            var speakerKey = split[0];
+            // find the index of the speaker key in the speakerUINames array
+            var index = Array.IndexOf(speakerUINames, speakerKey);
+            // set all speaker UIs to inactive
+            foreach (var speakerUI in speakerUIs)
+            {
+                speakerUI.SetActive(false);
+            }
+            // set the speaker UI to active
+            if (index >= 0 && index < speakerUIs.Length)
+            {
+                speakerUIs[index].SetActive(true);
+            }
+            else
+            {
+                // if the index is out of bounds, set the first speaker UI to active
+                speakerUIs[0].SetActive(true);
+            }
+            DialogueText.text = split[1];
+        }
+        else
+        {
+            // set all speaker UIs to inactive
+            foreach (var speakerUI in speakerUIs)
+            {
+                speakerUI.SetActive(false);
+            }
+            DialogueText.text = text;
+        }
     }
 
     public void Update()

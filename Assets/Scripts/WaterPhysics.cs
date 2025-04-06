@@ -10,13 +10,24 @@ public class Waterphysics : MonoBehaviour
     public float waterdrag_angular = 0.98f;
     public Transform waterlevel_transform = null;
     public float wobble = 1f;
-    [FormerlySerializedAs("upright")] public bool uprighting = true;
+    public bool uprighting = true;
     public bool applyGravity = false;
     public float uprighting_force = 0.2f;
     public static float waterlevel = 98f;
     
+    // bubbletail
+    public bool bubbletail_enabled = true;
+    private float bubbletailspeed = 2f;
+    public Transform bubbletail_origin = null;
+    private ParticleSystem bubbletail_particle = null;
+    private bool bubbletail_active = false;
+    public float bubbletail_base_emission = 1f;
+
+    public bool debug = false;
+    
     float transition_height = 0.3f;
     long nextwobble = 0;
+    private GameObject bubbletail = null;
     
     Rigidbody2D rb;
 
@@ -29,6 +40,16 @@ public class Waterphysics : MonoBehaviour
             // next wave in 0-1 seconds
         {
             nextwobble = System.DateTime.Now.Ticks + (long)(Random.Range(0f, 2f) * System.TimeSpan.TicksPerSecond);
+        }
+
+        if (bubbletail_enabled)
+        {
+            if(bubbletail_origin == null)
+                bubbletail_origin = transform;
+            bubbletail = Instantiate(World.Instance.Bubbletail, bubbletail_origin.position, Quaternion.identity);
+            bubbletail.transform.parent = bubbletail_origin;
+            bubbletail_particle = bubbletail.GetComponent<ParticleSystem>();
+            bubbletail_base_emission = bubbletail_particle.emission.rateOverTime.constant;
         }
     }
     
@@ -72,6 +93,35 @@ public class Waterphysics : MonoBehaviour
                     //rb.AddForce(transition_factor * rb.mass * wobble_force, ForceMode2D.Force); //wobble
                     rb.angularVelocity += Random.Range(-wobble, wobble);
                     rb.AddForce(transition_factor * rb.mass * wobble * Vector2.up, ForceMode2D.Force); //wobble
+                }
+            }
+
+            if (bubbletail_enabled)
+            {
+                var velocity = rb.linearVelocity;
+                var speed = velocity.magnitude;
+                if(speed > bubbletailspeed)
+                {
+                    float emission_factor = (speed - bubbletailspeed) / bubbletailspeed;
+                    emission_factor = Mathf.Clamp(Mathf.Pow(emission_factor, 1.5f), 0, 10);
+                    
+                    var emission = bubbletail_particle.emission;
+                    emission.rateOverTime = emission_factor * bubbletail_base_emission;
+                    
+                    if (!bubbletail_active)
+                    {
+                        emission.enabled = true;
+                        bubbletail_active = true;
+                    }
+                }
+                else
+                {
+                    if (bubbletail_active)
+                    {
+                        var emission = bubbletail_particle.emission;
+                        emission.enabled = false;
+                        bubbletail_active = false;
+                    }
                 }
             }
                 
