@@ -28,6 +28,13 @@ public class World : MonoBehaviour
     public TextMeshProUGUI topButtonText;
     
     public Transform overwriteSpawnPoint;
+
+    public float timePerDialogueChar;
+    
+    public GameObject DialogueUI;
+    public TextMeshProUGUI DialogueText;
+
+    public float discoverTreasureDistance;
     
     public void Start()
     {
@@ -52,11 +59,22 @@ public class World : MonoBehaviour
         bottomButtonText.text = text;
         showBottomText = true;
     }
+    
+    public void ShowDialogueText(string text)
+    {
+        DialogueText.text = text;
+    }
 
     public void Update()
     {
         var group = bottomButton.GetComponent<CanvasGroup>();
         group.alpha = Mathf.MoveTowards(group.alpha, showBottomText ? 1 : 0, Time.deltaTime * 5);
+        if (DialogueUI.activeSelf)
+        {
+            // don't overlap with the dialogue UI
+            group.alpha = 0;
+            showBottomText = false;
+        }
         group.interactable = showBottomText;
         group.blocksRaycasts = showBottomText;
         showBottomText = false;
@@ -70,6 +88,11 @@ public class World : MonoBehaviour
         {
             RespawnPlayer();
         }
+    }
+
+    public bool BottomUIAvailable()
+    {
+        return !DialogueUI.activeSelf;
     }
 
     public void RespawnPlayer()
