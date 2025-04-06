@@ -5,7 +5,7 @@ public class Arm : MonoBehaviour
     public Player player;
     private Rigidbody2D playerRigidbody;
     private float armLength = 2.5f;
-    private float armStrength = 80f;
+    private float armStrength = 100f;
     private Rigidbody2D armRigidbody;
     FixedJoint2D joint;
     
@@ -52,7 +52,8 @@ public class Arm : MonoBehaviour
         float angle = Mathf.Atan2(dif.y, dif.x) * Mathf.Rad2Deg;
         // Set the rotation of the arm
         float angleDiff = angle - transform.rotation.eulerAngles.z;
-        armRigidbody.angularVelocity = angleDiff * armStrength * Time.fixedDeltaTime;
+        armRigidbody.angularVelocity = 2 * angleDiff * armStrength * Time.fixedDeltaTime;
+        armRigidbody.angularVelocity *= 0.95f; // Dampen the rotation
         //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         // Set the arm position to the player's arm position plus the direction vector without breaking physics
