@@ -112,10 +112,10 @@ public class Player : MonoBehaviour
         if (World.Instance.cage.state == CageState.OnShip)
         {
             // if we fell 10 blocks into the water, respawn
-            if (transform.position.y < Waterphysics.waterlevel - 10)
+            if (transform.position.y < Waterphysics.waterlevel - 10 && transform.position.y > Waterphysics.waterlevel - 20)
             {
                 World.Instance.RespawnPlayer();
-                return;
+                Debug.Log("Respawning player because they fell of the ship");
             }
         }
         if (energy <= 0 && World.Instance.cage.state == CageState.Underwater)
