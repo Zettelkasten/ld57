@@ -19,6 +19,9 @@ public class Arm : MonoBehaviour
     
 
     bool isGrabbing = false;
+    
+    GameObject grappedObject;
+    public bool grappedObjectIsTreasure = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -82,8 +85,11 @@ public class Arm : MonoBehaviour
         Vector2 force = armStrength * dif_to_grapper.normalized;
         if (joint is null)
             force *= 0.2f;
+        
         armRigidbody.AddForce(force);
-        userrigidbody.AddForce(-force);
+        if(!grappedObjectIsTreasure)
+            userrigidbody.AddForce(-force);
+        
         if (joint is not null)
         { 
             //if(joint.connectedBody.bodyType == RigidbodyType2D.Dynamic)
@@ -126,6 +132,12 @@ public class Arm : MonoBehaviour
                     if (hit is not null)
                     {
                         GameObject obj = hit.gameObject;
+                        grappedObject = obj;
+                        grappedObjectIsTreasure = false;
+                        if (obj.GetComponent<Treasure>() is not null)
+                        {
+                            grappedObjectIsTreasure = true;
+                        }
                         joint = gameObject.AddComponent<HingeJoint2D>();
                         joint.connectedBody = obj.GetComponent<Rigidbody2D>();
                         isGrabbing = true;

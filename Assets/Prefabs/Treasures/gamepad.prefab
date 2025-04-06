@@ -103,7 +103,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -140,7 +140,10 @@ MonoBehaviour:
   uprighting: 0
   applyGravity: 0
   uprighting_force: 0.2
-  waterlevel: 98
+  bubbletail_enabled: 1
+  bubbletail_origin: {fileID: 0}
+  bubbletail_base_emission: 1
+  debug: 0
 --- !u!114 &4880632743388827231
 MonoBehaviour:
   m_ObjectHideFlags: 0
