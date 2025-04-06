@@ -17,7 +17,9 @@ public class Player : MonoBehaviour
     private float speed = 8f;
     public float floatingSpeedFactor;
 
-    private ParticleSystem particleSystem;
+    private ParticleSystem particleSystem;    
+    public ParticleSystem burstParticleSystem;
+
     private Waterphysics waterPhysics;
 
     private HingeJoint2D joint1;
@@ -41,6 +43,9 @@ public class Player : MonoBehaviour
     public float verticalJumpForce;
     public float jumpCooldown;
     private float currentJumpCooldown;
+
+    public int maxNumberOfJumps;
+    private int currentNumberOfJumps = 0;
 
     public GameObject directionalChild;
     
@@ -97,16 +102,24 @@ public class Player : MonoBehaviour
                 energy = 0;
             }
         }
-        lastPosition = transform.position;
+        lastPosition = transform.position;  
         
         if (World.Instance.cage.state != CageState.Underwater)
         {
             energy = maxEnergy;
         }
+
+        if (World.Instance.cage.state == CageState.OnShip)
+        {
+            // if we fell 10 blocks into the water, respawn
+            if (transform.position.y < Waterphysics.waterlevel - 10 && transform.position.y > Waterphysics.waterlevel - 20)
+            {
+                World.Instance.RespawnPlayer();
+                Debug.Log("Respawning player because they fell of the ship");
+            }
+        }
         if (energy <= 0 && World.Instance.cage.state == CageState.Underwater)
         {
-            // disable player movement
-            playerRigidbody.linearVelocity = Vector2.zero;
             
             // if the player is out of energy, they respawn until the counter is up
             counterUntilRespawn += Time.deltaTime;
@@ -116,6 +129,8 @@ public class Player : MonoBehaviour
                 World.Instance.RespawnPlayer();
                 counterUntilRespawn = 0;
             }
+            // disable active player movement, so we will just return
+            return;
         }
         
         currentJumpCooldown -= Time.fixedDeltaTime;
@@ -136,7 +151,7 @@ public class Player : MonoBehaviour
             verticalSpeed = 1;
             moveButtonPressed = true;
         }
-        else if (Input.GetKey(KeyCode.W))
+        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
         {
             moveButtonPressed = true;
             verticalSpeed = 0;
@@ -184,11 +199,12 @@ public class Player : MonoBehaviour
             float traction = 1 / (1 + speeddif.magnitude);
             Vector2 moveforce = traction * 500 * speeddif;
             // hack by frithjof, we don't want the force to influence the y axis
-            moveforce.y = 0;
+            if(ground is null)
+                moveforce.y = 0;
 
             Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.2f;
             playerRigidbody.AddForceAtPosition(moveforce, forcepos, ForceMode2D.Force);
-            if (ground != null)
+            if (ground is not null)
             {
                 // this code is to move the treasures that the player is moving over.
                 // disabled for now
@@ -202,14 +218,32 @@ public class Player : MonoBehaviour
 
         }
 
-        // let him jump if he presses W
-        if (ground != null && Input.GetKey(KeyCode.W) && currentJumpCooldown <= 0)
+        if (ground != null)
         {
-            // debug log
+            // if the player is on the ground, reset the jump counter
+            currentNumberOfJumps = maxNumberOfJumps;
+        }
+
+        // let him jump if he presses W
+        if (currentNumberOfJumps > 0 && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && currentJumpCooldown <= 0)
+        {
+            currentNumberOfJumps -= 1;
             Debug.Log("Jumping");
-            // jump
-            playerRigidbody.AddForce(jumpForce * Vector2.up + verticalSpeed * verticalJumpForce * Vector2.right, ForceMode2D.Impulse);
+            float normalDirection = transform.rotation.eulerAngles.z + 90;
+            // force in the forward direction of the player with the speed of the player
+            Vector2 jumpDirection = new Vector2(Mathf.Cos(normalDirection * Mathf.Deg2Rad),
+                Mathf.Sin(normalDirection * Mathf.Deg2Rad));
+            float airFactor = waterPhysics.Submerged() ? 1 : 0.5f;
+            playerRigidbody.AddForce(airFactor * (jumpForce * jumpDirection + verticalSpeed * verticalJumpForce * Vector2.right), ForceMode2D.Impulse);
             currentJumpCooldown = jumpCooldown;
+
+            // play particle if underwater
+            if (waterPhysics.Submerged())
+            {
+                var em = burstParticleSystem.emission;
+                em.enabled = true;
+                burstParticleSystem.Play();
+            }
         }
     }
 
