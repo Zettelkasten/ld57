@@ -1,4 +1,6 @@
 using System;
+using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,6 +21,11 @@ public class World : MonoBehaviour
 
     public Vector3 aboveSeaOffset;
 
+    public GameObject bottomButton;
+    public TextMeshProUGUI bottomButtonText;
+
+    private bool showBottomText = false;
+    
     public void Start()
     {
         RepositionShip();
@@ -31,5 +38,20 @@ public class World : MonoBehaviour
         // set z to 0
         aboveSea.transform.position = new Vector3(aboveSea.transform.position.x, aboveSea.transform.position.y, 0);
         cage.SetState(CageState.OnShip);
+    }
+
+    public void ShowBottomText(string text)
+    {
+        bottomButtonText.text = text;
+        showBottomText = true;
+    }
+
+    public void Update()
+    {
+        var group = bottomButton.GetComponent<CanvasGroup>();
+        group.alpha = Mathf.MoveTowards(group.alpha, showBottomText ? 1 : 0, Time.deltaTime * 5);
+        group.interactable = showBottomText;
+        group.blocksRaycasts = showBottomText;
+        showBottomText = false;
     }
 }

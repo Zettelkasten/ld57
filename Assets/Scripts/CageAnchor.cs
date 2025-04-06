@@ -9,18 +9,26 @@ public class CageAnchor : MonoBehaviour
     public void Update()
     {
         // if player is in the collider and presses "E", reposition the ship
-        if (myCollider.OverlapPoint(World.Instance.player.transform.position) && Input.GetKeyDown(KeyCode.E))
+        if (myCollider.OverlapPoint(World.Instance.player.transform.position))
         {
             if (World.Instance.currentAnchor != this || World.Instance.cage.state == CageState.OnShip)
             {
-                World.Instance.currentAnchor = this;
-                World.Instance.RepositionShip();
-                World.Instance.cage.SetState(CageState.SinkingWithoutPlayer);
+                World.Instance.ShowBottomText("Press [E] to call cage");
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    World.Instance.currentAnchor = this;
+                    World.Instance.RepositionShip();
+                    World.Instance.cage.SetState(CageState.SinkingWithoutPlayer);
+                }
             }
-            else
+            else if (World.Instance.cage.state == CageState.Underwater)
             {
                 // move up, as normal
-                World.Instance.cage.SetState(CageState.Rising);
+                World.Instance.ShowBottomText("Press [E] to return to ship");
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    World.Instance.cage.SetState(CageState.Rising);
+                }
             }
         }
     }
