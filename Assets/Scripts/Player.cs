@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 
     public GameObject directionalChild;
     
-    public Arm [] arms;
+    public GameObject [] arms;
     int activatedArm = 0;
     
     
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         particleSystem = GetComponentInChildren<ParticleSystem>();
         waterPhysics = GetComponent<Waterphysics>();
         energy = maxEnergy;
-        activate_arm(0);
+        //activate_arm(0);
     }
     
 
@@ -100,15 +100,19 @@ public class Player : MonoBehaviour
         }
         // activate the selected arm
         arms[i_arm].gameObject.SetActive(true);
-        //var hingeJoint = GetComponent<HingeJoint2D>();
-        //if (hingeJoint != null)
-        //{
-        //    Destroy(hingeJoint);
-        //}
+        activatedArm = i_arm;
+        var hingeJoint = GetComponent<HingeJoint2D>();
+        if (hingeJoint != null)
+        {
+            Destroy(hingeJoint);
+        }
         // add a hinge joint to the player
-        //HingeJoint2D joint = gameObject.AddComponent<HingeJoint2D>();
-        //joint.connectedBody = arms[i_arm].Link1.GetComponent<Rigidbody2D>();
-        //activatedArm = i_arm;
+        var arm = arms[i_arm];
+        HingeJoint2D joint = gameObject.AddComponent<HingeJoint2D>();
+        joint.anchor = arm.transform.localPosition;
+        joint.connectedBody = arm.GetComponentInChildren<Arm>().Link1.GetComponent<Rigidbody2D>();
+        
+        activatedArm = i_arm;
     }
 
     private void FixedUpdate()
