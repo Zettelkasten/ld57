@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
 
     private float lightActiveTime;
     private string lightFlickerStates = "mmmaaammmaaammmabcdefaaaammmmabcdefmmmaaaa";  // a is dimmest, z ist lightest
+    
+    public float dontMoveTime = 0f;
 
 // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -92,7 +94,6 @@ public class Player : MonoBehaviour
                 char flickerState = lightFlickerStates[index];
                 // a is dimmest, z is lightest
                 float lightIntensity = (float) (flickerState - 'a') / ('z' - 'a');
-                Debug.Log(lightIntensity);
                 directionalChild.GetComponentInChildren<Light2D>().intensity = lightIntensity;
             }
         }
@@ -204,6 +205,12 @@ public class Player : MonoBehaviour
             // if the player is in a dialogue, don't move
             return;
         }
+        dontMoveTime -= Time.fixedDeltaTime;
+        if (dontMoveTime > 0)
+        {
+            // don't move
+            return;
+        }
         
         // upright the player a bit
         playerRigidbody.angularVelocity *= 0.99f;
@@ -224,6 +231,12 @@ public class Player : MonoBehaviour
         if (World.Instance.cage.state != CageState.Underwater)
         {
             energy = maxEnergy;
+        }
+
+        if (World.Instance.cage.state != CageState.OnShip && World.Instance.cage.state != CageState.Underwater)
+        {
+            // player cannot move in other states
+            return;
         }
 
         if (World.Instance.cage.state == CageState.OnShip)
@@ -290,8 +303,10 @@ public class Player : MonoBehaviour
         for (int i = 0; i < contactCount; i++)
         {
             var contact = contacts[i];
+            // don't want objects on layer Playerconstruction
             if (contact != null && contact.gameObject != playerRigidbody.gameObject &&
-                contact.gameObject != gearCollider.gameObject)
+                contact.gameObject.layer != LayerMask.NameToLayer("Playerconstruction") &&
+                contact.gameObject.layer != LayerMask.NameToLayer("Player"))
             {
                 ground = contact;
                 break;

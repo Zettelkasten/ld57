@@ -45,7 +45,6 @@ public class AttachedDialogue : MonoBehaviour
             }
         }
 
-
         if (!playing)
         {
             return;
@@ -55,11 +54,12 @@ public class AttachedDialogue : MonoBehaviour
         {
             playing = false;
             World.Instance.DialogueUI.SetActive(false);
+            World.Instance.player.dontMoveTime = 0.5f;
             return;
         }
 
         var continueInput = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E) ||
-                            Input.GetKeyDown(KeyCode.KeypadEnter);
+                            Input.GetKeyDown(KeyCode.KeypadEnter) || World.Instance.CheckDialogueButtonClicked();
         currentLineProgress += Time.deltaTime;
         var charsShown = (int)(currentLineProgress / World.Instance.timePerDialogueChar);
         if (charsShown >= dialogue[currentLine].Length)

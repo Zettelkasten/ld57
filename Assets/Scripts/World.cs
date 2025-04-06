@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using Unity.Cinemachine;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -21,6 +22,7 @@ public class World : MonoBehaviour
     
     public GameObject bottomButton;
     public TextMeshProUGUI bottomButtonText;
+    private bool bottomButtonClicked;
 
     private bool showBottomText = false;
 
@@ -33,6 +35,7 @@ public class World : MonoBehaviour
     
     public GameObject DialogueUI;
     public TextMeshProUGUI DialogueText;
+    private bool dialogueButtonClicked;
 
     public GameObject[] speakerUIs;
     public string[] speakerUINames;
@@ -52,6 +55,7 @@ public class World : MonoBehaviour
             player.transform.position = overwriteSpawnPoint.position;
         }
         DialogueUI.SetActive(false);
+        bottomButtonClicked = false;
     }
     public void RepositionShip()
     {
@@ -153,5 +157,35 @@ public class World : MonoBehaviour
         // reset player velocity
         player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         player.GetComponent<Rigidbody2D>().angularVelocity = 0;
+    }
+
+    public void SetBottomButtonClicked()
+    {
+        bottomButtonClicked = true;
+    }
+
+    public bool CheckBottomButtonClicked()
+    {
+        if (bottomButtonClicked)
+        {
+            bottomButtonClicked = false;
+            return true;
+        }
+        return false;
+    }
+    
+    public void SetDialogueButtonClicked()
+    {
+        dialogueButtonClicked = true;
+    }
+
+    public bool CheckDialogueButtonClicked()
+    {
+        if (dialogueButtonClicked)
+        {
+            dialogueButtonClicked = false;
+            return true;
+        }
+        return false;
     }
 }
