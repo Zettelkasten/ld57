@@ -108,6 +108,7 @@ public class Waterphysics : MonoBehaviour
                     var emission = bubbletail_particle.emission;
                     emission.rateOverTime = emission_factor * bubbletail_base_emission;
                     
+                    //todo also update if not submerged
                     if (!bubbletail_active)
                     {
                         emission.enabled = true;
