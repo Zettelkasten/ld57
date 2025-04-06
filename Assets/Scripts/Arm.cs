@@ -4,7 +4,7 @@ using UnityEngine;
 public class Arm : MonoBehaviour
 {
     public Rigidbody2D userrigidbody;
-    private float armLength = 2.5f;
+    public float armLength = 2.5f;
     public float armStrength = 500f;
     private Rigidbody2D armRigidbody;
     HingeJoint2D joint;
@@ -51,7 +51,6 @@ public class Arm : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 attachmentPoint = armOrigin.position;
         Vector2 dif_to_attach = (mousePos - attachmentPoint);
-        Vector2 dif_to_grapper = mousePos - (Vector2)transform.position;
         float length = dif_to_attach.magnitude;
         if (length > armLength)
         {
@@ -73,6 +72,7 @@ public class Arm : MonoBehaviour
         //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         // Set the arm position to the player's arm position plus the direction vector without breaking physics
+        Vector2 dif_to_grapper = dif_to_attach + attachmentPoint - (Vector2)transform.position;
         Vector2 force = armStrength * dif_to_grapper.normalized;
         if (joint is null)
             force *= 0.2f;
@@ -109,6 +109,7 @@ public class Arm : MonoBehaviour
                         if (collider.gameObject != userrigidbody.gameObject &&
                             collider.gameObject != gameObject &&
                             collider.gameObject.layer != LayerMask.NameToLayer("Playerconstruction") &&
+                            collider.gameObject.layer != LayerMask.NameToLayer("Player") &&
                             !collider.gameObject.CompareTag("Cage"))
                         {
                             hit = collider;

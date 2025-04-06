@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     int activatedArm = 0;
 
     int [] armStrengths = { 400, 600, 800, 1200 };
+    float [] armLengths = {   1.5f, 2.5f, 4.5f, 5};
 
     int [] gearSpeeds = { 5, 8, 14, 22 };
     float [] gearStrengths = { 1, 1.5f, 2, 3 };
@@ -259,6 +260,7 @@ public class Player : MonoBehaviour
         }
         // add a hinge joint to the player
         var arm = arms[i_arm];
+        arm.GetComponentInChildren<Arm>().armLength = armLengths[i_arm];
         HingeJoint2D joint = gameObject.AddComponent<HingeJoint2D>();
         joint.anchor = arm.transform.localPosition;
         joint.connectedBody = arm.GetComponentInChildren<Arm>().Link1.GetComponent<Rigidbody2D>();
@@ -268,14 +270,16 @@ public class Player : MonoBehaviour
     
     public void setArmStrengthLevel(int level)
     {
+        Debug.Log("Setting arm strength to " + armStrengths[level]);
         for(int i = 0; i < arms.Length; i++)
         {
-            arms[i].GetComponent<Arm>().armStrength = armStrengths[level];
+            arms[i].GetComponentInChildren<Arm>().armStrength = armStrengths[level];
         }
     }
     
     public void setGearLevel(int level)
     {
+        Debug.Log("Setting gear speed to " + gearSpeeds[level]);
         speed = gearSpeeds[level];
         
         gear.transform.localScale = new Vector3(gear_upgrade_scales[level], gear_upgrade_scales[level], 1);
@@ -283,10 +287,12 @@ public class Player : MonoBehaviour
     
     public void setJumpLevel(int level)
     {
+        Debug.Log("Setting jump level to " + level);
         maxNumberOfJumps = 1 + level;
     }
     public void setEnergyLevel(int level)
     {
+        Debug.Log("Setting energy level to " + level);
         maxEnergy = energyLevels[level];
         battery.transform.localScale = new Vector3(battery_upgrade_scales[level], battery_upgrade_scales[level], 1);
         energy = maxEnergy;
