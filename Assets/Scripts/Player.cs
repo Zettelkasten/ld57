@@ -173,6 +173,12 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!World.Instance.BottomUIAvailable())
+        {
+            // if the player is in a dialogue, don't move
+            return;
+        }
+        
         // upright the player a bit
         playerRigidbody.angularVelocity *= 0.99f;
         playerRigidbody.angularVelocity -= playerRigidbody.rotation * 0.1f;
