@@ -77,15 +77,9 @@ public class Player : MonoBehaviour
         // update the direction of the player
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 playerPos = playerRigidbody.transform.position;
-        bool flipped = mousePos.x < playerPos.x;
-        if (flipped)
-        {
-            directionalChild.transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else
-        {
-            directionalChild.transform.localScale = new Vector3(1, 1, 1);
-        }
+        // get the angle and rotate the directional child
+        float angle = Mathf.Atan2(mousePos.y - playerPos.y, mousePos.x - playerPos.x) * Mathf.Rad2Deg;
+        directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     private void FixedUpdate()
