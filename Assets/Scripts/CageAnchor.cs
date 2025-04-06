@@ -11,7 +11,7 @@ public class CageAnchor : MonoBehaviour
         // if player is in the collider and presses "E", reposition the ship
         if (myCollider.OverlapPoint(World.Instance.player.transform.position))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && World.Instance.currentAnchor != this)
             {
                 World.Instance.currentAnchor = this;
                 World.Instance.RepositionShip();
