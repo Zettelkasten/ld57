@@ -18,9 +18,7 @@ public class World : MonoBehaviour
 
     public CageAnchor currentAnchor;
     public AboveSea aboveSea;
-
-    public Vector3 aboveSeaOffset;
-
+    
     public GameObject bottomButton;
     public TextMeshProUGUI bottomButtonText;
 
@@ -41,9 +39,9 @@ public class World : MonoBehaviour
     }
     public void RepositionShip()
     {
-        // move the ship above the current anchor
-        aboveSea.transform.position = currentAnchor.pivot.position + aboveSeaOffset;
-        cage.transform.position = currentAnchor.pivot.position + aboveSeaOffset;
+        // move the ship above the current anchor, set y to WaterPhyics.waterlevel.
+        aboveSea.transform.position = new Vector3(currentAnchor.pivot.position.x, Waterphysics.waterlevel, 0);
+        cage.transform.position = new Vector3(currentAnchor.pivot.position.x, Waterphysics.waterlevel, -2);
         // set z to 0
         aboveSea.transform.position = new Vector3(aboveSea.transform.position.x, aboveSea.transform.position.y, 0);
         cage.SetState(CageState.OnShip);

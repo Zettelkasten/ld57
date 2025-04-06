@@ -109,7 +109,8 @@ public class Cage : MonoBehaviour
             case CageState.Sinking:
             case CageState.SinkingWithoutPlayer:
             case CageState.Rising:
-                var fromPos = World.Instance.currentAnchor.pivot.position + World.Instance.aboveSeaOffset;
+                var fromPos = World.Instance.currentAnchor.pivot.position;
+                fromPos.y = Waterphysics.waterlevel;
                 var toPos = World.Instance.currentAnchor.pivot.position;
                 if (state == CageState.Rising)
                 {
