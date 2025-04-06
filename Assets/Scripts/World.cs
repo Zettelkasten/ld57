@@ -35,6 +35,8 @@ public class World : MonoBehaviour
     public TextMeshProUGUI DialogueText;
 
     public float discoverTreasureDistance;
+
+    public GameObject Bubbletail;
     
     public void Start()
     {
