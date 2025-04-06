@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
                 energy = 0;
             }
         }
-        lastPosition = transform.position;
+        lastPosition = transform.position;  
         
         if (World.Instance.cage.state != CageState.Underwater)
         {
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
             verticalSpeed = 1;
             moveButtonPressed = true;
         }
-        else if (Input.GetKey(KeyCode.W))
+        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
         {
             moveButtonPressed = true;
             verticalSpeed = 0;
@@ -203,12 +203,14 @@ public class Player : MonoBehaviour
         }
 
         // let him jump if he presses W
-        if (ground != null && Input.GetKey(KeyCode.W) && currentJumpCooldown <= 0)
+        if (ground != null && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && currentJumpCooldown <= 0)
         {
-            // debug log
             Debug.Log("Jumping");
-            // jump
-            playerRigidbody.AddForce(jumpForce * Vector2.up + verticalSpeed * verticalJumpForce * Vector2.right, ForceMode2D.Impulse);
+            float normalDirection = transform.rotation.eulerAngles.z + 90;
+            // force in the forward direction of the player with the speed of the player
+            Vector2 jumpDirection = new Vector2(Mathf.Cos(normalDirection * Mathf.Deg2Rad),
+                Mathf.Sin(normalDirection * Mathf.Deg2Rad));
+            playerRigidbody.AddForce(jumpForce * jumpDirection + verticalSpeed * verticalJumpForce * Vector2.right, ForceMode2D.Impulse);
             currentJumpCooldown = jumpCooldown;
         }
     }
