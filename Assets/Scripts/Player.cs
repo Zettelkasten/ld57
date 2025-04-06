@@ -83,7 +83,10 @@ public class Player : MonoBehaviour
         Vector2 playerPos = playerRigidbody.transform.position;
         // get the angle and rotate the directional child
         float angle = Mathf.Atan2(mousePos.y - playerPos.y, mousePos.x - playerPos.x) * Mathf.Rad2Deg;
-        directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        // don't change it too suddenly,
+        // iterpolate it a bit directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        Vector3 targetRotation = new Vector3(0, 0, angle);
+        directionalChild.transform.rotation = Quaternion.RotateTowards(directionalChild.transform.rotation, Quaternion.Euler(targetRotation), 360 * Time.deltaTime);
     }
 
     private void FixedUpdate()
