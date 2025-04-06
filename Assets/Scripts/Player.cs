@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public PolygonCollider2D gearCollider;
     private float speed = 8f;
     private bool isMoving = false;
+    public float floatingSpeedFactor;
 
     private ParticleSystem particleSystem;
     private Waterphysics waterPhysics;
@@ -36,6 +37,11 @@ public class Player : MonoBehaviour
 
     private float counterUntilRespawn = 0;
     private float respawnTime = 5f;
+    
+    public float jumpForce;
+    public float verticalJumpForce;
+    public float jumpCooldown;
+    private float currentJumpCooldown;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -101,6 +107,7 @@ public class Player : MonoBehaviour
             }
         }
         
+        currentJumpCooldown -= Time.fixedDeltaTime;
         
         // movement code
         upright();
@@ -118,6 +125,11 @@ public class Player : MonoBehaviour
             verticalSpeed = 1;
             moveButtonPressed = true;
         }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            moveButtonPressed = true;
+            verticalSpeed = 0;
+        }
         else
         {
             verticalSpeed = 0;
@@ -125,7 +137,7 @@ public class Player : MonoBehaviour
 
         if (moveButtonPressed)
         {
-            if(!isMoving )
+            if(!isMoving)
             {
                 isMoving = true;
                 // enable emission
@@ -144,47 +156,65 @@ public class Player : MonoBehaviour
         }
         
         verticalSpeed *= speed;
+        
+        // get objects that contact the gear collider
+        var contacts = new Collider2D[5];
+        var contactCount = gearCollider.Overlap(new ContactFilter2D(), contacts);
+        Collider2D ground = null;
+        for (int i = 0; i < contactCount; i++)
+        {
+            var contact = contacts[i];
+            if (contact != null && contact.gameObject != playerRigidbody.gameObject &&
+                contact.gameObject != gearCollider.gameObject)
+            {
+                ground = contact;
+                break;
+            }
+        }
+        
+        // add much slower movements if the player is in the air
+        if (ground == null && waterPhysics.Submerged())
+        {
+            verticalSpeed *= floatingSpeedFactor;
+        }
 
+        // if the player is on the ground, move the player
         if (verticalSpeed != 0)
         {
-            // get objects that contact the gear collider
-            var contacts = new Collider2D[5];
-            var contactCount = gearCollider.Overlap(new ContactFilter2D(), contacts);
-            Collider2D ground = null;
-            for (int i = 0; i < contactCount; i++)
-            {
-                var contact = contacts[i];
-                if (contact != null && contact.gameObject != playerRigidbody.gameObject &&
-                    contact.gameObject != gearCollider.gameObject)
-                {
-                    ground = contact;
-                    break;
-                }
-            }
+            float direction = transform.rotation.eulerAngles.z;
+            // force in the forward direction of the player with the speed of the player
+            Vector2 movespeed = new Vector2(verticalSpeed * Mathf.Cos(direction * Mathf.Deg2Rad),
+                verticalSpeed * Mathf.Sin(direction * Mathf.Deg2Rad));
 
-            // if the player is on the ground, move the player
+            Vector2 speeddif = movespeed - playerRigidbody.linearVelocity;
+            float traction = 1 / (1 + speeddif.magnitude);
+            Vector2 moveforce = traction * 500 * speeddif;
+
+
+            Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.2f;
+            playerRigidbody.AddForceAtPosition(moveforce, forcepos, ForceMode2D.Force);
             if (ground != null)
             {
-                float direction = transform.rotation.eulerAngles.z;
-                // force in the forward direction of the player with the speed of the player
-                Vector2 movespeed = new Vector2(verticalSpeed * Mathf.Cos(direction * Mathf.Deg2Rad),
-                    verticalSpeed * Mathf.Sin(direction * Mathf.Deg2Rad));
+                // this code is to move the treasures that the player is moving over.
+                // disabled for now
                 
-                Vector2 speeddif = movespeed - playerRigidbody.linearVelocity;
-                float traction = 1 / (1 + speeddif.magnitude);
-                Vector2 moveforce = traction * 500 * speeddif;
-                
-                
-                Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.2f;
-                playerRigidbody.AddForceAtPosition(moveforce, forcepos, ForceMode2D.Force);
-                //playerRigidbody.linearVelocity += moveforce;
-                Rigidbody2D groundRigidbody = ground.attachedRigidbody;
-                if (groundRigidbody != null && groundRigidbody.bodyType == RigidbodyType2D.Dynamic)
-                {
-                    groundRigidbody.AddForceAtPosition(-moveforce, groundRigidbody.position, ForceMode2D.Force);
-                }
-
+                // Rigidbody2D groundRigidbody = ground.attachedRigidbody;
+                // if (groundRigidbody != null && groundRigidbody.bodyType == RigidbodyType2D.Dynamic)
+                // {
+                //     groundRigidbody.AddForceAtPosition(-moveforce, groundRigidbody.position, ForceMode2D.Force);
+                // }
             }
+
+        }
+
+        // let him jump if he presses W
+        if (ground != null && Input.GetKey(KeyCode.W) && currentJumpCooldown <= 0)
+        {
+            // debug log
+            Debug.Log("Jumping");
+            // jump
+            playerRigidbody.AddForce(jumpForce * Vector2.up + verticalSpeed * verticalJumpForce * Vector2.right, ForceMode2D.Impulse);
+            currentJumpCooldown = jumpCooldown;
         }
     }
 
