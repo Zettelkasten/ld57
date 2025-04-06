@@ -17,7 +17,9 @@ public class Player : MonoBehaviour
     private float speed = 8f;
     public float floatingSpeedFactor;
 
-    private ParticleSystem particleSystem;
+    private ParticleSystem particleSystem;    
+    public ParticleSystem burstParticleSystem;
+
     private Waterphysics waterPhysics;
 
     private HingeJoint2D joint1;
@@ -41,6 +43,9 @@ public class Player : MonoBehaviour
     public float verticalJumpForce;
     public float jumpCooldown;
     private float currentJumpCooldown;
+
+    public int maxNumberOfJumps;
+    private int currentNumberOfJumps = 0;
 
     public GameObject directionalChild;
     
@@ -202,16 +207,32 @@ public class Player : MonoBehaviour
 
         }
 
-        // let him jump if he presses W
-        if (ground != null && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && currentJumpCooldown <= 0)
+        if (ground != null)
         {
+            // if the player is on the ground, reset the jump counter
+            currentNumberOfJumps = maxNumberOfJumps;
+        }
+
+        // let him jump if he presses W
+        if (currentNumberOfJumps > 0 && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && currentJumpCooldown <= 0)
+        {
+            currentNumberOfJumps -= 1;
             Debug.Log("Jumping");
             float normalDirection = transform.rotation.eulerAngles.z + 90;
             // force in the forward direction of the player with the speed of the player
             Vector2 jumpDirection = new Vector2(Mathf.Cos(normalDirection * Mathf.Deg2Rad),
                 Mathf.Sin(normalDirection * Mathf.Deg2Rad));
-            playerRigidbody.AddForce(jumpForce * jumpDirection + verticalSpeed * verticalJumpForce * Vector2.right, ForceMode2D.Impulse);
+            float airFactor = waterPhysics.Submerged() ? 1 : 0.5f;
+            playerRigidbody.AddForce(airFactor * (jumpForce * jumpDirection + verticalSpeed * verticalJumpForce * Vector2.right), ForceMode2D.Impulse);
             currentJumpCooldown = jumpCooldown;
+
+            // play particle if underwater
+            if (waterPhysics.Submerged())
+            {
+                var em = burstParticleSystem.emission;
+                em.enabled = true;
+                burstParticleSystem.Play();
+            }
         }
     }
 
