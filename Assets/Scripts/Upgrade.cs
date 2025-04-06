@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Upgrade", menuName = "Scriptable Objects/Upgrade")]
 public class Upgrade : ScriptableObject
 {
+	public string upgradeID = "demoUpgrade";
+
 	public List<int> levelCosts = new List<int> { 100, 200, 500 };
 
 	public List<Sprite> sprites = new List<Sprite>();
