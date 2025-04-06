@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
 
     private float lightActiveTime;
     private string lightFlickerStates = "mmmaaammmaaammmabcdefaaaammmmabcdefmmmaaaa";  // a is dimmest, z ist lightest
+    
+    public float dontMoveTime = 0f;
 
 // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -201,6 +203,12 @@ public class Player : MonoBehaviour
         if (!World.Instance.BottomUIAvailable())
         {
             // if the player is in a dialogue, don't move
+            return;
+        }
+        dontMoveTime -= Time.fixedDeltaTime;
+        if (dontMoveTime > 0)
+        {
+            // don't move
             return;
         }
         

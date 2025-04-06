@@ -54,6 +54,7 @@ public class AttachedDialogue : MonoBehaviour
         {
             playing = false;
             World.Instance.DialogueUI.SetActive(false);
+            World.Instance.player.dontMoveTime = 0.5f;
             return;
         }
 
