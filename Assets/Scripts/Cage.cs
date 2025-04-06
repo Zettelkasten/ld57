@@ -61,7 +61,6 @@ public class Cage : MonoBehaviour
                 {
                     // make the player a child of the cage
                     //World.Instance.player.transform.SetParent(this.transform);
-                    World.Instance.player.fixJoints();
 
                     FixedJoint2D joint = cageRigidbody.gameObject.AddComponent<FixedJoint2D>();
                     joint.connectedBody = playerRigidbody;
@@ -133,7 +132,6 @@ public class Cage : MonoBehaviour
                             Destroy(joint2D);
                         }
                         //World.Instance.player.transform.SetParent(null);
-                        World.Instance.player.fixJoints();
                         // make all the things on the cage a child of the game scene
                         foreach (var thing in sinkingAttachedTreasures)
                         {
