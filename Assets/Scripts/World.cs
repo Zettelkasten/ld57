@@ -38,6 +38,8 @@ public class World : MonoBehaviour
     public string[] speakerUINames;
 
     public float discoverTreasureDistance;
+
+    public GameObject Bubbletail;
     
     public void Start()
     {

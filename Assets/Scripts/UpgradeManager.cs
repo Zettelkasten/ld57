@@ -7,6 +7,11 @@ public class UpgradeManager : MonoBehaviour
 	// Singleton instance.
 	public static UpgradeManager Instance = null;
 
+	public Upgrade[] knownUpgrades = new Upgrade[0];
+
+	private Dictionary<string, int> upgradeLevelsOfKnownUpgrades = new Dictionary<string, int>();
+	private Dictionary<string, int> selectedLevelsOfKnownUpgrades = new Dictionary<string, int>();
+
 	// Initialize the singleton instance.
 	private void Awake()
 	{
@@ -22,15 +27,10 @@ public class UpgradeManager : MonoBehaviour
 		}
 	}
 
-	public Upgrade[] knownUpgrades = new Upgrade[0];
-
-    private Dictionary<string, int> upgradeLevelsOfKnownUpgrades;
-    private Dictionary<string, int> selectedLevelsOfKnownUpgrades;
-
 	public void Start()
 	{
-        upgradeLevelsOfKnownUpgrades = new Dictionary<string, int>();
-        selectedLevelsOfKnownUpgrades = new Dictionary<string, int>();
+        upgradeLevelsOfKnownUpgrades.Clear();
+        selectedLevelsOfKnownUpgrades.Clear();
 		foreach (Upgrade currUpgrade in knownUpgrades)
         {
             upgradeLevelsOfKnownUpgrades.Add(currUpgrade.upgradeID, 0);
@@ -48,6 +48,17 @@ public class UpgradeManager : MonoBehaviour
         return selectedLevelsOfKnownUpgrades[upgrade.upgradeID];
     }
 
+    public int GetNextCostOfUpgrade(Upgrade upgrade)
+    {
+		string upgradeID = upgrade.upgradeID;
+        int currentLevel = upgradeLevelsOfKnownUpgrades[upgradeID];
+        if (currentLevel >= upgrade.levelCosts.Count)
+        {
+            return -1; // negative costs for finished upgrades
+        }
+        return upgrade.levelCosts[currentLevel];
+	}
+
 	public void UpgradeAnUpgrade(Upgrade targetUpgrade)
     {
         string upgradeID = targetUpgrade.upgradeID;
@@ -57,7 +68,8 @@ public class UpgradeManager : MonoBehaviour
             if (currentLevel < targetUpgrade.levelCosts.Count)
             {
                 upgradeLevelsOfKnownUpgrades[upgradeID]++;
-                targetUpgrade.Raise(); // Tell all listeners that an upgrade happened!
+                selectedLevelsOfKnownUpgrades[upgradeID] = upgradeLevelsOfKnownUpgrades[upgradeID];
+				targetUpgrade.Raise(); // Tell all listeners that an upgrade happened!
 				Debug.Log("Upgraded: " + upgradeID);
 			}
 		}

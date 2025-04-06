@@ -100,7 +100,10 @@ public class Arm : MonoBehaviour
                     Collider2D hit = null;
                     foreach (Collider2D collider in colliders)
                     {
-                        if (collider.gameObject != userrigidbody.gameObject && collider.gameObject != gameObject && !collider.gameObject.CompareTag("Cage"))
+                        if (collider.gameObject != userrigidbody.gameObject &&
+                            collider.gameObject != gameObject &&
+                            collider.gameObject.layer != LayerMask.NameToLayer("Playerconstruction") &&
+                            !collider.gameObject.CompareTag("Cage"))
                         {
                             hit = collider;
                             break;
