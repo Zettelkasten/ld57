@@ -126,12 +126,6 @@ public class Cage : MonoBehaviour
                         {
                             Destroy(joint2D);
                         }
-                        //World.Instance.player.transform.SetParent(null);
-                        // make all the things on the cage a child of the game scene
-                        foreach (var thing in sinkingAttachedObjects)
-                        {
-                            thing.transform.SetParent(null);
-                        }
                         // populate items to sell
                         Debug.Log("Sinking treasures: " + sinkingAttachedObjects.Count);
                         if (state == CageState.Rising)
