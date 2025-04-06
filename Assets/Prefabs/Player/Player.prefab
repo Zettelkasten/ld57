@@ -813,6 +813,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 505476113216044562, guid: 6be35b3609f0a3195bddb56c45e15056, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 505476113216044562, guid: 6be35b3609f0a3195bddb56c45e15056, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.3
       objectReference: {fileID: 0}
