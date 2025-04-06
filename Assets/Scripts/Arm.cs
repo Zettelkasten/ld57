@@ -1,17 +1,22 @@
+using System;
 using UnityEngine;
 
 public class Arm : MonoBehaviour
 {
-    public Player player;
-    private Rigidbody2D playerRigidbody;
+    public Rigidbody2D userrigidbody;
     private float armLength = 2.5f;
     private float armStrength = 500f;
     private Rigidbody2D armRigidbody;
     FixedJoint2D joint;
+
+    public GameObject Link1;
+    public GameObject Link2;
+    public Transform armOrigin;
     
     public Sprite grabberSpriteOpen;
     public Sprite grabberSpriteClosed;
     SpriteRenderer grabberSpriteRenderer;
+    
 
     bool isGrabbing = false;
 
@@ -21,7 +26,6 @@ public class Arm : MonoBehaviour
     {
         armRigidbody = GetComponent<Rigidbody2D>();
         grabberSpriteRenderer = GetComponent<SpriteRenderer>();
-        playerRigidbody = player.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -39,8 +43,7 @@ public class Arm : MonoBehaviour
             
         
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 playerPos = player.transform.position;
-        Vector2 attachmentPoint = playerPos + player.armPosition;
+        Vector2 attachmentPoint = armOrigin.position;
         Vector2 dif_to_attach = (mousePos - attachmentPoint);
         Vector2 dif_to_grapper = mousePos - (Vector2)transform.position;
         float length = dif_to_attach.magnitude;
@@ -68,7 +71,7 @@ public class Arm : MonoBehaviour
         if (joint is null)
             force *= 0.2f;
         armRigidbody.AddForce(force);
-        playerRigidbody.AddForce(-force);
+        userrigidbody.AddForce(-force);
         if (joint is not null)
         { 
             //if(joint.connectedBody.bodyType == RigidbodyType2D.Dynamic)
@@ -97,14 +100,14 @@ public class Arm : MonoBehaviour
                     Collider2D hit = null;
                     foreach (Collider2D collider in colliders)
                     {
-                        if (collider.gameObject != player.gameObject && collider.gameObject != gameObject && !collider.gameObject.CompareTag("Cage"))
+                        if (collider.gameObject != userrigidbody.gameObject && collider.gameObject != gameObject && !collider.gameObject.CompareTag("Cage"))
                         {
                             hit = collider;
                             break;
                         }
                     }
 
-                    if (hit != null)
+                    if (hit is not null)
                     {
                         GameObject obj = hit.gameObject;
                         joint = gameObject.AddComponent<FixedJoint2D>();
@@ -138,4 +141,6 @@ public class Arm : MonoBehaviour
             grabberSpriteRenderer.sprite = grabberSpriteOpen;
         }
     }
+
+
 }
