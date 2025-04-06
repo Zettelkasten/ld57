@@ -108,10 +108,18 @@ public class Player : MonoBehaviour
         {
             energy = maxEnergy;
         }
+
+        if (World.Instance.cage.state == CageState.OnShip)
+        {
+            // if we fell 10 blocks into the water, respawn
+            if (transform.position.y < Waterphysics.waterlevel - 10)
+            {
+                World.Instance.RespawnPlayer();
+                return;
+            }
+        }
         if (energy <= 0 && World.Instance.cage.state == CageState.Underwater)
         {
-            // disable player movement
-            playerRigidbody.linearVelocity = Vector2.zero;
             
             // if the player is out of energy, they respawn until the counter is up
             counterUntilRespawn += Time.deltaTime;
@@ -121,6 +129,8 @@ public class Player : MonoBehaviour
                 World.Instance.RespawnPlayer();
                 counterUntilRespawn = 0;
             }
+            // disable active player movement, so we will just return
+            return;
         }
         
         currentJumpCooldown -= Time.fixedDeltaTime;
