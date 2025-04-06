@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
     public float verticalJumpForce;
     public float jumpCooldown;
     private float currentJumpCooldown;
+
+    public GameObject directionalChild;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
