@@ -16,14 +16,14 @@ public class AboveSea : MonoBehaviour
             if (World.Instance.cage.state == CageState.OnShip)
             {
                 World.Instance.ShowBottomText("Press [E] to start mission");
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E) || World.Instance.CheckBottomButtonClicked())
                     World.Instance.cage.SetState(CageState.Sinking);
             }
             else if (World.Instance.cage.state == CageState.Underwater)
             {
                 // move up, something is wrong
                 World.Instance.ShowBottomText("Press [E] to recall cage");
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E) || World.Instance.CheckBottomButtonClicked())
                     World.Instance.cage.SetState(CageState.Rising);
             }
         }

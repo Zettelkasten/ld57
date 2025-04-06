@@ -14,7 +14,7 @@ public class CageAnchor : MonoBehaviour
             if (World.Instance.currentAnchor != this || World.Instance.cage.state == CageState.OnShip)
             {
                 World.Instance.ShowBottomText("Press [E] to call cage");
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E) || World.Instance.CheckBottomButtonClicked())
                 {
                     World.Instance.currentAnchor = this;
                     World.Instance.RepositionShip();
@@ -25,7 +25,7 @@ public class CageAnchor : MonoBehaviour
             {
                 // move up, as normal
                 World.Instance.ShowBottomText("Press [E] to return to ship");
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E) || World.Instance.CheckBottomButtonClicked())
                 {
                     World.Instance.cage.SetState(CageState.Rising);
                 }
