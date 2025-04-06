@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     int [] speeds = { 6, 8, 12, 16 };
 
     private float lightActiveTime;
-    private string lightFlickerStates = "mmmmmaaaaammmmmaaaaaabcdefgabcdefg";  // a is dimmest, z ist lightest
+    private string lightFlickerStates = "mmmaaammmaaammmabcdefaaaammmmabcdefmmmaaaa";  // a is dimmest, z ist lightest
 
 // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

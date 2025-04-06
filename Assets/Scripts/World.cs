@@ -42,6 +42,7 @@ public class World : MonoBehaviour
     public GameObject Bubbletail;
     
     public GameObject upgradeScreen;
+    public GameObject openUpgradeScreenButton;
     
     public void Start()
     {
@@ -129,6 +130,8 @@ public class World : MonoBehaviour
         {
             RespawnPlayer();
         }
+        
+        openUpgradeScreenButton.SetActive(cage.state == CageState.OnShip && BottomUIAvailable());
     }
 
     public bool BottomUIAvailable()
