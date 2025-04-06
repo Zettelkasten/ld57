@@ -199,11 +199,12 @@ public class Player : MonoBehaviour
             float traction = 1 / (1 + speeddif.magnitude);
             Vector2 moveforce = traction * 500 * speeddif;
             // hack by frithjof, we don't want the force to influence the y axis
-            moveforce.y = 0;
+            if(ground is null)
+                moveforce.y = 0;
 
             Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.2f;
             playerRigidbody.AddForceAtPosition(moveforce, forcepos, ForceMode2D.Force);
-            if (ground != null)
+            if (ground is not null)
             {
                 // this code is to move the treasures that the player is moving over.
                 // disabled for now
