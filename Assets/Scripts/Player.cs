@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
 public class Player : MonoBehaviour
@@ -10,35 +11,22 @@ public class Player : MonoBehaviour
 
     public float maxEnergy;
     public float energyDecreaseFactor;
-    
+
     Rigidbody2D playerRigidbody;
-    public Vector2 armPosition = new Vector2(0, 0.45f);
     public PolygonCollider2D gearCollider;
     private float speed = 8f;
     public float floatingSpeedFactor;
 
-    private ParticleSystem particleSystem;    
+    private ParticleSystem particleSystem;
     public ParticleSystem burstParticleSystem;
 
     private Waterphysics waterPhysics;
-
-    private HingeJoint2D joint1;
-    Vector2 joint1Pos;
-    GameObject joint1Object;
-    
-    HingeJoint2D joint2;
-    Vector2 joint2Pos; 
-    GameObject joint2Object;
-    
-    HingeJoint2D joint3;
-    Vector2 joint3Pos;
-    GameObject joint3Object;
 
     private Vector3 lastPosition;
 
     private float counterUntilRespawn = 0;
     private float respawnTime = 5f;
-    
+
     public float jumpForce;
     public float verticalJumpForce;
     public float jumpCooldown;
@@ -48,33 +36,24 @@ public class Player : MonoBehaviour
     private int currentNumberOfJumps = 0;
 
     public GameObject directionalChild;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public GameObject[] arms;
+    int activatedArm = 0;
+
+    public int [] armStrengths;
+
+
+
+// Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         particleSystem = GetComponentInChildren<ParticleSystem>();
         waterPhysics = GetComponent<Waterphysics>();
-        
-        joint1 = GetComponent<HingeJoint2D>();
-        joint1Pos = joint1.anchor;
-        joint1Object = joint1.connectedBody.gameObject;
-        joint2 = joint1Object.GetComponent<HingeJoint2D>();
-        joint2Pos = joint2.anchor;
-        joint2Object = joint2.connectedBody.gameObject;
-        joint3 = joint2Object.GetComponent<HingeJoint2D>();
-        joint3Pos = joint3.anchor;
-        joint3Object = joint3.connectedBody.gameObject;
-
         energy = maxEnergy;
+        //activate_arm(0);
     }
-
-    public void fixJoints()
-    {
-        joint1.anchor = joint1Pos;
-        joint2.anchor = joint2Pos;
-        joint3.anchor = joint3Pos;
-    }
+    
 
     private void Update()
     {
@@ -83,10 +62,67 @@ public class Player : MonoBehaviour
         Vector2 playerPos = playerRigidbody.transform.position;
         // get the angle and rotate the directional child
         float angle = Mathf.Atan2(mousePos.y - playerPos.y, mousePos.x - playerPos.x) * Mathf.Rad2Deg;
-        // don't change it too suddenly,
-        // iterpolate it a bit directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        check_cheats();
         Vector3 targetRotation = new Vector3(0, 0, angle);
         directionalChild.transform.rotation = Quaternion.RotateTowards(directionalChild.transform.rotation, Quaternion.Euler(targetRotation), 360 * Time.deltaTime);
+
+    }
+
+    private void check_cheats()
+    {
+        // activate arm on strg + number
+        if (Keyboard.current.leftShiftKey.isPressed)
+        {
+            if(Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                activate_arm(0);
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                activate_arm(1);
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                activate_arm(2);
+            }
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+            {
+                activate_arm(3);
+            }
+        }
+    }
+
+    public void activate_arm(int i_arm)
+    {
+        // deactivate all arms
+        for (int i = 0; i < arms.Length; i++)
+        {
+            arms[i].gameObject.SetActive(false);
+        }
+        // activate the selected arm
+        arms[i_arm].gameObject.SetActive(true);
+        activatedArm = i_arm;
+        var hingeJoint = GetComponent<HingeJoint2D>();
+        if (hingeJoint != null)
+        {
+            Destroy(hingeJoint);
+        }
+        // add a hinge joint to the player
+        var arm = arms[i_arm];
+        HingeJoint2D joint = gameObject.AddComponent<HingeJoint2D>();
+        joint.anchor = arm.transform.localPosition;
+        joint.connectedBody = arm.GetComponentInChildren<Arm>().Link1.GetComponent<Rigidbody2D>();
+        
+        activatedArm = i_arm;
+    }
+    
+    public void setArmStrengthLevel(int level)
+    {
+        for(int i = 0; i < arms.Length; i++)
+        {
+            arms[i].GetComponent<Arm>().armStrength = armStrengths[level];
+        }
     }
 
     private void FixedUpdate()
@@ -115,10 +151,10 @@ public class Player : MonoBehaviour
         if (World.Instance.cage.state == CageState.OnShip)
         {
             // if we fell 10 blocks into the water, respawn
-            if (transform.position.y < Waterphysics.waterlevel - 10 && transform.position.y > Waterphysics.waterlevel - 20)
+            if (transform.position.y < Waterphysics.waterlevel - 10)
             {
                 World.Instance.RespawnPlayer();
-                Debug.Log("Respawning player because they fell of the ship");
+                return;
             }
         }
         if (energy <= 0 && World.Instance.cage.state == CageState.Underwater)
