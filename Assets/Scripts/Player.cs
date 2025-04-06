@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     public Vector2 armPosition = new Vector2(0, 0.45f);
     public PolygonCollider2D gearCollider;
     private float speed = 8f;
+    private bool isMoving = false;
+
+    private ParticleSystem particleSystem;
+    private Waterphysics waterPhysics;
 
     private HingeJoint2D joint1;
     Vector2 joint1Pos;
@@ -27,6 +31,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
+        particleSystem = GetComponentInChildren<ParticleSystem>();
+        waterPhysics = GetComponent<Waterphysics>();
+        
+        
         joint1 = GetComponent<HingeJoint2D>();
         joint1Pos = joint1.anchor;
         joint1Object = joint1.connectedBody.gameObject;
@@ -61,18 +69,42 @@ public class Player : MonoBehaviour
         
         // A and D keys to move left and right
         float verticalSpeed = 0;
+        bool moveButtonPressed = false;
         if (Input.GetKey(KeyCode.A))
         {
             verticalSpeed = -1;
+            moveButtonPressed = true;
         }
         else if (Input.GetKey(KeyCode.D))
         {
             verticalSpeed = 1;
+            moveButtonPressed = true;
         }
         else
         {
             verticalSpeed = 0;
         }
+
+        if (moveButtonPressed)
+        {
+            if(!isMoving )
+            {
+                isMoving = true;
+                // enable emission
+                if (waterPhysics.Submerged())
+                {
+                    var emission = particleSystem.emission;
+                    emission.enabled = true;
+                }
+            }
+        }else if (isMoving)
+        {
+            isMoving = false;
+            // disable emission
+            var emission = particleSystem.emission;
+            emission.enabled = false;
+        }
+        
         verticalSpeed *= speed;
 
         if (verticalSpeed != 0)
