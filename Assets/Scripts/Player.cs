@@ -40,7 +40,9 @@ public class Player : MonoBehaviour
     public GameObject[] arms;
     int activatedArm = 0;
 
-    public int [] armStrengths;
+    int [] armStrengths = { 400, 600, 800, 1200 };
+
+    int [] speeds = { 6, 8, 12, 16 };
 
 
 
@@ -71,8 +73,8 @@ public class Player : MonoBehaviour
 
     private void check_cheats()
     {
-        // activate arm on strg + number
-        if (Keyboard.current.leftShiftKey.isPressed)
+        // arm
+        if (Keyboard.current.aKey.isPressed)
         {
             if(Keyboard.current.digit1Key.wasPressedThisFrame)
             {
@@ -86,9 +88,45 @@ public class Player : MonoBehaviour
             {
                 activate_arm(2);
             }
+        }
+        // speed
+        if (Keyboard.current.sKey.isPressed)
+        {
+            if(Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                setSpeedLevel(0);
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                setSpeedLevel(1);
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                setSpeedLevel(2);
+            }
             else if (Keyboard.current.digit4Key.wasPressedThisFrame)
             {
-                activate_arm(3);
+                setSpeedLevel(3);
+            }
+        }
+        // arm strength k
+        if (Keyboard.current.kKey.isPressed)
+        {
+            if(Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                setArmStrengthLevel(0);
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                setArmStrengthLevel(1);
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                setArmStrengthLevel(2);
+            }
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+            {
+                setArmStrengthLevel(3);
             }
         }
     }
@@ -123,6 +161,11 @@ public class Player : MonoBehaviour
         {
             arms[i].GetComponent<Arm>().armStrength = armStrengths[level];
         }
+    }
+    
+    public void setSpeedLevel(int level)
+    {
+        speed = speeds[level];
     }
 
     private void FixedUpdate()
