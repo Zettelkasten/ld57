@@ -100,12 +100,10 @@ public class Player : MonoBehaviour
                 counterUntilRespawn = 0;
             }
         }
-    }
-
-    void Update()
-    {
-        upright();
         
+        
+        // movement code
+        upright();
         
         // A and D keys to move left and right
         float verticalSpeed = 0;
@@ -205,7 +203,7 @@ public class Player : MonoBehaviour
         float angleDiff = targetAngle - transform.rotation.eulerAngles.z;
         // rotate the player to the target angle
         float rotationSpeed = 0.1f;
-        float rotation = angleDiff * rotationSpeed * Time.deltaTime;
+        float rotation = angleDiff * rotationSpeed * Time.fixedDeltaTime;
         playerRigidbody.angularVelocity += rotation;
     }
     
