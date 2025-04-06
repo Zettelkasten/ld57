@@ -72,6 +72,22 @@ public class Player : MonoBehaviour
         joint3.anchor = joint3Pos;
     }
 
+    private void Update()
+    {
+        // update the direction of the player
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 playerPos = playerRigidbody.transform.position;
+        bool flipped = mousePos.x < playerPos.x;
+        if (flipped)
+        {
+            directionalChild.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            directionalChild.transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
+
     private void FixedUpdate()
     {
         // upright the player a bit
