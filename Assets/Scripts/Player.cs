@@ -1,13 +1,24 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class Player : MonoBehaviour
 {
+    public int money;
+    public float energy;
+
+    public float maxEnergy;
+    public float energyDecreaseFactor;
     
     Rigidbody2D playerRigidbody;
     public Vector2 armPosition = new Vector2(0, 0.45f);
     public PolygonCollider2D gearCollider;
-    private float speed = 5f;
+    private float speed = 8f;
+    private bool isMoving = false;
+
+    private ParticleSystem particleSystem;
+    private Waterphysics waterPhysics;
 
     private HingeJoint2D joint1;
     Vector2 joint1Pos;
@@ -20,11 +31,19 @@ public class Player : MonoBehaviour
     HingeJoint2D joint3;
     Vector2 joint3Pos;
     GameObject joint3Object;
+
+    private Vector3 lastPosition;
+
+    private float counterUntilRespawn = 0;
+    private float respawnTime = 5f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
+        particleSystem = GetComponentInChildren<ParticleSystem>();
+        waterPhysics = GetComponent<Waterphysics>();
+        
         joint1 = GetComponent<HingeJoint2D>();
         joint1Pos = joint1.anchor;
         joint1Object = joint1.connectedBody.gameObject;
@@ -34,8 +53,8 @@ public class Player : MonoBehaviour
         joint3 = joint2Object.GetComponent<HingeJoint2D>();
         joint3Pos = joint3.anchor;
         joint3Object = joint3.connectedBody.gameObject;
-        
-        
+
+        energy = maxEnergy;
     }
 
     public void fixJoints()
@@ -45,6 +64,44 @@ public class Player : MonoBehaviour
         joint3.anchor = joint3Pos;
     }
 
+    private void FixedUpdate()
+    {
+        // upright the player a bit
+        playerRigidbody.angularVelocity *= 0.99f;
+        playerRigidbody.angularVelocity -= playerRigidbody.rotation * 0.1f;
+
+        if (lastPosition != null)
+        {
+            // decrease energy based on the distance moved
+            float distance = Vector2.Distance(lastPosition, transform.position);
+            energy -= distance * energyDecreaseFactor;
+            if (energy < 0)
+            {
+                energy = 0;
+            }
+        }
+        lastPosition = transform.position;
+        
+        if (World.Instance.cage.state != CageState.Underwater)
+        {
+            energy = maxEnergy;
+        }
+        if (energy <= 0 && World.Instance.cage.state == CageState.Underwater)
+        {
+            // disable player movement
+            playerRigidbody.linearVelocity = Vector2.zero;
+            
+            // if the player is out of energy, they respawn until the counter is up
+            counterUntilRespawn += Time.deltaTime;
+            if (counterUntilRespawn >= respawnTime)
+            {
+                // respawn the player
+                World.Instance.RespawnPlayer();
+                counterUntilRespawn = 0;
+            }
+        }
+    }
+
     void Update()
     {
         upright();
@@ -52,18 +109,42 @@ public class Player : MonoBehaviour
         
         // A and D keys to move left and right
         float verticalSpeed = 0;
+        bool moveButtonPressed = false;
         if (Input.GetKey(KeyCode.A))
         {
             verticalSpeed = -1;
+            moveButtonPressed = true;
         }
         else if (Input.GetKey(KeyCode.D))
         {
             verticalSpeed = 1;
+            moveButtonPressed = true;
         }
         else
         {
             verticalSpeed = 0;
         }
+
+        if (moveButtonPressed)
+        {
+            if(!isMoving )
+            {
+                isMoving = true;
+                // enable emission
+                if (waterPhysics.Submerged())
+                {
+                    var emission = particleSystem.emission;
+                    emission.enabled = true;
+                }
+            }
+        }else if (isMoving)
+        {
+            isMoving = false;
+            // disable emission
+            var emission = particleSystem.emission;
+            emission.enabled = false;
+        }
+        
         verticalSpeed *= speed;
 
         if (verticalSpeed != 0)
@@ -107,7 +188,6 @@ public class Player : MonoBehaviour
 
             }
         }
-        
     }
 
     private void upright()
@@ -127,7 +207,19 @@ public class Player : MonoBehaviour
         float rotationSpeed = 0.1f;
         float rotation = angleDiff * rotationSpeed * Time.deltaTime;
         playerRigidbody.angularVelocity += rotation;
-        // 
+    }
+    
+    public string GetTopText()
+    {
+        // energy to int
+        int energy = (int) this.energy;
+        // depth to int
+        int depth = (int) ((transform.position.y - 100) * -1);
+        if (depth < 10)
+        {
+            depth = 0;
+        }
+        return energy + " ENERGY - " + depth + "m DEPTH - " + money + " GOLD";
     }
 }
 
