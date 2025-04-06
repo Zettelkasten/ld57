@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,8 @@ public enum CageState
     Sinking = 1,
     Underwater = 2,
     Rising = 3,
-    SellingItems = 4
+    SellingItems = 4,
+    SinkingWithoutPlayer = 5
 }
 public class Cage : MonoBehaviour
 {
@@ -51,28 +53,42 @@ public class Cage : MonoBehaviour
         switch (state)
         {
             case CageState.Sinking:
+            case CageState.SinkingWithoutPlayer:
             case CageState.Rising:
-                // make the player a child of the cage
-                //World.Instance.player.transform.SetParent(this.transform);
-                World.Instance.player.fixJoints();
-                
-                FixedJoint2D joint = cageRigidbody.gameObject.AddComponent<FixedJoint2D>();
-                joint.connectedBody = playerRigidbody;
-                joint.autoConfigureConnectedAnchor = false;
-                //joint.anchor = playerPivot.localPosition;
-                joints.Add(joint);
-                
-                //World.Instance.player.transform.SetParent(this.transform);
-                // make all the things on the cage a child of the cage
-                sinkingAttachedTreasures = GetTreasuresOnPlatform();
-                foreach (var thing in sinkingAttachedTreasures)
+                if (state != CageState.SinkingWithoutPlayer)
                 {
-                    thing.transform.SetParent(this.transform);
+                    // make the player a child of the cage
+                    //World.Instance.player.transform.SetParent(this.transform);
+                    World.Instance.player.fixJoints();
+
+                    FixedJoint2D joint = cageRigidbody.gameObject.AddComponent<FixedJoint2D>();
+                    joint.connectedBody = playerRigidbody;
+                    joint.autoConfigureConnectedAnchor = false;
+                    //joint.anchor = playerPivot.localPosition;
+                    joints.Add(joint);
+
+                    //World.Instance.player.transform.SetParent(this.transform);
+                    // make all the things on the cage a child of the cage
+                    sinkingAttachedTreasures = GetTreasuresOnPlatform();
+                    foreach (var thing in sinkingAttachedTreasures)
+                    {
+                        thing.transform.SetParent(this.transform);
+                    }
+
+                    Debug.Log("Sinking treasures: " + sinkingAttachedTreasures.Count);
+                    
+                    sinkProgress = 0;
                 }
-                Debug.Log("Sinking treasures: " + sinkingAttachedTreasures.Count);
+                else
+                {
+                    // don't want the player to get hit by the falling cage
+                    cageRigidbody.GetComponent<Collider2D>().enabled = false;
+                    // also don't want player to wait so long, so skip forward a bit
+                    sinkProgress = 0.7f;
+                }
+
                 // Disable the ship collider
                 World.Instance.aboveSea.shipCollider.enabled = false;
-                sinkProgress = 0;
                 break;
             case CageState.SellingItems:
                 sellingItemProgress = 0;
@@ -91,6 +107,7 @@ public class Cage : MonoBehaviour
         switch (state)
         {
             case CageState.Sinking:
+            case CageState.SinkingWithoutPlayer:
             case CageState.Rising:
                 var fromPos = World.Instance.currentAnchor.pivot.position + World.Instance.aboveSeaOffset;
                 var toPos = World.Instance.currentAnchor.pivot.position;
@@ -103,31 +120,38 @@ public class Cage : MonoBehaviour
                 this.transform.position = Vector3.Lerp(fromPos, toPos, Helpers.EaseInOutQuad(sinkProgress));
                 if (sinkProgress >= 1)
                 {
-                    // make the player a child of the game scene
-                    //World.Instance.player.transform.SetParent(null);
-                    // destroy the joints
-                    foreach (var joint2D in joints)
+                    if (state != CageState.SinkingWithoutPlayer)
                     {
-                        Destroy(joint2D);
+                        // make the player a child of the game scene
+                        //World.Instance.player.transform.SetParent(null);
+                        // destroy the joints
+                        foreach (var joint2D in joints)
+                        {
+                            Destroy(joint2D);
+                        }
+                        //World.Instance.player.transform.SetParent(null);
+                        World.Instance.player.fixJoints();
+                        // make all the things on the cage a child of the game scene
+                        foreach (var thing in sinkingAttachedTreasures)
+                        {
+                            thing.transform.SetParent(null);
+                        }
+                        // populate items to sell
+                        Debug.Log("Sinking treasures: " + sinkingAttachedTreasures.Count);
+                        if (state == CageState.Rising)
+                        {
+                            Debug.Log("Selling them");
+                            itemsToBeSold = sinkingAttachedTreasures;
+                        }
                     }
-                    //World.Instance.player.transform.SetParent(null);
-                    World.Instance.player.fixJoints();
-                    // make all the things on the cage a child of the game scene
-                    foreach (var thing in sinkingAttachedTreasures)
+                    else
                     {
-                        thing.transform.SetParent(null);
+                        cageRigidbody.GetComponent<Collider2D>().enabled = true;
                     }
+
                     // Enable the ship collider
                     World.Instance.aboveSea.shipCollider.enabled = true;
-                    // populate items to sell
-                    
-                    Debug.Log("Sinking treasures: " + sinkingAttachedTreasures.Count);
-                    if (state == CageState.Rising)
-                    {
-                        Debug.Log("Selling them");
-                        itemsToBeSold = sinkingAttachedTreasures;
-                    }
-                    SetState(state == CageState.Sinking ? CageState.Underwater : CageState.SellingItems);
+                    SetState(state == CageState.Rising ? CageState.SellingItems : CageState.Underwater);
                 }
                 break;
             case CageState.SellingItems:
