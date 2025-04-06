@@ -60,5 +60,16 @@ public class World : MonoBehaviour
         var topButtonAlpha = cage.state is CageState.Sinking or CageState.Rising ? 0 : 1;
         topButton.alpha = Mathf.MoveTowards(topButton.alpha, topButtonAlpha, Time.deltaTime * 5);
         topButtonText.text = player.GetTopText();
+        
+        // respawn player if cage is in underwater or on ship
+        if (Input.GetKeyDown(KeyCode.R) && cage.state is CageState.Underwater or CageState.OnShip)
+        {
+            RepositionShip();
+            player.transform.position = cage.playerPivot.position;
+            player.transform.rotation = Quaternion.identity;
+            // reset player velocity
+            player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+            player.GetComponent<Rigidbody2D>().angularVelocity = 0;
+        }
     }
 }
