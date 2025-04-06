@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     Rigidbody2D playerRigidbody;
     public PolygonCollider2D gearCollider;
     private float speed = 8f;
+    private float gearStrength = 1f;
     public float floatingSpeedFactor;
 
     private ParticleSystem particleSystem;
@@ -43,7 +44,21 @@ public class Player : MonoBehaviour
 
     int [] armStrengths = { 400, 600, 800, 1200 };
 
-    int [] speeds = { 6, 8, 12, 16 };
+    int [] gearSpeeds = { 5, 8, 14, 22 };
+    float [] gearStrengths = { 1, 1.5f, 2, 3 };
+    
+    int [] energyLevels = { 60, 120 , 240, 480 };
+
+    public GameObject gear;
+    float [] gear_upgrade_scales = {1f, 1.15f, 1.3f, 1.5f};
+    public GameObject battery;
+    float [] battery_upgrade_scales = {1f, 1.15f, 1.3f, 1.6f};
+    
+    public Upgrade armlengthupgrade;
+    public Upgrade armstrengthupgrade;
+    public Upgrade speedupgrade;
+    public Upgrade jumpupgrade;
+    public Upgrade energyupgrade;
 
     private float lightActiveTime;
     private string lightFlickerStates = "mmmaaammmaaammmabcdefaaaammmmabcdefmmmaaaa";  // a is dimmest, z ist lightest
@@ -124,19 +139,19 @@ public class Player : MonoBehaviour
         {
             if(Keyboard.current.digit1Key.wasPressedThisFrame)
             {
-                setSpeedLevel(0);
+                setGearLevel(0);
             }
             else if (Keyboard.current.digit2Key.wasPressedThisFrame)
             {
-                setSpeedLevel(1);
+                setGearLevel(1);
             }
             else if (Keyboard.current.digit3Key.wasPressedThisFrame)
             {
-                setSpeedLevel(2);
+                setGearLevel(2);
             }
             else if (Keyboard.current.digit4Key.wasPressedThisFrame)
             {
-                setSpeedLevel(3);
+                setGearLevel(3);
             }
         }
         // arm strength k
@@ -158,6 +173,72 @@ public class Player : MonoBehaviour
             {
                 setArmStrengthLevel(3);
             }
+        }
+        // energy b
+        if (Keyboard.current.bKey.isPressed)
+        {
+            if(Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                setEnergyLevel(0);
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                setEnergyLevel(1);
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                setEnergyLevel(2);
+            }
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+            {
+                setEnergyLevel(3);
+            }
+        }
+        // jump j
+        if (Keyboard.current.jKey.isPressed)
+        {
+            if(Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                setJumpLevel(0);
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                setJumpLevel(1);
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                setJumpLevel(2);
+            }
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+            {
+                setJumpLevel(3);
+            }
+        }
+        // gear g
+        if (Keyboard.current.gKey.isPressed)
+        {
+            if(Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                setGearLevel(0);
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                setGearLevel(1);
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                setGearLevel(2);
+            }
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+            {
+                setGearLevel(3);
+            }
+        }
+        
+        // give money on shift + m
+        if (Keyboard.current.mKey.isPressed && Keyboard.current.leftShiftKey.wasPressedThisFrame)
+        {
+            money += 500;
         }
     }
 
@@ -193,10 +274,52 @@ public class Player : MonoBehaviour
         }
     }
     
-    public void setSpeedLevel(int level)
+    public void setGearLevel(int level)
     {
-        speed = speeds[level];
+        speed = gearSpeeds[level];
+        
+        gear.transform.localScale = new Vector3(gear_upgrade_scales[level], gear_upgrade_scales[level], 1);
     }
+    
+    public void setJumpLevel(int level)
+    {
+        maxNumberOfJumps = 1 + level;
+    }
+    public void setEnergyLevel(int level)
+    {
+        maxEnergy = energyLevels[level];
+        battery.transform.localScale = new Vector3(battery_upgrade_scales[level], battery_upgrade_scales[level], 1);
+        energy = maxEnergy;
+    }
+    
+    public void onArmLengthUpgradeEvent()
+    {
+        int current_level = UpgradeManager.Instance.GetSelectedLevelOfUpgrade(armlengthupgrade);
+        activate_arm(current_level);
+    }
+    
+    public void onArmStrengthUpgradeEvent()
+    {
+        int current_level = UpgradeManager.Instance.GetSelectedLevelOfUpgrade(armstrengthupgrade);
+        setArmStrengthLevel(current_level);
+    }
+    public void onSpeedUpgradeEvent()
+    {
+        int current_level = UpgradeManager.Instance.GetSelectedLevelOfUpgrade(speedupgrade);
+        setGearLevel(current_level);
+    }
+    public void onJumpUpgradeEvent()
+    {
+        int current_level = UpgradeManager.Instance.GetSelectedLevelOfUpgrade(jumpupgrade);
+        setJumpLevel(current_level);
+    }
+    public void onEnergyUpgradeEvent()
+    {
+        int current_level = UpgradeManager.Instance.GetSelectedLevelOfUpgrade(jumpupgrade);
+        setEnergyLevel(current_level);
+    }
+    
+    
 
     private void FixedUpdate()
     {
@@ -328,7 +451,7 @@ public class Player : MonoBehaviour
                 verticalSpeed * Mathf.Sin(direction * Mathf.Deg2Rad));
 
             Vector2 speeddif = movespeed - playerRigidbody.linearVelocity;
-            float traction = 1 / (1 + speeddif.magnitude);
+            float traction = 1 / (1 + speeddif.magnitude) * gearStrength;
             Vector2 moveforce = traction * 500 * speeddif;
             // hack by frithjof, we don't want the force to influence the y axis
             if(ground is null)

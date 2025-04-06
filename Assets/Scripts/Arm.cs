@@ -7,7 +7,7 @@ public class Arm : MonoBehaviour
     private float armLength = 2.5f;
     public float armStrength = 500f;
     private Rigidbody2D armRigidbody;
-    FixedJoint2D joint;
+    HingeJoint2D joint;
 
     public GameObject Link1;
     public GameObject Link2;
@@ -119,7 +119,7 @@ public class Arm : MonoBehaviour
                     if (hit is not null)
                     {
                         GameObject obj = hit.gameObject;
-                        joint = gameObject.AddComponent<FixedJoint2D>();
+                        joint = gameObject.AddComponent<HingeJoint2D>();
                         joint.connectedBody = obj.GetComponent<Rigidbody2D>();
                         isGrabbing = true;
                     }
