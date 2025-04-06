@@ -31,6 +31,12 @@ public class Arm : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!World.Instance.BottomUIAvailable())
+        {
+            // if the player is in a dialogue, don't move
+            return;
+        }
+        
         if(joint is not null)
         {
             if (joint.connectedBody == null)

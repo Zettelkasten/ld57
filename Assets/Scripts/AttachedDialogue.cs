@@ -17,6 +17,12 @@ public class AttachedDialogue : MonoBehaviour
     private float currentLineProgress = 0;
     
     public DialogueTrigger trigger;
+    private bool alreadyFound;
+
+    void Start()
+    {
+        alreadyFound = false;
+    }
     
     public void PlayDialogue()
     {
@@ -27,10 +33,24 @@ public class AttachedDialogue : MonoBehaviour
 
     void Update()
     {
+        // if the player comes close, it will count as "found"
+        if (!alreadyFound && trigger == DialogueTrigger.PlayWhenItemIsFound)
+        {
+            // distance to player
+            var distance = Vector2.Distance(World.Instance.player.transform.position, transform.position);
+            if (distance < World.Instance.discoverTreasureDistance)
+            {
+                alreadyFound = true;
+                PlayDialogue();
+            }
+        }
+
+
         if (!playing)
         {
             return;
         }
+
         if (currentLine >= dialogue.Count)
         {
             playing = false;
@@ -58,6 +78,7 @@ public class AttachedDialogue : MonoBehaviour
                 currentLineProgress = World.Instance.timePerDialogueChar * dialogue[currentLine].Length;
                 charsShown = dialogue[currentLine].Length;
             }
+
             World.Instance.ShowDialogueText(dialogue[currentLine].Substring(0, charsShown));
         }
     }

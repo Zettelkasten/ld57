@@ -11,6 +11,7 @@ public enum CageState
     SellingItems = 4,
     SinkingWithoutPlayer = 5
 }
+
 public class Cage : MonoBehaviour
 {
     public CageState state;
@@ -170,6 +171,7 @@ public class Cage : MonoBehaviour
                 }
                 if (itemsToBeSold.Count == 0)
                 {
+                    World.Instance.upgradeScreen.SetActive(true);
                     SetState(CageState.OnShip);
                 }
                 else

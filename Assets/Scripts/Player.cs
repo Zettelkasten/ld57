@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
@@ -44,7 +45,8 @@ public class Player : MonoBehaviour
 
     int [] speeds = { 6, 8, 12, 16 };
 
-
+    private float lightActiveTime;
+    private string lightFlickerStates = "mmmaaammmaaammmabcdefaaaammmmabcdefmmmaaaa";  // a is dimmest, z ist lightest
 
 // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -64,13 +66,37 @@ public class Player : MonoBehaviour
         Vector2 playerPos = playerRigidbody.transform.position;
         // get the angle and rotate the directional child
         float angle = Mathf.Atan2(mousePos.y - playerPos.y, mousePos.x - playerPos.x) * Mathf.Rad2Deg;
-        directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         // don't change it too suddenly,
         // iterpolate it a bit directionalChild.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         Vector3 targetRotation = new Vector3(0, 0, angle);
         directionalChild.transform.rotation = Quaternion.RotateTowards(directionalChild.transform.rotation, Quaternion.Euler(targetRotation), 360 * Time.deltaTime);
 
+        var lightActivate = !(World.Instance.cage.state is CageState.OnShip or CageState.Sinking);
+        if (!directionalChild.activeSelf && lightActivate)
+        {
+            lightActiveTime = 0;
+        }
+        directionalChild.SetActive(lightActivate);
+        if (lightActivate)
+        {
+            lightActiveTime += Time.deltaTime;
+            // flickering according to lookup table
+            int index = (int) (lightActiveTime * 20);
+            if (index >= lightFlickerStates.Length)
+            {
+                directionalChild.GetComponentInChildren<Light2D>().intensity = 1;
+            }
+            else
+            {
+                char flickerState = lightFlickerStates[index];
+                // a is dimmest, z is lightest
+                float lightIntensity = (float) (flickerState - 'a') / ('z' - 'a');
+                Debug.Log(lightIntensity);
+                directionalChild.GetComponentInChildren<Light2D>().intensity = lightIntensity;
+            }
+        }
+        
         check_cheats();
     }
 
@@ -173,6 +199,12 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!World.Instance.BottomUIAvailable())
+        {
+            // if the player is in a dialogue, don't move
+            return;
+        }
+        
         // upright the player a bit
         playerRigidbody.angularVelocity *= 0.99f;
         playerRigidbody.angularVelocity -= playerRigidbody.rotation * 0.1f;

@@ -41,6 +41,9 @@ public class World : MonoBehaviour
 
     public GameObject Bubbletail;
     
+    public GameObject upgradeScreen;
+    public GameObject openUpgradeScreenButton;
+    
     public void Start()
     {
         RepositionShip();
@@ -127,11 +130,14 @@ public class World : MonoBehaviour
         {
             RespawnPlayer();
         }
+        
+        openUpgradeScreenButton.SetActive(cage.state == CageState.OnShip && BottomUIAvailable());
     }
 
     public bool BottomUIAvailable()
     {
-        return !DialogueUI.activeSelf;
+        // also to check if player can press E to interact with the cage
+        return !DialogueUI.activeSelf && !upgradeScreen.activeSelf;
     }
 
     public void RespawnPlayer()
