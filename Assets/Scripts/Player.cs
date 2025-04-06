@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
     GameObject joint3Object;
 
     private Vector3 lastPosition;
+
+    private float counterUntilRespawn = 0;
+    private float respawnTime = 5f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,7 +43,6 @@ public class Player : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody2D>();
         particleSystem = GetComponentInChildren<ParticleSystem>();
         waterPhysics = GetComponent<Waterphysics>();
-        
         
         joint1 = GetComponent<HingeJoint2D>();
         joint1Pos = joint1.anchor;
@@ -83,6 +85,20 @@ public class Player : MonoBehaviour
         if (World.Instance.cage.state != CageState.Underwater)
         {
             energy = maxEnergy;
+        }
+        if (energy <= 0 && World.Instance.cage.state == CageState.Underwater)
+        {
+            // disable player movement
+            playerRigidbody.linearVelocity = Vector2.zero;
+            
+            // if the player is out of energy, they respawn until the counter is up
+            counterUntilRespawn += Time.deltaTime;
+            if (counterUntilRespawn >= respawnTime)
+            {
+                // respawn the player
+                World.Instance.RespawnPlayer();
+                counterUntilRespawn = 0;
+            }
         }
     }
 

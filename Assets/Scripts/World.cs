@@ -64,12 +64,17 @@ public class World : MonoBehaviour
         // respawn player if cage is in underwater or on ship
         if (Input.GetKeyDown(KeyCode.R) && cage.state is CageState.Underwater or CageState.OnShip)
         {
-            RepositionShip();
-            player.transform.position = cage.playerPivot.position;
-            player.transform.rotation = Quaternion.identity;
-            // reset player velocity
-            player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-            player.GetComponent<Rigidbody2D>().angularVelocity = 0;
+            RespawnPlayer();
         }
+    }
+
+    public void RespawnPlayer()
+    {
+        RepositionShip();
+        player.transform.position = cage.playerPivot.position;
+        player.transform.rotation = Quaternion.identity;
+        // reset player velocity
+        player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        player.GetComponent<Rigidbody2D>().angularVelocity = 0;
     }
 }
