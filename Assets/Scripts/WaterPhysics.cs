@@ -13,7 +13,7 @@ public class Waterphysics : MonoBehaviour
     [FormerlySerializedAs("upright")] public bool uprighting = true;
     public bool applyGravity = false;
     public float uprighting_force = 0.2f;
-    public float waterlevel = 98f;
+    public static float waterlevel = 98f;
     
     float transition_height = 0.3f;
     long nextwobble = 0;
