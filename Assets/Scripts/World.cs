@@ -25,6 +25,9 @@ public class World : MonoBehaviour
     public TextMeshProUGUI bottomButtonText;
 
     private bool showBottomText = false;
+
+    public CanvasGroup topButton;
+    public TextMeshProUGUI topButtonText;
     
     public void Start()
     {
@@ -53,5 +56,9 @@ public class World : MonoBehaviour
         group.interactable = showBottomText;
         group.blocksRaycasts = showBottomText;
         showBottomText = false;
+        
+        var topButtonAlpha = cage.state is CageState.Sinking or CageState.Rising ? 0 : 1;
+        topButton.alpha = Mathf.MoveTowards(topButton.alpha, topButtonAlpha, Time.deltaTime * 5);
+        topButtonText.text = player.GetTopText();
     }
 }

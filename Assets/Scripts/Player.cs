@@ -1,10 +1,15 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class Player : MonoBehaviour
 {
     public int money;
+    public float energy;
+
+    public float maxEnergy;
+    public float energyDecreaseFactor;
     
     Rigidbody2D playerRigidbody;
     public Vector2 armPosition = new Vector2(0, 0.45f);
@@ -22,6 +27,8 @@ public class Player : MonoBehaviour
     HingeJoint2D joint3;
     Vector2 joint3Pos;
     GameObject joint3Object;
+
+    private Vector3 lastPosition;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,8 +43,8 @@ public class Player : MonoBehaviour
         joint3 = joint2Object.GetComponent<HingeJoint2D>();
         joint3Pos = joint3.anchor;
         joint3Object = joint3.connectedBody.gameObject;
-        
-        
+
+        energy = maxEnergy;
     }
 
     public void fixJoints()
@@ -52,6 +59,23 @@ public class Player : MonoBehaviour
         // upright the player a bit
         playerRigidbody.angularVelocity *= 0.99f;
         playerRigidbody.angularVelocity -= playerRigidbody.rotation * 0.1f;
+
+        if (lastPosition != null)
+        {
+            // decrease energy based on the distance moved
+            float distance = Vector2.Distance(lastPosition, transform.position);
+            energy -= distance * energyDecreaseFactor;
+            if (energy < 0)
+            {
+                energy = 0;
+            }
+        }
+        lastPosition = transform.position;
+        
+        if (World.Instance.cage.state != CageState.Underwater)
+        {
+            energy = maxEnergy;
+        }
     }
 
     void Update()
@@ -116,7 +140,6 @@ public class Player : MonoBehaviour
 
             }
         }
-        
     }
 
     private void upright()
@@ -136,7 +159,19 @@ public class Player : MonoBehaviour
         float rotationSpeed = 0.1f;
         float rotation = angleDiff * rotationSpeed * Time.deltaTime;
         playerRigidbody.angularVelocity += rotation;
-        // 
+    }
+    
+    public string GetTopText()
+    {
+        // energy to int
+        int energy = (int) this.energy;
+        // depth to int
+        int depth = (int) ((transform.position.y - 100) * -1);
+        if (depth < 10)
+        {
+            depth = 0;
+        }
+        return energy + " ENERGY - " + depth + "m DEPTH - " + money + " GOLD";
     }
 }
 
