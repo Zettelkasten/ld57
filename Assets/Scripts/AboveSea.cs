@@ -8,6 +8,8 @@ public class AboveSea : MonoBehaviour
     public Collider2D shipCollider;
     public Collider2D cageEnterCollider;
     
+    public ParticleSystem waterSplashParticles;
+    
     public void Update()
     {
         // if player is in the cage enter collider and presses "E", set the cage state to Sinking

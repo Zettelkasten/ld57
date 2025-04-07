@@ -131,7 +131,21 @@ public class Cage : MonoBehaviour
                 }
 
                 sinkProgress += Time.fixedDeltaTime * sinkSpeed;
+                var lastY = transform.position.y;
                 this.transform.position = Vector3.Lerp(fromPos, toPos, Helpers.EaseInOutQuad(sinkProgress));
+                var thisY = transform.position.y;
+                
+                var waterLevelY = World.Instance.aboveSea.waterSplashParticles.transform.position.y;
+                if (state == CageState.Sinking && thisY < waterLevelY && lastY >= waterLevelY)
+                {
+                    // splash
+                    World.Instance.aboveSea.waterSplashParticles.Play();
+                }
+                else if (state == CageState.Rising && thisY > waterLevelY && lastY <= waterLevelY)
+                {
+                    // splash
+                    World.Instance.aboveSea.waterSplashParticles.Play();
+                }
 
                 if (cameraPosition != null)
                 {
