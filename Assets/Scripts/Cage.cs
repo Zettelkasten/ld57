@@ -34,7 +34,7 @@ public class Cage : MonoBehaviour
     // selling items
     private float sellingItemProgress;
     public float sellingItemTime;
-    private float showShopAfterDelay;
+    public float showShopAfterDelay;
     // items to be sold
     private List<Treasure> itemsToBeSold;
     // wait for this item to end its dialogue

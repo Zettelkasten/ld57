@@ -155,7 +155,8 @@ public class World : MonoBehaviour
     public bool BottomUIAvailable()
     {
         // also to check if player can press E to interact with the cage
-        return !DialogueUI.activeSelf && !upgradeScreen.activeSelf;
+        return !DialogueUI.activeSelf && !upgradeScreen.activeSelf && cage.state != CageState.SellingItems &&
+               cage.showShopAfterDelay <= 0;
     }
 
     public void RespawnPlayer()
