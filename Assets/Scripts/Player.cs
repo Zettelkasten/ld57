@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     int [] energyLevels = { 60, 120 , 240, 480 };
 
     public GameObject gear;
-    float [] gear_upgrade_scales = {1f, 1.15f, 1.3f, 1.5f};
+    float [] gear_upgrade_scales = {1f, 1.15f, 1.3f, 1.4f};
     public GameObject battery;
     float [] battery_upgrade_scales = {1f, 1.15f, 1.3f, 1.6f};
     
