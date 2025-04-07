@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -402,11 +404,24 @@ public class Player : MonoBehaviour
                 {
                     Destroy(arm);
                 }
+                // get rigid bodies and remove "simulation"
+                var rigidbodies = playerCopy.GetComponentsInChildren<Rigidbody2D>();
+                foreach (var rb in rigidbodies)
+                {
+                    rb.simulated = false;
+                }
                 // add a Treasure script
                 var treasure = playerCopy.AddComponent<Treasure>();
-                treasure.value = 5;
+                treasure.value = 10;
                 // set layer to "Things"
                 playerCopy.layer = LayerMask.NameToLayer("Things");
+                // add component
+                var attachedDialogue = playerCopy.AddComponent<AttachedDialogue>();
+                attachedDialogue.trigger = DialogueTrigger.PlayWhenItemIsSold;
+                attachedDialogue.dialogue = new List<string>();
+                attachedDialogue.dialogue.Add("Robot:I think I have seen this robot before.");
+                attachedDialogue.dialogue.Add("Robot:It looks like it was a player once.");
+                attachedDialogue.dialogue.Add("Robot:Sad to see it like this.");
                 
                 // actually respawn
                 World.Instance.RespawnPlayer();
