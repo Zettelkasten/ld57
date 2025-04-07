@@ -51,7 +51,7 @@ public class AttachedDialogue : MonoBehaviour
     void Update()
     {
         // if the player comes close, it will count as "found"
-        if (!alreadyFound && trigger == DialogueTrigger.PlayWhenItemIsFound)
+        if (!alreadyFound && trigger == DialogueTrigger.PlayWhenItemIsFound && (World.Instance.cage.state is CageState.Underwater or CageState.OnShip))
         {
             // distance to player
             var distance = Vector2.Distance(World.Instance.player.transform.position, transform.position);
