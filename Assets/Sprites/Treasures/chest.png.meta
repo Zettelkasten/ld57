@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 60fcb539d8fd7e05598314a3c889bc06
+guid: 05eaa38cffeddafc297176095bdb9e3b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4739734133071874972
-    second: gamepad_0
+      213: -6834524911116659543
+    second: chest_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 12
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gamepad_0
+      name: chest_0
       rect:
         serializedVersion: 2
         x: 2
-        y: 3
-        width: 12
-        height: 8
+        y: 4
+        width: 28
+        height: 21
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 3, z: 0, w: 5}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c9b0b83f41be6c140800000000000000
-      internalID: 4739734133071874972
+      spriteID: 9a45550edc3e621a0800000000000000
+      internalID: -6834524911116659543
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c60e5c2fa97e48e3c8a6c6709b9efd97
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      gamepad_0: 4739734133071874972
+      chest_0: -6834524911116659543
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

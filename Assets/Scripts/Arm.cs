@@ -143,6 +143,7 @@ public class Arm : MonoBehaviour
                         isGrabbing = true;
                     }
                 }
+                SoundManager.PlaySource(World.Instance.player.armGrabSound);
             }
         }else{
             // if the mouse is released, release the object
@@ -150,6 +151,7 @@ public class Arm : MonoBehaviour
             {
                 UpdateGrabberSprite(false);
                 isGrabbing = false;
+                SoundManager.PlaySource(World.Instance.player.armReleaseSound);
             }
             if (joint is not null)
             {

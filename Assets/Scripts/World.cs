@@ -51,6 +51,12 @@ public class World : MonoBehaviour
 
     public CinemachineCamera cinemachineVirtualCamera;
     
+    // audio
+    public AudioClip shipMusic;
+    public AudioClip underwaterMusic;
+
+    public AudioSource splashAudioSource;
+    
     public void Start()
     {
         RepositionShip();
@@ -131,6 +137,19 @@ public class World : MonoBehaviour
         }
         
         openUpgradeScreenButton.SetActive(cage.state == CageState.OnShip && BottomUIAvailable());
+        
+        // audio
+        if (SoundManager.Instance != null)
+        {
+            var waterLevelY = World.Instance.aboveSea.waterSplashParticles.transform.position.y;
+            var shouldPlayUnderwaterMusic = cage.transform.position.y < waterLevelY;
+            var changed = SoundManager.Instance.PlayMusic(
+                shouldPlayUnderwaterMusic ? underwaterMusic : shipMusic);
+            if (changed)
+            {
+                SoundManager.PlaySource(splashAudioSource);
+            }
+        }
     }
 
     public bool BottomUIAvailable()

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 60fcb539d8fd7e05598314a3c889bc06
+guid: 13d515117c9510325b44ff31baabffd0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4739734133071874972
-    second: gamepad_0
+      213: -6865344981023876
+    second: nugget_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gamepad_0
+      name: nugget_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 3
-        width: 12
-        height: 8
+        x: 0
+        y: 0
+        width: 16
+        height: 12
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 3, z: 0, w: 5}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c9b0b83f41be6c140800000000000000
-      internalID: 4739734133071874972
+      spriteID: c73452f410c97eff0800000000000000
+      internalID: -6865344981023876
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c60e5c2fa97e48e3c8a6c6709b9efd97
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      gamepad_0: 4739734133071874972
+      nugget_0: -6865344981023876
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

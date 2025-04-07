@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5065354939550349343}
   - component: {fileID: 2656838930801100925}
   - component: {fileID: 4880632743388827231}
-  - component: {fileID: 5245736520644518366}
+  - component: {fileID: 5887788886795479976}
   m_Layer: 8
-  m_Name: gamepad
+  m_Name: Nugget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 837221651
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4739734133071874972, guid: 60fcb539d8fd7e05598314a3c889bc06, type: 3}
+  m_Sprite: {fileID: -6865344981023876, guid: 13d515117c9510325b44ff31baabffd0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +103,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -156,11 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db6a8f2ba4b9454f9d49b06d095a177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 2
+  value: 10
   displayScale: 8
   moveTimer: 0
   moveEndTime: 1
---- !u!70 &5245736520644518366
+--- !u!70 &5887788886795479976
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,6 +194,6 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0038641402, y: -0.004886925}
-  m_Size: {x: 0.7504021, y: 0.52713686}
+  m_Offset: {x: -0.000834287, y: -0.005789161}
+  m_Size: {x: 0.9419464, y: 0.6465712}
   m_Direction: 1

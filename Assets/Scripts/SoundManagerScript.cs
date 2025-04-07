@@ -38,10 +38,15 @@ public class SoundManager : MonoBehaviour
     }
 
     // Play a single clip through the music source.
-    public void PlayMusic(AudioClip clip)
+    public bool PlayMusic(AudioClip clip)
     {
+        if (MusicSource.clip == clip)
+        {
+            return false;
+        }
         MusicSource.clip = clip;
         MusicSource.Play();
+        return true;
     }
 
     public void SetMusicVolume(float volume)
@@ -54,5 +59,17 @@ public class SoundManager : MonoBehaviour
         EffectsSource.volume = volume;
     }
 
-
+    public static void PlaySource(AudioSource source)
+    {
+        if (Instance == null)
+        {
+            // fallback
+            source.Play();
+        }
+        else
+        {
+            source.volume = Instance.EffectsSource.volume;
+            source.Play();
+        }
+    }
 }
