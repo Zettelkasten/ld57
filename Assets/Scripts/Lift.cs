@@ -16,15 +16,15 @@ public class Lift : MonoBehaviour
     bool is_up = true;
     private float descenttime;
     private float descenttimer = 0f;
-    
-    
-    
+
+    private Vector3 originalStartPos;
     
     void Start()
     {
         platform = platformRigidbody.gameObject;
         height = platform.transform.position.y - target.position.y;
         descenttime = height / maxspeed * 2;
+        originalStartPos = platform.transform.position;
     }
 
     float get_progress()
@@ -32,24 +32,29 @@ public class Lift : MonoBehaviour
         return up_pos.y - platform.transform.position.y;
     }
 
-    // Update is called once per frame
-    private void FixedUpdate()
+    private void Update()
     {
-        float player_dist_to_lift = Vector2.Distance(World.Instance.player.transform.position, platform.transform.position);
-        if (Input.GetKeyDown(KeyCode.E) && player_dist_to_lift < 2f)
+        float distToLift = Vector2.Distance(World.Instance.player.transform.position, platform.transform.position);
+        float distToSource = Vector2.Distance(World.Instance.player.transform.position, originalStartPos);
+        float distToTarget = Vector2.Distance(World.Instance.player.transform.position, target.position);
+        bool nextToOther = (!is_up && distToSource < 8f) || (is_up && distToTarget < 8f);
+        if (direction == 0 && (distToLift < 2f || nextToOther))
         {
-            if (direction == 0){
-                // start moving
-                if (is_up)
-                {
-                    direction = -1;
+            World.Instance.ShowBottomText(distToLift < 2f ? "Press [E] to operate elevator" : "Press [E] to call elevator");
+            if (Input.GetKeyDown(KeyCode.E) || World.Instance.CheckBottomButtonClicked())
+            {
+                if (direction == 0) {
+                    // start moving
+                    if (is_up)
+                    {
+                        direction = -1;
+                    }
+                    else
+                    {
+                        direction = 1;
+                    }
+                    descenttimer = 0f;
                 }
-                else
-                {
-                    direction = 1;
-                }
-                descenttimer = 0f;
-                
             }
         }
         if(direction != 0)
