@@ -46,7 +46,9 @@ public class World : MonoBehaviour
     
     public GameObject upgradeScreen;
     public GameObject openUpgradeScreenButton;
-    
+
+    public Transform sellBox;
+
     public CinemachineCamera cinemachineVirtualCamera;
     
     public void Start()
