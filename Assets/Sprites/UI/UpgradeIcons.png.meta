@@ -113,9 +113,9 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9141c3b90de7846e0800000000000000
+      spriteID: 29464c2df129df74ab422bf76801df7a
       internalID: -1853091812240255975
       vertices: []
       indices: 
@@ -137,7 +137,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 712c98d43a388f4479c0f44577c82ec4
+      spriteID: 0e03907062516934385e72add0dc7c08
       internalID: -688030460
       vertices: []
       indices: 
@@ -159,7 +159,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e7ae06223c39ee4ba8df98b655f0c4b
+      spriteID: 73e730446a99c824785d811514e3d296
       internalID: -809117199
       vertices: []
       indices: 
@@ -181,7 +181,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e29eacf0b8539d4b9edb0123ceb36f0
+      spriteID: cb694f5b29b6f454dac55ecf9daee173
       internalID: -65064249
       vertices: []
       indices: 
@@ -203,8 +203,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a84ee76d56eaa940a6434392f904a18
+      spriteID: 3c191f8a38d442643a5ae4039696f17a
       internalID: -761685213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c37969bc9159c45bb82485bec08812
+      internalID: -575989341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 024bfb8abe3c38b4d8a1c1f0e0adae18
+      internalID: 1800228564
       vertices: []
       indices: 
       edges: []
@@ -228,6 +272,8 @@ TextureImporter:
       UpgradeIcons_2: -809117199
       UpgradeIcons_3: -65064249
       UpgradeIcons_4: -761685213
+      UpgradeIcons_5: -575989341
+      UpgradeIcons_6: 1800228564
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
