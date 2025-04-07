@@ -34,6 +34,7 @@ public class Cage : MonoBehaviour
     // selling items
     private float sellingItemProgress;
     public float sellingItemTime;
+    private float showShopAfterDelay;
     // items to be sold
     private List<Treasure> itemsToBeSold;
     // wait for this item to end its dialogue
@@ -120,6 +121,17 @@ public class Cage : MonoBehaviour
 
         switch (state)
         {
+            case CageState.OnShip:
+                if (showShopAfterDelay > 0)
+                {
+                    showShopAfterDelay -= Time.deltaTime;
+                    if (showShopAfterDelay <= 0)
+                    {
+                        World.Instance.upgradeScreen.SetActive(true);
+                        World.Instance.sellBox.displayBox.SetActive(false);
+                    }
+                }
+                break;
 			case CageState.SellingItems:
 				if (waitingForSellDialogue != null)
 				{
@@ -135,9 +147,8 @@ public class Cage : MonoBehaviour
 				}
 				if (itemsToBeSold.Count == 0)
 				{
-					World.Instance.upgradeScreen.SetActive(true);
-					World.Instance.sellBox.displayBox.SetActive(false);
 					SetState(CageState.OnShip);
+                    showShopAfterDelay = 0.5f;
 				}
 				else
 				{
