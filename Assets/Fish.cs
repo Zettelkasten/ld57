@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class Fish : MonoBehaviour
 {
@@ -7,82 +9,137 @@ public class Fish : MonoBehaviour
     
     
     
-    public float fishSpeed = 5f;
-    public float newTargetTimerMax = 2f; //maximum time to wait for a new target
-    public float timeNextTarget; // time in deltatime units
+    public float maxSpeed = 5f;
+    public float speed = 5f;
+    private float newTargetTimerMax = 2f; //maximum time to wait for a new target
+    public float timeNextTarget;
+    private float newSpeedTimerMax = 2f; //maximum time to wait for a new target
+    public float timeNextSpeed;
     public Vector2 currenttarget;
     public Vector2 currentwaypoint;
     public float toWaypointDistance = 1f; // distance from the current target into the direction of the current waypoint
     
+    SpriteRenderer fishSpriteRenderer;
     
-    int i_waypoint = 0;
+    public int i_waypoint = 0;
 
-    private float verticalRange = 10f;
-    private float horizontalRange = 1f;
+    private float verticalRange = 5f;
+    private float horizontalRange = 0.5f;
     
     
     public Transform[] waypoints;
     
     private Rigidbody2D fishRigidbody;
+
+    public Sprite[] fishsprites;
     void Start()
     {
         fishRigidbody = GetComponent<Rigidbody2D>();
         i_waypoint = 0;
         currenttarget = fishRigidbody.position;
         setTimeNextTarget();
+        setTimeNextSpeed();
+        currentwaypoint = waypoints[i_waypoint].position;
+        fishSpriteRenderer = GetComponent<SpriteRenderer>();
+        if (fishsprites.Length > 0)
+        {
+            fishSpriteRenderer.sprite = fishsprites[Random.Range(0, fishsprites.Length)];
+        }
     }
 
     private void FixedUpdate()
     {
-        fishRigidbody.linearVelocity *= 0.98f;
+        fishRigidbody.linearVelocity *= 0.95f;
         if (Time.time >= timeNextTarget)
         {
-            Vector2 dist_to_waypoint = currentwaypoint - currentwaypoint;
+            Vector2 dist_to_waypoint = currenttarget - currentwaypoint;
             if (dist_to_waypoint.magnitude < 2f)
             {
                 nextWayPoint();
             }
-            Vector2 nexttarget = currentwaypoint + (currentwaypoint - currenttarget).normalized * toWaypointDistance;
+
+            Vector2 nexttarget = currenttarget + (currentwaypoint - currenttarget).normalized * toWaypointDistance;
+            nexttarget += new Vector2(Random.Range(-verticalRange, verticalRange), Random.Range(-horizontalRange, horizontalRange));
+            currenttarget = nexttarget;
             setTimeNextTarget();
         }
+        
+         //flee player
+         Vector2 playerdistance = (Vector2)World.Instance.player.transform.position - fishRigidbody.position;
+         float distance = playerdistance.magnitude;
+         if (distance < 2)
+         {
+             currenttarget = fishRigidbody.position - playerdistance.normalized * 3;
+             speed = Random.Range(0,maxSpeed * 2f);
+         }
+         
+        // upright fish
+        var fishrotation = fishRigidbody.rotation;
+        float goal = 0;
+        float dif = goal - fishrotation;
+        if(dif > 180)
+        {
+            dif -= 360;
+        }
+        if (dif < -180)
+        {
+            dif += 360;
+        }
+        fishRigidbody.angularVelocity += dif * 2f;
+        fishRigidbody.angularVelocity *= 0.95f;
+        
+        // set new speed
+        
+        
+        if (Time.time >= timeNextSpeed)
+        {
+            speed = Random.Range(0f, maxSpeed);
+            setTimeNextSpeed();
+        }
+        
         Vector2 dist = currenttarget - fishRigidbody.position;
         if(dist.magnitude < 1f)
         {
             return;
         }
-        Vector2 movespeed = dist.normalized * fishSpeed;
+        Vector2 movespeed = dist.normalized * speed;
         Vector2 speeddif = movespeed - fishRigidbody.linearVelocity;
-        float traction = 1.0f / (1.0f + speeddif.magnitude);
+        float traction = 1.0f / (1.0f + speeddif.magnitude) * 8;
         fishRigidbody.AddForce(traction * fishRigidbody.mass * movespeed, ForceMode2D.Force);
+    }
+
+    private void Update()
+    {
+        updateDirection();
     }
 
     private void nextWayPoint()
     {
         i_waypoint++;
         i_waypoint %= waypoints.Length;
-        currenttarget = waypoints[i_waypoint].position;
+        currentwaypoint = waypoints[i_waypoint].position;
     }
 
-    private void updateAngle()
+    private void updateDirection()
     {
-        // turn into movement dir
-        Vector2 velocity = fishRigidbody.linearVelocity;
-        float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
-        float dif = angle - transform.rotation.eulerAngles.z;
-        if (dif > 180)
+        // flip the fish
+        if (fishRigidbody.linearVelocity.x >= 0)
         {
-            dif -= 360;
+            fishSpriteRenderer.flipX = false;
         }
-        else if (dif < -180)
+        else
         {
-            dif += 360;
+            fishSpriteRenderer.flipX = true;
         }
-
-        fishRigidbody.angularVelocity = dif * 0.1f;
     }
 
     void setTimeNextTarget()
     {
         timeNextTarget = Time.time + UnityEngine.Random.Range(0f, newTargetTimerMax);
+    }
+    
+    void setTimeNextSpeed()
+    {
+        timeNextSpeed = Time.time + UnityEngine.Random.Range(0f, newSpeedTimerMax);
     }
 }

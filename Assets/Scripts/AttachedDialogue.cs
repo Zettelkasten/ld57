@@ -6,6 +6,7 @@ public enum DialogueTrigger
 {
     PlayWhenItemIsFound = 1,
     PlayWhenItemIsSold = 2,
+    Special = 3,
 }
 
 public class AttachedDialogue : MonoBehaviour
@@ -27,9 +28,8 @@ public class AttachedDialogue : MonoBehaviour
     public void PlayDialogue()
     {
         playing = true;
-        World.Instance.DialogueUI.SetActive(true);
-        World.Instance.ShowDialogueText("");
-        
+        currentLine = 0;
+        currentLineProgress = 0;
         // if there is a : in the line, set currentLineProgress based on that
         if (currentLine < dialogue.Count)
         {
@@ -43,6 +43,9 @@ public class AttachedDialogue : MonoBehaviour
                 currentLineProgress = 0;
             }
         }
+        
+        World.Instance.DialogueUI.SetActive(true);
+        World.Instance.ShowDialogueText("");
     }
 
     void Update()
@@ -90,12 +93,10 @@ public class AttachedDialogue : MonoBehaviour
                     {
                         var split = dialogue[currentLine].Split(':');
                         currentLineProgress = World.Instance.timePerDialogueChar * split[0].Length;
-                        charsShown = split[0].Length;
                     }
                     else
                     {
                         currentLineProgress = 0;
-                        charsShown = 0;
                     }
                 }
             }

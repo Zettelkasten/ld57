@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -43,7 +45,7 @@ public class Player : MonoBehaviour
     int activatedArm = 0;
 
     int [] armStrengths = { 400, 600, 800, 1200 };
-    float [] armLengths = {   1.5f, 2.5f, 4.5f, 5};
+    float [] armLengths = {   2.5f, 3.5f, 4.5f, 5};
 
     int [] gearSpeeds = { 5, 8, 14, 22 };
     float [] gearStrengths = { 1, 1.5f, 2, 3 };
@@ -51,7 +53,7 @@ public class Player : MonoBehaviour
     int [] energyLevels = { 60, 120 , 240, 480 };
 
     public GameObject gear;
-    float [] gear_upgrade_scales = {1f, 1.15f, 1.3f, 1.5f};
+    float [] gear_upgrade_scales = {1f, 1.15f, 1.3f, 1.4f};
     public GameObject battery;
     float [] battery_upgrade_scales = {1f, 1.15f, 1.3f, 1.6f};
     
@@ -392,8 +394,39 @@ public class Player : MonoBehaviour
             if (counterUntilRespawn >= respawnTime)
             {
                 // respawn the player
+                // create a copy of the player
+                var playerCopy = Instantiate(playerRigidbody.gameObject, playerRigidbody.transform.position, playerRigidbody.transform.rotation);
+                // remove its Player component
+                Destroy(playerCopy.GetComponent<Player>());
+                // get all Arm components recursively and remove those too
+                var arms = playerCopy.GetComponentsInChildren<Arm>();
+                foreach (var arm in arms)
+                {
+                    Destroy(arm);
+                }
+                // get rigid bodies and remove "simulation"
+                var rigidbodies = playerCopy.GetComponentsInChildren<Rigidbody2D>();
+                foreach (var rb in rigidbodies)
+                {
+                    rb.simulated = false;
+                }
+                // add a Treasure script
+                var treasure = playerCopy.AddComponent<Treasure>();
+                treasure.value = 10;
+                // set layer to "Things"
+                playerCopy.layer = LayerMask.NameToLayer("Things");
+                // add component
+                var attachedDialogue = playerCopy.AddComponent<AttachedDialogue>();
+                attachedDialogue.trigger = DialogueTrigger.PlayWhenItemIsSold;
+                attachedDialogue.dialogue = new List<string>();
+                attachedDialogue.dialogue.Add("Robot:I think I have seen this robot before.");
+                attachedDialogue.dialogue.Add("Robot:It looks like it was a player once.");
+                attachedDialogue.dialogue.Add("Robot:Sad to see it like this.");
+                
+                // actually respawn
                 World.Instance.RespawnPlayer();
                 counterUntilRespawn = 0;
+                World.Instance.aboveSea.deathDialogue.PlayDialogue();
             }
             // disable active player movement, so we will just return
             return;
@@ -470,7 +503,7 @@ public class Player : MonoBehaviour
             if(ground is null)
                 moveforce.y = 0;
 
-            Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.2f;
+            Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.4f;
             playerRigidbody.AddForceAtPosition(moveforce, forcepos, ForceMode2D.Force);
             if (ground is not null)
             {
