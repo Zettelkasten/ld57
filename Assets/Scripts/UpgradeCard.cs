@@ -45,7 +45,7 @@ public class UpgradeCard : MonoBehaviour
 		}
 		else
 		{
-			upgradeButtonText.text = currentUpgradeCost.ToString();
+			upgradeButtonText.text = "Cost: " + currentUpgradeCost.ToString();
 			upgradeButton.interactable = (World.Instance.player.money >= currentUpgradeCost);
 		}
 		// upgrade select buttons

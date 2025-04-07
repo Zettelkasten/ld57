@@ -36,16 +36,16 @@ public class AttachedDialogue : MonoBehaviour
             if (dialogue[currentLine].Contains(":"))
             {
                 var split = dialogue[currentLine].Split(':');
-                currentLineProgress = World.Instance.timePerDialogueChar * split[0].Length;
+                currentLineProgress = World.Instance.timePerDialogueChar * (split[0].Length + 2);
             }
             else
             {
                 currentLineProgress = 0;
             }
+            
+            World.Instance.DialogueUI.SetActive(true);
         }
         
-        World.Instance.DialogueUI.SetActive(true);
-        World.Instance.ShowDialogueText("");
     }
 
     void Update()
@@ -92,7 +92,7 @@ public class AttachedDialogue : MonoBehaviour
                     if (dialogue[currentLine].Contains(":"))
                     {
                         var split = dialogue[currentLine].Split(':');
-                        currentLineProgress = World.Instance.timePerDialogueChar * split[0].Length;
+                        currentLineProgress = World.Instance.timePerDialogueChar * (split[0].Length + 2);
                     }
                     else
                     {

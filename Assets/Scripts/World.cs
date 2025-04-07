@@ -87,25 +87,16 @@ public class World : MonoBehaviour
             var speakerKey = split[0];
             // find the index of the speaker key in the speakerUINames array
             var index = Array.IndexOf(speakerUINames, speakerKey);
-            // set all speaker UIs to inactive
-            foreach (var speakerUI in speakerUIs)
+            // iterate through all speaker UIs and activate them if they match
+            for (int i = 0; i < speakerUIs.Length; i++)
             {
-                speakerUI.SetActive(false);
-            }
-            // set the speaker UI to active
-            if (index >= 0 && index < speakerUIs.Length)
-            {
-                speakerUIs[index].SetActive(true);
-            }
-            else
-            {
-                // if the index is out of bounds, set the first speaker UI to active
-                speakerUIs[0].SetActive(true);
+                speakerUIs[i].SetActive(i == index);
             }
             DialogueText.text = split[1];
         }
         else
         {
+            Debug.Log("Warning, there is a dialogue without a speaker key: " + text);
             // set all speaker UIs to inactive
             foreach (var speakerUI in speakerUIs)
             {
