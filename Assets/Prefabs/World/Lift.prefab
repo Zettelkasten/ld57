@@ -96,7 +96,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 895147162124602030}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -447,7 +447,6 @@ GameObject:
   - component: {fileID: 1702646836293562414}
   - component: {fileID: 6240455395313894920}
   - component: {fileID: 1887667947266446874}
-  - component: {fileID: 3966610908612268022}
   m_Layer: 0
   m_Name: Mover
   m_TagString: Untagged
@@ -523,24 +522,6 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
---- !u!114 &3966610908612268022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1952199836250343927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60513ca6132dd26ba9eb1f4639b6e345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  liftRigidbody: {fileID: 6240455395313894920}
-  platformRigidbody: {fileID: 5408798767931375360}
-  target: {fileID: 863933161921811375}
-  maxspeed: 10
-  height: 0
-  direction: 0
 --- !u!1 &2918666706297150373
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,7 +795,7 @@ Transform:
   m_GameObject: {fileID: 5522629316254107149}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -30, z: 0}
+  m_LocalPosition: {x: 0, y: -50.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1177,7 +1158,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6897415442223819387}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -1251,7 +1232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5356627906317994430}
-  - component: {fileID: 4278350056790794373}
+  - component: {fileID: 1565841361645345150}
   m_Layer: 0
   m_Name: Lift
   m_TagString: Untagged
@@ -1281,7 +1262,7 @@ Transform:
   - {fileID: 863933161921811375}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4278350056790794373
+--- !u!114 &1565841361645345150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1290,7 +1271,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7245004717241647705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60513ca6132dd26ba9eb1f4639b6e345, type: 3}
+  m_Script: {fileID: 11500000, guid: 118b96adab7d4f7a993fa25265ad0eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   liftRigidbody: {fileID: 6240455395313894920}
@@ -1309,7 +1290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 392665317678397690}
   - component: {fileID: 5408798767931375360}
-  - component: {fileID: 7817435075281725395}
+  - component: {fileID: 9106658902622982315}
   m_Layer: 8
   m_Name: Platform
   m_TagString: Untagged
@@ -1345,10 +1326,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 50
+  m_Mass: 150
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1360,8 +1341,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &7817435075281725395
-BoxCollider2D:
+--- !u!60 &9106658902622982315
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1394,7 +1375,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.016972542, y: -1.7016907}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1404,5 +1385,15 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 7.225281, y: 0.20545197}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 3.550118, y: -1.3845968}
+      - {x: 3.388074, y: -1.5490725}
+      - {x: -3.450808, y: -1.5523148}
+      - {x: -3.5232263, y: -1.3887194}
+      - {x: -3.7862513, y: -1.5800867}
+      - {x: -3.4445643, y: -1.7820768}
+      - {x: 3.347259, y: -1.791475}
+      - {x: 3.667763, y: -1.7086363}
+      - {x: 3.836176, y: -1.5755444}
+  m_UseDelaunayMesh: 0
