@@ -35,7 +35,8 @@ public class Lift : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        float player_dist_to_lift = Vector2.Distance(World.Instance.player.transform.position, platform.transform.position);
+        if (Input.GetKeyDown(KeyCode.E) && player_dist_to_lift < 2f)
         {
             if (direction == 0){
                 // start moving
