@@ -2,23 +2,30 @@ using UnityEngine;
 
 public class PolygonMeshGenerator : MonoBehaviour
 {
+    private Mesh myMesh = null;
+
     void Start()
     {
         // get the polygon collider 2d component and turn it into a mesh
         // the mesh should be rendered, and then also shown in the editor via gizmos
         var polygonCollider = GetComponent<PolygonCollider2D>();
-        var mesh = polygonCollider.CreateMesh(false, false);
+        myMesh = polygonCollider.CreateMesh(false, false);
+        myMesh.RecalculateNormals();
         var meshFilter = gameObject.GetComponent<MeshFilter>();
-        meshFilter.mesh = mesh;
+        meshFilter.mesh = myMesh;
     }
 
     // draw the mesh in the editor via gizmos
     void OnDrawGizmos()
     {
-        var polygonCollider = GetComponent<PolygonCollider2D>();
-        var mesh = polygonCollider.CreateMesh(false, false);
-        mesh.RecalculateNormals();
-        Gizmos.color = Color.black;
-        Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
+        if (myMesh == null)
+        {
+			var polygonCollider = GetComponent<PolygonCollider2D>();
+			myMesh = polygonCollider.CreateMesh(false, false);
+			myMesh.RecalculateNormals();
+		}
+		
+		Gizmos.color = Color.black;
+        Gizmos.DrawMesh(myMesh, transform.position, transform.rotation);
     }
 }

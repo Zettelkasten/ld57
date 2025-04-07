@@ -33,7 +33,7 @@ public class Cage : MonoBehaviour
     
     // selling items
     private float sellingItemProgress;
-    public float sellingItemSpeed;
+    public float sellingItemTime;
     // items to be sold
     private List<Treasure> itemsToBeSold;
     // wait for this item to end its dialogue
@@ -104,18 +104,68 @@ public class Cage : MonoBehaviour
                 World.Instance.aboveSea.shipCollider.enabled = false;
                 break;
             case CageState.SellingItems:
+                World.Instance.sellBox.displayBox.SetActive(true);
                 sellingItemProgress = 0;
                 break;
         }
     }
 
-    public void FixedUpdate()
+	public void Update()
+	{
+		// update the line renderer
+		ropeLineRendererLeft.SetPosition(0, ropePivotLeft.position);
+		ropeLineRendererLeft.SetPosition(1, World.Instance.aboveSea.shipRopePivotLeft.position);
+		ropeLineRendererRight.SetPosition(0, ropePivotRight.position);
+		ropeLineRendererRight.SetPosition(1, World.Instance.aboveSea.shipRopePivotRight.position);
+
+        switch (state)
+        {
+			case CageState.SellingItems:
+				if (waitingForSellDialogue != null)
+				{
+					if (!World.Instance.DialogueUI.activeSelf)
+					{
+						waitingForSellDialogue.Sell();
+						waitingForSellDialogue = null;
+					}
+					else
+					{
+						return;
+					}
+				}
+				if (itemsToBeSold.Count == 0)
+				{
+					World.Instance.upgradeScreen.SetActive(true);
+					World.Instance.sellBox.displayBox.SetActive(false);
+					SetState(CageState.OnShip);
+				}
+				else
+				{
+					if (sellingItemProgress == 0)
+					{
+						var item = itemsToBeSold[0];
+						item.MoveToSellBoxAndPlayCoolParticleAnimation(sellingItemTime);
+					}
+
+					sellingItemProgress += Time.deltaTime;
+					if (sellingItemProgress >= sellingItemTime)
+					{
+						var item = itemsToBeSold[0];
+						itemsToBeSold.RemoveAt(0);
+						// sell the item
+						item.SellDialogue();
+						waitingForSellDialogue = item;
+						sellingItemProgress = 0;
+					}
+				}
+				break;
+		}
+
+	}
+
+	public void FixedUpdate()
     {
-        // update the line renderer
-        ropeLineRendererLeft.SetPosition(0, ropePivotLeft.position);
-        ropeLineRendererLeft.SetPosition(1, World.Instance.aboveSea.shipRopePivotLeft.position);
-        ropeLineRendererRight.SetPosition(0, ropePivotRight.position);
-        ropeLineRendererRight.SetPosition(1, World.Instance.aboveSea.shipRopePivotRight.position);
+        
         
         switch (state)
         {
@@ -205,38 +255,6 @@ public class Cage : MonoBehaviour
                     // Enable the ship collider
                     World.Instance.aboveSea.shipCollider.enabled = true;
                     SetState(state == CageState.Rising ? CageState.SellingItems : CageState.Underwater);
-                }
-                break;
-            case CageState.SellingItems:
-                if (waitingForSellDialogue != null)
-                {
-                    if (!World.Instance.DialogueUI.activeSelf)
-                    {
-                        waitingForSellDialogue.Sell();
-                        waitingForSellDialogue = null;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (itemsToBeSold.Count == 0)
-                {
-                    World.Instance.upgradeScreen.SetActive(true);
-                    SetState(CageState.OnShip);
-                }
-                else
-                {
-                    sellingItemProgress += Time.fixedDeltaTime * sellingItemSpeed;
-                    if (sellingItemProgress >= 1)
-                    {
-                        var item = itemsToBeSold[0];
-                        itemsToBeSold.RemoveAt(0);
-                        // sell the item
-                        item.SellDialogue();
-                        waitingForSellDialogue = item;
-                        sellingItemProgress = 0;
-                    }
                 }
                 break;
         }
