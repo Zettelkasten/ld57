@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff78769035b5e85d90a394cb5bb1288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishtype: 0
   maxSpeed: 5
   speed: 5
   timeNextTarget: 0
@@ -345,6 +346,7 @@ MonoBehaviour:
   fishsprites:
   - {fileID: -2114686101538272709, guid: 08bb076c60b21ca3597f9540746f7f86, type: 3}
   - {fileID: 8966945178157639174, guid: 894f2ad7a8ede73c980ebbbe85a89a51, type: 3}
+  - {fileID: -6888898294195568640, guid: 843ca29240feb697ba21a93ab8dbe2d6, type: 3}
 --- !u!114 &2712482245682081771
 MonoBehaviour:
   m_ObjectHideFlags: 0
