@@ -139,13 +139,16 @@ public class World : MonoBehaviour
         openUpgradeScreenButton.SetActive(cage.state == CageState.OnShip && BottomUIAvailable());
         
         // audio
-        var waterLevelY = World.Instance.aboveSea.waterSplashParticles.transform.position.y;
-        var shouldPlayUnderwaterMusic = cage.transform.position.y < waterLevelY;
-        var changed = SoundManager.Instance.PlayMusic(
-            shouldPlayUnderwaterMusic ? underwaterMusic : shipMusic);
-        if (changed)
+        if (SoundManager.Instance != null)
         {
-            SoundManager.PlaySource(splashAudioSource);
+            var waterLevelY = World.Instance.aboveSea.waterSplashParticles.transform.position.y;
+            var shouldPlayUnderwaterMusic = cage.transform.position.y < waterLevelY;
+            var changed = SoundManager.Instance.PlayMusic(
+                shouldPlayUnderwaterMusic ? underwaterMusic : shipMusic);
+            if (changed)
+            {
+                SoundManager.PlaySource(splashAudioSource);
+            }
         }
     }
 
