@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 3371445691537931847}
   - component: {fileID: -1876751346532950127}
   - component: {fileID: 8219579982180164727}
-  - component: {fileID: 2108018218334787727}
   - component: {fileID: 5409134379579670131}
+  - component: {fileID: 2731716609558072492}
   m_Layer: 8
   m_Name: Buoy
   m_TagString: Untagged
@@ -149,32 +149,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2108018218334787727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3965960243151705178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 604f080077a8cbb8c867cdfb6c0c3516, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boyant: 1
-  boyancy: 20
-  gravity: 9.81
-  waterdrag: 0.98
-  waterdrag_angular: 0.98
-  waterlevel_transform: {fileID: 6138111040280732342}
-  wobble: 0.1
-  uprighting: 1
-  applyGravity: 0
-  uprighting_force: 0.2
-  bubbletail_enabled: 1
-  bubbletail_origin: {fileID: 0}
-  bubbletail_base_emission: 1
-  debug: 0
 --- !u!70 &5409134379579670131
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -212,3 +186,17 @@ CapsuleCollider2D:
   m_Offset: {x: 0.014710724, y: 0.07904053}
   m_Size: {x: 0.8440796, y: 2.1296234}
   m_Direction: 0
+--- !u!114 &2731716609558072492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3965960243151705178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fd4acd2e3e84733b3369a1bec8d397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wobbleSpeed: 0.5
+  wobbleStrength: 0.1
