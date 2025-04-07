@@ -69,9 +69,26 @@ public class Fish : MonoBehaviour
          float distance = playerdistance.magnitude;
          if (distance < 2)
          {
-             currenttarget = currenttarget + playerdistance.normalized * 5;
+             currenttarget = fishRigidbody.position - playerdistance.normalized * 3;
              speed = Random.Range(0,maxSpeed * 2f);
          }
+         
+        // upright fish
+        var fishrotation = fishRigidbody.rotation;
+        float goal = 0;
+        float dif = goal - fishrotation;
+        if(dif > 180)
+        {
+            dif -= 360;
+        }
+        if (dif < -180)
+        {
+            dif += 360;
+        }
+        fishRigidbody.angularVelocity += dif * 2f;
+        fishRigidbody.angularVelocity *= 0.95f;
+        
+        // set new speed
         
         
         if (Time.time >= timeNextSpeed)
