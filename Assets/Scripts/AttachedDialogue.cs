@@ -29,6 +29,20 @@ public class AttachedDialogue : MonoBehaviour
         playing = true;
         World.Instance.DialogueUI.SetActive(true);
         World.Instance.ShowDialogueText("");
+        
+        // if there is a : in the line, set currentLineProgress based on that
+        if (currentLine < dialogue.Count)
+        {
+            if (dialogue[currentLine].Contains(":"))
+            {
+                var split = dialogue[currentLine].Split(':');
+                currentLineProgress = World.Instance.timePerDialogueChar * split[0].Length;
+            }
+            else
+            {
+                currentLineProgress = 0;
+            }
+        }
     }
 
     void Update()
@@ -69,6 +83,21 @@ public class AttachedDialogue : MonoBehaviour
             {
                 currentLine++;
                 currentLineProgress = 0;
+                // if there is a : in the line, set currentLineProgress based on that
+                if (currentLine < dialogue.Count)
+                {
+                    if (dialogue[currentLine].Contains(":"))
+                    {
+                        var split = dialogue[currentLine].Split(':');
+                        currentLineProgress = World.Instance.timePerDialogueChar * split[0].Length;
+                        charsShown = split[0].Length;
+                    }
+                    else
+                    {
+                        currentLineProgress = 0;
+                        charsShown = 0;
+                    }
+                }
             }
         }
         else
