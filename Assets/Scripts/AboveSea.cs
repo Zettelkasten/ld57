@@ -9,6 +9,8 @@ public class AboveSea : MonoBehaviour
     public Collider2D cageEnterCollider;
     
     public ParticleSystem waterSplashParticles;
+
+    public AttachedDialogue deathDialogue;
     
     public void Update()
     {

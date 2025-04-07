@@ -392,8 +392,26 @@ public class Player : MonoBehaviour
             if (counterUntilRespawn >= respawnTime)
             {
                 // respawn the player
+                // create a copy of the player
+                var playerCopy = Instantiate(playerRigidbody.gameObject, playerRigidbody.transform.position, playerRigidbody.transform.rotation);
+                // remove its Player component
+                Destroy(playerCopy.GetComponent<Player>());
+                // get all Arm components recursively and remove those too
+                var arms = playerCopy.GetComponentsInChildren<Arm>();
+                foreach (var arm in arms)
+                {
+                    Destroy(arm);
+                }
+                // add a Treasure script
+                var treasure = playerCopy.AddComponent<Treasure>();
+                treasure.value = 5;
+                // set layer to "Things"
+                playerCopy.layer = LayerMask.NameToLayer("Things");
+                
+                // actually respawn
                 World.Instance.RespawnPlayer();
                 counterUntilRespawn = 0;
+                World.Instance.aboveSea.deathDialogue.PlayDialogue();
             }
             // disable active player movement, so we will just return
             return;

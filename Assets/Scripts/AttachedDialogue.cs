@@ -6,6 +6,7 @@ public enum DialogueTrigger
 {
     PlayWhenItemIsFound = 1,
     PlayWhenItemIsSold = 2,
+    Special = 3,
 }
 
 public class AttachedDialogue : MonoBehaviour
@@ -27,6 +28,9 @@ public class AttachedDialogue : MonoBehaviour
     public void PlayDialogue()
     {
         playing = true;
+        currentLine = 0;
+        currentLineProgress = 0;
+        
         World.Instance.DialogueUI.SetActive(true);
         World.Instance.ShowDialogueText("");
         
