@@ -82,6 +82,11 @@ public class AttachedDialogue : MonoBehaviour
         if (charsShown >= dialogue[currentLine].Length)
         {
             World.Instance.ShowDialogueText(dialogue[currentLine]);
+            // disable the audio
+            foreach (var s in World.Instance.DialogueUI.GetComponentsInChildren<AudioSource>())
+            {
+                s.volume = 0;
+            }
             if (continueInput)
             {
                 currentLine++;
@@ -103,6 +108,12 @@ public class AttachedDialogue : MonoBehaviour
         }
         else
         {
+            // enable the audio
+            foreach (var s in World.Instance.DialogueUI.GetComponentsInChildren<AudioSource>())
+            {
+                s.volume = 1;
+            }
+            
             if (continueInput)
             {
                 currentLineProgress = World.Instance.timePerDialogueChar * dialogue[currentLine].Length;
