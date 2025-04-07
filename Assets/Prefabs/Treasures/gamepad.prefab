@@ -157,6 +157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 2
+  displayScale: 8
+  moveTimer: 0
+  moveEndTime: 1
 --- !u!70 &5245736520644518366
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -191,6 +194,6 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0010050655, y: 0.4006563}
+  m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.505968, y: 0.33371398}
   m_Direction: 1
