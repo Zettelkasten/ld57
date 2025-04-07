@@ -6,9 +6,11 @@ using Random = UnityEngine.Random;
 public class Fish : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
-    
-    
+
+
+    public int fishtype = 0;
+    //type0: deepfish
+    //type1: clownfish
     public float maxSpeed = 5f;
     public float speed = 5f;
     private float newTargetTimerMax = 2f; //maximum time to wait for a new target
@@ -41,10 +43,14 @@ public class Fish : MonoBehaviour
         setTimeNextSpeed();
         currentwaypoint = waypoints[i_waypoint].position;
         fishSpriteRenderer = GetComponent<SpriteRenderer>();
-        if (fishsprites.Length > 0)
-        {
-            fishSpriteRenderer.sprite = fishsprites[Random.Range(0, fishsprites.Length)];
-        }
+        if (fishtype >= fishsprites.Length || fishtype < 0)
+            fishtype = Random.Range(0, fishsprites.Length);
+        SetFishType(fishtype);
+    }
+
+    private void SetFishType(int newfishtype)
+    {
+        fishSpriteRenderer.sprite = fishsprites[newfishtype];
     }
 
     private void FixedUpdate()
