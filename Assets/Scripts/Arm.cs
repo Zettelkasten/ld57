@@ -39,7 +39,7 @@ public class Arm : MonoBehaviour
             // if the player is in a dialogue, don't move
             return;
         }
-        if (World.Instance.cage.state != CageState.OnShip && World.Instance.cage.state != CageState.Underwater)
+        if (World.Instance.cage.state != CageState.OnShip && World.Instance.cage.state != CageState.Underwater && World.Instance.cage.state != CageState.SinkingWithoutPlayer)
         {
             // player cannot move in other states
             // disable the arm

@@ -28,5 +28,12 @@ public class DepthLightController : MonoBehaviour
 
 		float playerAuroFactor = Mathf.Clamp((oceanSurface - 30 - transform.position.y) / 50, 0, 1);
         playerAuraLight.intensity = Mathf.Lerp(0, maxPlayerAuraLightStrength, playerAuroFactor);
+
+        if (World.Instance.player.energy < 10)
+        {
+            // turn off the light gradually
+            float energyFactor = Mathf.Clamp(World.Instance.player.energy / 10, 0, 1);
+            playerAuraLight.intensity *= energyFactor;
+        }
 	}
 }

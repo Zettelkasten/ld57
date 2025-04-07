@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     private Vector3 lastPosition;
 
-    private float counterUntilRespawn = 0;
+    public float counterUntilRespawn = 0;
     private float respawnTime = 5f;
 
     public float jumpForce;
@@ -98,16 +98,21 @@ public class Player : MonoBehaviour
         directionalChild.SetActive(lightActivate);
         if (lightActivate)
         {
+            var turnOffTimeDiff = 1f;
+            var turningOff = counterUntilRespawn > turnOffTimeDiff;
+            var targetLight = turningOff ? 0 : 1;
+            var states = turningOff ? "abcdefaaaammmmabcdefmmmaaaa" : lightFlickerStates;
+            
             lightActiveTime += Time.deltaTime;
             // flickering according to lookup table
-            int index = (int) (lightActiveTime * 20);
-            if (index >= lightFlickerStates.Length)
+            int index = (int) ((turningOff ? counterUntilRespawn : lightActiveTime) * 20);
+            if (index >= states.Length)
             {
-                directionalChild.GetComponentInChildren<Light2D>().intensity = 1;
+                directionalChild.GetComponentInChildren<Light2D>().intensity = targetLight;
             }
             else
             {
-                char flickerState = lightFlickerStates[index];
+                char flickerState = states[index];
                 // a is dimmest, z is lightest
                 float lightIntensity = (float) (flickerState - 'a') / ('z' - 'a');
                 directionalChild.GetComponentInChildren<Light2D>().intensity = lightIntensity;
@@ -364,7 +369,7 @@ public class Player : MonoBehaviour
             energy = maxEnergy;
         }
 
-        if (World.Instance.cage.state != CageState.OnShip && World.Instance.cage.state != CageState.Underwater)
+        if (World.Instance.cage.state != CageState.OnShip && World.Instance.cage.state != CageState.Underwater && World.Instance.cage.state != CageState.SinkingWithoutPlayer)
         {
             // player cannot move in other states
             return;
