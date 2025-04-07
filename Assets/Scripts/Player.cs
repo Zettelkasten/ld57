@@ -321,7 +321,7 @@ public class Player : MonoBehaviour
     }
     public void onEnergyUpgradeEvent()
     {
-        int current_level = UpgradeManager.Instance.GetSelectedLevelOfUpgrade(jumpupgrade);
+        int current_level = UpgradeManager.Instance.GetSelectedLevelOfUpgrade(energyupgrade);
         setEnergyLevel(current_level);
     }
     
