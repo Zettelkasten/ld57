@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfebdb8e0c1a643089087083c3130305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guizmocolor: {r: 0.3647059, g: 0.46274513, b: 0.5019608, a: 1}
 --- !u!33 &5045674442177012736
 MeshFilter:
   m_ObjectHideFlags: 0

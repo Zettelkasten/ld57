@@ -3,6 +3,7 @@ using UnityEngine;
 public class PolygonMeshGenerator : MonoBehaviour
 {
     private Mesh myMesh = null;
+    public Color guizmocolor = Color.white;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class PolygonMeshGenerator : MonoBehaviour
 			myMesh.RecalculateNormals();
 		}
 		
-		Gizmos.color = Color.black;
+		Gizmos.color = guizmocolor;
         Gizmos.DrawMesh(myMesh, transform.position, transform.rotation);
     }
 }
