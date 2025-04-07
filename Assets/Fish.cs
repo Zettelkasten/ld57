@@ -27,6 +27,8 @@ public class Fish : MonoBehaviour
 
     private float verticalRange = 5f;
     private float horizontalRange = 0.5f;
+
+    public bool randomizeOrder;
     
     
     public Transform[] waypoints;
@@ -38,6 +40,10 @@ public class Fish : MonoBehaviour
     {
         fishRigidbody = GetComponent<Rigidbody2D>();
         i_waypoint = 0;
+        if (randomizeOrder)
+        {
+            i_waypoint = Random.Range(0, waypoints.Length);
+        }
         currenttarget = fishRigidbody.position;
         setTimeNextTarget();
         setTimeNextSpeed();
@@ -123,6 +129,10 @@ public class Fish : MonoBehaviour
     {
         i_waypoint++;
         i_waypoint %= waypoints.Length;
+        if (randomizeOrder)
+        {
+            i_waypoint = Random.Range(0, waypoints.Length);
+        }
         currentwaypoint = waypoints[i_waypoint].position;
     }
 
