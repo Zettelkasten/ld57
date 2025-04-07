@@ -138,6 +138,17 @@ public class World : MonoBehaviour
         
         openUpgradeScreenButton.SetActive(cage.state == CageState.OnShip && BottomUIAvailable());
         
+        // find all UpgradeCard s in the upgradeScreen
+        foreach (var card in upgradeScreen.GetComponentsInChildren<UpgradeCard>())
+        {
+            Debug.Log("Card: " + card.myUpgrade.name);
+            if (card.shouldPlayDialogue && !DialogueUI.activeSelf)
+            {
+                card.dialogueAfterFirstUpgrade.PlayDialogue();
+                card.shouldPlayDialogue = false;
+            }
+        }
+        
         // audio
         if (SoundManager.Instance != null)
         {
