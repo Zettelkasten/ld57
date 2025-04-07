@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     int activatedArm = 0;
 
     int [] armStrengths = { 400, 600, 800, 1200 };
-    float [] armLengths = {   1.5f, 2.5f, 4.5f, 5};
+    float [] armLengths = {   2.5f, 3.5f, 4.5f, 5};
 
     int [] gearSpeeds = { 5, 8, 14, 22 };
     float [] gearStrengths = { 1, 1.5f, 2, 3 };
@@ -503,7 +503,7 @@ public class Player : MonoBehaviour
             if(ground is null)
                 moveforce.y = 0;
 
-            Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.2f;
+            Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.4f;
             playerRigidbody.AddForceAtPosition(moveforce, forcepos, ForceMode2D.Force);
             if (ground is not null)
             {

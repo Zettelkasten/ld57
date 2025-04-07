@@ -144,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8690049301279478799}
   - component: {fileID: 5578325497494815570}
-  - component: {fileID: 6964934966190493986}
+  - component: {fileID: 7874231673375437504}
   m_Layer: 3
   m_Name: Gear
   m_TagString: Untagged
@@ -222,8 +222,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &6964934966190493986
-CapsuleCollider2D:
+--- !u!60 &7874231673375437504
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -257,8 +257,26 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.625, y: 0.4375}
-  m_Direction: 1
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.625, y: 0.4375}
+    newSize: {x: 1.625, y: 0.4375}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.6827423, y: 0.23104706}
+      - {x: -0.81886065, y: 0.1078751}
+      - {x: -0.8140003, y: -0.102758005}
+      - {x: -0.6823349, y: -0.22635317}
+      - {x: 0.69041836, y: -0.22429772}
+      - {x: 0.8107618, y: -0.106405094}
+      - {x: 0.8141369, y: 0.08983187}
+      - {x: 0.6808667, y: 0.22112335}
+  m_UseDelaunayMesh: 0
 --- !u!1 &737970445213229745
 GameObject:
   m_ObjectHideFlags: 0
@@ -2654,7 +2672,7 @@ MonoBehaviour:
   energy: 480
   maxEnergy: 480
   energyDecreaseFactor: 0
-  gearCollider: {fileID: 0}
+  gearCollider: {fileID: 7874231673375437504}
   floatingSpeedFactor: 0
   burstParticleSystem: {fileID: 0}
   counterUntilRespawn: 0
