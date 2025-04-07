@@ -6,11 +6,5 @@ public class PlayMusic : MonoBehaviour
     {
         // Play the music when the game starts
         SoundManager.Instance.PlayMusic(GetComponent<AudioSource>().clip);
-        Debug.Log("Playing music: " + GetComponent<AudioSource>().clip.name);
-    }
-
-    public void Update()
-    {
-        Debug.Log("Music is playing: " + GetComponent<AudioSource>().isPlaying);
     }
 }

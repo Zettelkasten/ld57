@@ -68,6 +68,12 @@ public class Player : MonoBehaviour
     
     public float dontMoveTime = 0f;
 
+    private float movementAudioDelay = 0;
+    public AudioSource movementAudio;
+    public AudioSource armGrabSound;
+    public AudioSource armReleaseSound;
+    public AudioSource jumpSound;
+
 // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -544,6 +550,32 @@ public class Player : MonoBehaviour
                 var em = burstParticleSystem.emission;
                 em.enabled = true;
                 burstParticleSystem.Play();
+            }
+            
+            // jump audio
+            SoundManager.PlaySource(jumpSound);
+        }
+        
+        // audio
+        if (verticalSpeed != 0)
+        {
+            if (movementAudioDelay <= 0)
+            {
+                movementAudioDelay = 0.3f;
+                movementAudio.Play();
+                movementAudio.volume = 1;
+                if (SoundManager.Instance != null)
+                {
+                    movementAudio.volume = SoundManager.Instance.MusicSource.volume;
+                }
+            }
+        }
+        else
+        {
+            movementAudioDelay -= Time.deltaTime;
+            if (movementAudioDelay <= 0)
+            {
+                movementAudio.volume = 0;
             }
         }
     }
