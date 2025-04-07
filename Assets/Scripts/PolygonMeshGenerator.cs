@@ -18,7 +18,7 @@ public class PolygonMeshGenerator : MonoBehaviour
     // draw the mesh in the editor via gizmos
     void OnDrawGizmos()
     {
-        if (myMesh == null)
+        if (myMesh == null || true)
         {
 			var polygonCollider = GetComponent<PolygonCollider2D>();
 			myMesh = polygonCollider.CreateMesh(false, false);
