@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public float maxEnergy;
     public float energyDecreaseFactor;
 
-    Rigidbody2D playerRigidbody;
+    public Rigidbody2D playerRigidbody;
     public PolygonCollider2D gearCollider;
     private float speed = 8f;
     private float gearStrength = 1f;

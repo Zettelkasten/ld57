@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4607262720910661320}
   - component: {fileID: 3440874316665396315}
   - component: {fileID: 5959289186944932748}
-  - component: {fileID: 7245712584148172871}
-  - component: {fileID: 5559183007010540618}
+  - component: {fileID: 4254443732750098319}
+  - component: {fileID: 7774662625305518393}
   m_Layer: 0
   m_Name: Spikes
   m_TagString: Untagged
@@ -129,7 +129,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.625}
+    oldSize: {x: 2, y: 1.25}
     newSize: {x: 0.84375, y: 0.40625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -137,17 +137,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.14191055, y: 0.009524822}
-      - {x: 0.035381317, y: 0.26182413}
-      - {x: -0.0037345886, y: -0.019388676}
-      - {x: -0.13949585, y: 0.29558563}
-      - {x: -0.30290222, y: -0.12013292}
-      - {x: -0.36040115, y: 0.16905594}
-      - {x: -0.4435196, y: -0.31515408}
-      - {x: 0.47273636, y: -0.31317043}
-      - {x: 0.5055733, y: -0.2305398}
-      - {x: 0.32679367, y: 0.07793808}
-      - {x: 0.36501312, y: 0.30416536}
+    - - {x: 0.28049088, y: -0.03465557}
+      - {x: 0.07913208, y: 0.49501038}
+      - {x: 0.042816162, y: -0.1127758}
+      - {x: -0.28395844, y: 0.54582787}
+      - {x: -0.59072495, y: -0.40911198}
+      - {x: -0.7388916, y: 0.27482605}
+      - {x: -0.88097, y: -0.6242838}
+      - {x: 0.9373932, y: -0.6365824}
+      - {x: 1.0185585, y: -0.49205542}
+      - {x: 0.76462173, y: 0.009009361}
+      - {x: 0.47016144, y: -0.16270685}
+      - {x: 0.73871994, y: 0.5453992}
   m_UseDelaunayMesh: 0
 --- !u!114 &5959289186944932748
 MonoBehaviour:
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19456607df65262e2b9c2262e9b9c0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!199 &7245712584148172871
+--- !u!199 &4254443732750098319
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -238,7 +239,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!198 &5559183007010540618
+--- !u!198 &7774662625305518393
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,7 +254,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -321,7 +322,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
+      scalar: 5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -374,7 +375,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.8
+      scalar: 4
       minScalar: 0.2
       maxCurve:
         serializedVersion: 2
@@ -492,8 +493,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.2
+      scalar: 0.5
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -869,15 +870,15 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 5
+    type: 0
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: -0.2, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 0.4, z: 1}
+    m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -956,7 +957,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.2
+      value: 0.4
       mode: 0
       spread: 0
       speed:
@@ -1185,7 +1186,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
+        scalar: 60
         minScalar: 30
         maxCurve:
           serializedVersion: 2
