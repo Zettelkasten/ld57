@@ -245,6 +245,7 @@ public class Player : MonoBehaviour
 
     public void activate_arm(int i_arm)
     {
+        Debug.Log("Activating arm " + i_arm);
         // deactivate all arms
         for (int i = 0; i < arms.Length; i++)
         {
@@ -294,8 +295,9 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Setting energy level to " + level);
         maxEnergy = energyLevels[level];
-        battery.transform.localScale = new Vector3(battery_upgrade_scales[level], battery_upgrade_scales[level], 1);
         energy = maxEnergy;
+        Debug.Log("Max energy: " + maxEnergy);
+        battery.transform.localScale = new Vector3(battery_upgrade_scales[level], battery_upgrade_scales[level], 1);
     }
     
     public void onArmLengthUpgradeEvent()
@@ -321,7 +323,7 @@ public class Player : MonoBehaviour
     }
     public void onEnergyUpgradeEvent()
     {
-        int current_level = UpgradeManager.Instance.GetSelectedLevelOfUpgrade(jumpupgrade);
+        int current_level = UpgradeManager.Instance.GetSelectedLevelOfUpgrade(energyupgrade);
         setEnergyLevel(current_level);
     }
     

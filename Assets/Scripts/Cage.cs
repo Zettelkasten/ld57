@@ -29,6 +29,8 @@ public class Cage : MonoBehaviour
     public float sinkSpeed;
     private List<Rigidbody2D> sinkingAttachedObjects;
     
+    private Transform cameraPosition;
+    
     // selling items
     private float sellingItemProgress;
     public float sellingItemSpeed;
@@ -90,6 +92,14 @@ public class Cage : MonoBehaviour
                     sinkProgress = 0.7f;
                 }
 
+                if (state == CageState.Sinking)
+                {
+                    // instantiate a dummy object
+                    cameraPosition = new GameObject("CameraPosition").transform;
+                    cameraPosition.position = World.Instance.player.transform.position;
+                    World.Instance.cinemachineVirtualCamera.Follow = cameraPosition;
+                }
+
                 // Disable the ship collider
                 World.Instance.aboveSea.shipCollider.enabled = false;
                 break;
@@ -121,9 +131,40 @@ public class Cage : MonoBehaviour
                 }
 
                 sinkProgress += Time.fixedDeltaTime * sinkSpeed;
+                var lastY = transform.position.y;
                 this.transform.position = Vector3.Lerp(fromPos, toPos, Helpers.EaseInOutQuad(sinkProgress));
+                var thisY = transform.position.y;
+                
+                var waterLevelY = World.Instance.aboveSea.waterSplashParticles.transform.position.y;
+                if (state == CageState.Sinking && thisY < waterLevelY && lastY >= waterLevelY)
+                {
+                    // splash
+                    World.Instance.aboveSea.waterSplashParticles.Play();
+                }
+                else if (state == CageState.Rising && thisY > waterLevelY && lastY <= waterLevelY)
+                {
+                    // splash
+                    World.Instance.aboveSea.waterSplashParticles.Play();
+                }
+
+                if (cameraPosition != null)
+                {
+                    // until 0.3, don't move it, then move it to the player
+                    if (sinkProgress >= 0.3f)
+                    {
+                        cameraPosition.position = Vector3.Lerp(cameraPosition.position, World.Instance.player.transform.position, Helpers.EaseInOutQuad((sinkProgress - 0.3f) / 0.7f));
+                    }
+                }
+                
                 if (sinkProgress >= 1)
                 {
+                    World.Instance.cinemachineVirtualCamera.Follow = World.Instance.player.transform;
+                    if (cameraPosition != null)
+                    {
+                        Destroy(cameraPosition.gameObject);
+                        cameraPosition = null;
+                    }
+
                     if (state != CageState.SinkingWithoutPlayer)
                     {
                         // make the player a child of the game scene

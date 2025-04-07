@@ -47,6 +47,8 @@ public class World : MonoBehaviour
     public GameObject upgradeScreen;
     public GameObject openUpgradeScreenButton;
     
+    public CinemachineCamera cinemachineVirtualCamera;
+    
     public void Start()
     {
         RepositionShip();

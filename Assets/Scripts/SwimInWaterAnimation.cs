@@ -7,7 +7,7 @@ public class SwimInWaterAnimation : MonoBehaviour
     public float wobbleSpeed;
     public float wobbleStrength;
     
-    void Update()
+    void FixedUpdate()
     {
         if (originalLocalPosition == Vector3.zero)
         {
