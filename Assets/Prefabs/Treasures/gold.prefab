@@ -140,7 +140,10 @@ MonoBehaviour:
   uprighting: 0
   applyGravity: 0
   uprighting_force: 0.2
-  waterlevel: 98
+  bubbletail_enabled: 1
+  bubbletail_origin: {fileID: 0}
+  bubbletail_base_emission: 1
+  debug: 0
 --- !u!114 &4880632743388827231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 30
+  displayScale: 8
+  moveTimer: 0
+  moveEndTime: 1
 --- !u!70 &5887788886795479976
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

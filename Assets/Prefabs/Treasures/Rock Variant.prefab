@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4880632743388827231, guid: 88c9c33e1a8f5f6278371f44c3355cb5, type: 3}
+      propertyPath: displayScale
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5065354939550349343, guid: 88c9c33e1a8f5f6278371f44c3355cb5, type: 3}
       propertyPath: m_Mass
       value: 20

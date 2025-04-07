@@ -157,6 +157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: -1000
+  displayScale: 2
+  moveTimer: 0
+  moveEndTime: 1
 --- !u!61 &-6758715565834902451
 BoxCollider2D:
   m_ObjectHideFlags: 0
