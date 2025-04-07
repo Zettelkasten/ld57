@@ -59,7 +59,7 @@ public class AttachedDialogue : MonoBehaviour
         }
 
         var continueInput = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E) ||
-                            Input.GetKeyDown(KeyCode.KeypadEnter) || World.Instance.CheckDialogueButtonClicked();
+                            Input.GetKeyDown(KeyCode.Return) || World.Instance.CheckDialogueButtonClicked();
         currentLineProgress += Time.deltaTime;
         var charsShown = (int)(currentLineProgress / World.Instance.timePerDialogueChar);
         if (charsShown >= dialogue[currentLine].Length)
