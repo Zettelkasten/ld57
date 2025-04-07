@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6036932931721474187}
@@ -872,12 +872,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userrigidbody: {fileID: 5221533566072193150}
+  armLength: 2.5
   armStrength: 500
   Link1: {fileID: 5110726411937644665}
   Link2: {fileID: 7696769429669878185}
   armOrigin: {fileID: 6713523760750836313}
   grabberSpriteOpen: {fileID: 9115818560615454415, guid: fad7a90e7b9206bbebcfdfa597c5ddfe, type: 3}
   grabberSpriteClosed: {fileID: -5434602241720839258, guid: 8b99671288de75278ae6a47635a536c5, type: 3}
+  grappedObjectIsTreasure: 0
 --- !u!1 &3234256995472838890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,12 +1287,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userrigidbody: {fileID: 5221533566072193150}
+  armLength: 2.5
   armStrength: 500
   Link1: {fileID: 4609527265563330213}
   Link2: {fileID: 737970445213229745}
   armOrigin: {fileID: 3595321714784153296}
   grabberSpriteOpen: {fileID: 9115818560615454415, guid: fad7a90e7b9206bbebcfdfa597c5ddfe, type: 3}
   grabberSpriteClosed: {fileID: -5434602241720839258, guid: 8b99671288de75278ae6a47635a536c5, type: 3}
+  grappedObjectIsTreasure: 0
 --- !u!58 &2634055953664642748
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1688,12 +1692,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userrigidbody: {fileID: 5221533566072193150}
+  armLength: 2.5
   armStrength: 500
   Link1: {fileID: 8878277530116347547}
   Link2: {fileID: 8373507761437382039}
   armOrigin: {fileID: 1041356065934384184}
   grabberSpriteOpen: {fileID: 9115818560615454415, guid: fad7a90e7b9206bbebcfdfa597c5ddfe, type: 3}
   grabberSpriteClosed: {fileID: -5434602241720839258, guid: 8b99671288de75278ae6a47635a536c5, type: 3}
+  grappedObjectIsTreasure: 0
 --- !u!58 &7978790268029501424
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2536,8 +2542,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 0
-  energy: 0
-  maxEnergy: 0
+  energy: 480
+  maxEnergy: 480
   energyDecreaseFactor: 0
   gearCollider: {fileID: 4135942481280906112}
   floatingSpeedFactor: 0
@@ -2545,7 +2551,7 @@ MonoBehaviour:
   jumpForce: 0
   verticalJumpForce: 0
   jumpCooldown: 0
-  maxNumberOfJumps: 0
+  maxNumberOfJumps: 1
   directionalChild: {fileID: 0}
   arms:
   - {fileID: 5980033007931944418}
@@ -2558,6 +2564,7 @@ MonoBehaviour:
   speedupgrade: {fileID: 0}
   jumpupgrade: {fileID: 11400000, guid: a7f082630a6821847b0f24853739cdca, type: 2}
   energyupgrade: {fileID: 11400000, guid: 44c355e927d369c4b9c8b8e46723c12a, type: 2}
+  dontMoveTime: 0
 --- !u!114 &3152553891418280007
 MonoBehaviour:
   m_ObjectHideFlags: 0
