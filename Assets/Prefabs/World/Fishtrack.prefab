@@ -32,6 +32,8 @@ Transform:
   - {fileID: 7541272122601529444}
   - {fileID: 3336809501020480907}
   - {fileID: 29212784088144492}
+  - {fileID: 4409165855877121718}
+  - {fileID: 3747742657305596576}
   - {fileID: 7104748913884283597}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,7 +62,38 @@ Transform:
   m_GameObject: {fileID: 1926916564334611219}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.85, y: -2.61, z: 0}
+  m_LocalPosition: {x: 5.09, y: -3.91, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2416506628166166836}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2256860836684304992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4409165855877121718}
+  m_Layer: 0
+  m_Name: wp4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4409165855877121718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256860836684304992}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.15, y: 0.51, z: 0.07687134}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -91,7 +124,7 @@ Transform:
   m_GameObject: {fileID: 3303551676361048343}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.33, y: -2.57, z: 0.079315186}
+  m_LocalPosition: {x: -6.77, y: -4.38, z: 0.079315186}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -122,7 +155,7 @@ Transform:
   m_GameObject: {fileID: 5196712775144930460}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.07, y: 3.14, z: 0.07687134}
+  m_LocalPosition: {x: -4.35, y: 1.69, z: 0.07687134}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -141,7 +174,8 @@ GameObject:
   - component: {fileID: 5086230447998845251}
   - component: {fileID: 3950272047704309303}
   - component: {fileID: 260967335588762138}
-  m_Layer: 0
+  - component: {fileID: 2712482245682081771}
+  m_Layer: 8
   m_Name: Fish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,8 +238,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -619942945
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 8966945178157639174, guid: 894f2ad7a8ede73c980ebbbe85a89a51, type: 3}
   m_Color: {r: 0.63529414, g: 0.63529414, b: 0.63529414, a: 1}
@@ -294,13 +328,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff78769035b5e85d90a394cb5bb1288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishSpeed: 5
-  newTargetTimerMax: 10
+  maxSpeed: 5
+  speed: 5
   timeNextTarget: 0
+  timeNextSpeed: 0
   currenttarget: {x: 0, y: 0}
   currentwaypoint: {x: 0, y: 0}
   toWaypointDistance: 1
+  i_waypoint: 0
   waypoints:
   - {fileID: 7541272122601529444}
   - {fileID: 3336809501020480907}
   - {fileID: 29212784088144492}
+  - {fileID: 4409165855877121718}
+  - {fileID: 3747742657305596576}
+  fishsprites:
+  - {fileID: -2114686101538272709, guid: 08bb076c60b21ca3597f9540746f7f86, type: 3}
+  - {fileID: 8966945178157639174, guid: 894f2ad7a8ede73c980ebbbe85a89a51, type: 3}
+--- !u!114 &2712482245682081771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7971499287929202610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db6a8f2ba4b9454f9d49b06d095a177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 3
+  displayScale: 1
+  moveTimer: 0
+  moveEndTime: 1
+--- !u!1 &9198013930382488657
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3747742657305596576}
+  m_Layer: 0
+  m_Name: wp5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3747742657305596576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9198013930382488657}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.83, y: 1.32, z: 0.07687134}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2416506628166166836}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
