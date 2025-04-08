@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameEndObject : MonoBehaviour
 {
     private AttachedDialogue endGameDialogue;
+    private bool dialoguePlayed = false;
 
     private void Start()
     {
@@ -14,10 +15,11 @@ public class GameEndObject : MonoBehaviour
     {
         // check if below sea level
         var waterLevelY = World.Instance.aboveSea.waterSplashParticles.transform.position.y;
-        if (transform.position.y < waterLevelY)
+        if (transform.position.y < waterLevelY && !dialoguePlayed && !World.Instance.DialogueUI.activeSelf)
         {
-            // trigger game end
+            // play dialogue
             endGameDialogue.PlayDialogue();
+            dialoguePlayed = true;
         }
     }
 }
