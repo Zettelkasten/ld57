@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4628311475835766917}
   m_Layer: 8
-  m_Name: Corpse
+  m_Name: Zettelkasten
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 534634093228400340}
   - component: {fileID: 605573124388298187}
   - component: {fileID: 590021970007213495}
+  - component: {fileID: 3490215226543943499}
   m_Layer: 8
   m_Name: c1
   m_TagString: Untagged
@@ -231,6 +232,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.008137819, y: -0.032678444}
   m_Size: {x: 1.033982, y: 0.20716661}
   m_Direction: 1
+--- !u!114 &3490215226543943499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993909160454860324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074125836a4743089923e832e0f05920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Boss:Zettelkasten! You did not age well...
+  - Robot:Ah yes, Zettelkasten. The brain of every project.
+  - Boss:Gamedev legend...
+  - Robot:RIP
+  - Boss:He did the best game programming and music!
+  - Boss:RIP my friend...
+  trigger: 2
 --- !u!1 &6025563258653398839
 GameObject:
   m_ObjectHideFlags: 0

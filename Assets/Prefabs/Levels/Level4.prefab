@@ -158,6 +158,22 @@ PrefabInstance:
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
       value: 7.8134003
       objectReference: {fileID: 0}
+    - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
+      value: 9.321457
+      objectReference: {fileID: 0}
+    - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
+      value: -30.384987
+      objectReference: {fileID: 0}
+    - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
+      value: 15.250549
+      objectReference: {fileID: 0}
+    - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
+      value: 10.504051
+      objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
       value: Polygon
@@ -1007,6 +1023,22 @@ PrefabInstance:
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
       value: 27.85408
       objectReference: {fileID: 0}
+    - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
+      value: -0.034423828
+      objectReference: {fileID: 0}
+    - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
+      value: -25.03032
+      objectReference: {fileID: 0}
+    - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
+      value: 18.003098
+      objectReference: {fileID: 0}
+    - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
+      value: 9.03981
+      objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
       value: Polygon (3)
@@ -1803,6 +1835,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1580300060370451180, guid: e9fb7c1ba237134a5b54da44206a50cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6959236519225247195}
+    - targetCorrespondingSourceObject: {fileID: 1580300060370451180, guid: e9fb7c1ba237134a5b54da44206a50cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3631170082412591346}
   m_SourcePrefab: {fileID: 100100000, guid: e9fb7c1ba237134a5b54da44206a50cf, type: 3}
 --- !u!4 &207473078833034319 stripped
 Transform:
@@ -1827,9 +1862,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-  - Robot:What did you do?
-  - Robot:For this I will have to eliminate you.
+  - 'Robot: *Opens the safe*'
+  - Robot:Oh my...
+  - Robot:So many.. all dead.
+  - Robot:Why did she go so far?! Even faking her own death...
+  - Boss:Hey, hand that over!
+  - Robot:This is not the real MS Drowning isnt it?
+  - Boss:What? ... W-w-wwhat do you mean?
+  - Robot:The real MS Drowning is somewhere down there!
+  - Robot:And you are responsible! These files prove it.
+  - Boss:...
+  - Boss:I wanted to let you go after this job.
+  - Boss:But this is off the table now....
+  - Boss:What do i do.. shit shit shit...
+  - Robot:ENOUGH!
+  - Robot:First your shitty bike!
+  - Robot:Then your radioactive waste!
+  - Robot:Your appetite for drowned people!!
+  - Robot:And all of this to cover up your crimes...
+  - Robot:Time to end this. TIME TO END YOU!
   trigger: 2
+--- !u!114 &3631170082412591346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283750604119082534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074125836a4743089923e832e0f05920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Robot:A safe down here? What secrets does my boss keep from me?
+  - Robot:Oh there is something written on it...
+  - Robot:...The MS Drowning files...
+  - Robot:Wait thats the name of my bosses ship!
+  - Robot:But this safe is to old for that.
+  - Robot:I have to look into it before handing it over!
+  trigger: 1
 --- !u!1001 &4854590218562362998
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -208,6 +208,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 5
-  displayScale: 2
+  displayScale: 1
   moveTimer: 0
   moveEndTime: 1

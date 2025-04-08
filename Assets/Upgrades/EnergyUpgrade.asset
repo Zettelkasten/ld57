@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EnergyUpgrade
   m_EditorClassIdentifier: 
   upgradeID: ENERGY
-  levelCosts: 3200000064000000c8000000
+  levelCosts: 140000002800000050000000
   sprites:
   - {fileID: -65064249, guid: 458338b7df01517429b4327b58870ce4, type: 3}

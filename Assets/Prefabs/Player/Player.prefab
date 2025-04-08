@@ -1743,7 +1743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userrigidbody: {fileID: 5221533566072193150}
-  armLength: 2.5
+  armLength: 2.8
   armStrength: 400
   Link1: {fileID: 4609527265563330213}
   Link2: {fileID: 737970445213229745}
@@ -2349,7 +2349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userrigidbody: {fileID: 5221533566072193150}
-  armLength: 4.5
+  armLength: 4.3
   armStrength: 400
   Link1: {fileID: 8878277530116347547}
   Link2: {fileID: 8373507761437382039}
