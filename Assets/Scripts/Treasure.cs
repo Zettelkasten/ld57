@@ -69,7 +69,9 @@ public class Treasure : MonoBehaviour
         // get the money
         World.Instance.player.money += value;
 		// cash particles
-		World.Instance.sellBox.MakeItRain(value);
+		if (!triggersGameEnd) {
+			World.Instance.sellBox.MakeItRain(value);
+		}
 		Destroy(gameObject);
     }
 
