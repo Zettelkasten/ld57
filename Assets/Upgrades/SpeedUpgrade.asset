@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SpeedUpgrade
   m_EditorClassIdentifier: 
   upgradeID: SPEED
-  levelCosts: 64000000c8000000f4010000
+  levelCosts: 3200000064000000c8000000
   sprites:
   - {fileID: -575989341, guid: 458338b7df01517429b4327b58870ce4, type: 3}
