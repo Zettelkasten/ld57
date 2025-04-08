@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ArmLengthUpgrade
   m_EditorClassIdentifier: 
   upgradeID: ARMLENGTH
-  levelCosts: 64000000c8000000f4010000
+  levelCosts: c8000000f4010000
   sprites:
   - {fileID: -688030460, guid: 458338b7df01517429b4327b58870ce4, type: 3}
