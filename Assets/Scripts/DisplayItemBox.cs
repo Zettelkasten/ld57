@@ -13,6 +13,7 @@ public class DisplayItemBox : MonoBehaviour
 
     public void MakeItRain(int amountOfMoney)
     {
+        SoundManager.PlaySource(GetComponent<AudioSource>());
         var particleEmission = particleSystem.emission;
         ParticleSystem.Burst burst = particleEmission.GetBurst(0);
         burst.cycleCount = Mathf.Max(1, (int)Mathf.Ceil((float)amountOfMoney / burst.count.constant));
