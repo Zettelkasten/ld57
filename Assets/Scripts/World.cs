@@ -144,7 +144,11 @@ public class World : MonoBehaviour
             Debug.Log("Card: " + card.myUpgrade.name);
             if (card.shouldPlayDialogue && !DialogueUI.activeSelf)
             {
-                card.dialogueAfterFirstUpgrade.PlayDialogue();
+                // copy the dialogue component
+                var dialogue = card.GetComponent<AttachedDialogue>();
+                // copy it
+                var newDialogue = Instantiate(dialogue, this.transform);
+                newDialogue.PlayDialogue();
                 card.shouldPlayDialogue = false;
             }
         }
