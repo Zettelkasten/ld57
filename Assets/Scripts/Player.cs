@@ -373,7 +373,7 @@ public class Player : MonoBehaviour
         }
         lastPosition = transform.position;  
         
-        if (World.Instance.cage.state != CageState.Underwater)
+        if (World.Instance.cage.state != CageState.Underwater && World.Instance.cage.state != CageState.SinkingWithoutPlayer)
         {
             energy = maxEnergy;
         }
