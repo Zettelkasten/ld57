@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 50
-  displayScale: 8
+  displayScale: 2
   moveTimer: 0
   moveEndTime: 1
   triggersGameEnd: 0

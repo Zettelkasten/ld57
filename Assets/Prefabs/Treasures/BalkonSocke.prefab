@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4628311475835766917}
   m_Layer: 8
-  m_Name: Corpse
+  m_Name: BalkonSocke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,6 +496,7 @@ GameObject:
   - component: {fileID: 2562155489526448761}
   - component: {fileID: 6547718340726193723}
   - component: {fileID: 7765352857381752076}
+  - component: {fileID: 3862301072497702394}
   m_Layer: 8
   m_Name: c3
   m_TagString: Untagged
@@ -679,3 +680,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0040109796, y: 0.029600713}
   m_Size: {x: 0.52487105, y: 0.3771206}
   m_Direction: 1
+--- !u!114 &3862301072497702394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6864640419735365057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074125836a4743089923e832e0f05920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Robot:Oh I think I knew this unfortunate soul.
+  - Boss:Is that so?
+  - Robot:BalkonSocke was his name.
+  - Robot:He built computer games in his free time.
+  - Robot:I remember him doing a lot of graphics programming and artwork.
+  - Robot:And UI... But he hated it.
+  - Robot:What an unfortunate end for him. He was the most important member of every
+    team.
+  - Robot:Maybe I should mention that he also wrote a lot of dialogue.
+  - Robot:...
+  trigger: 2
