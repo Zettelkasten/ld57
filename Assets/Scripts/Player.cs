@@ -510,7 +510,7 @@ public class Player : MonoBehaviour
             if(ground is null)
                 moveforce.y = 0;
 
-            Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.4f;
+            Vector2 forcepos = ((Vector2)transform.position) + Vector2.down * 0.5f;
             playerRigidbody.AddForceAtPosition(moveforce, forcepos, ForceMode2D.Force);
             if (ground is not null)
             {
