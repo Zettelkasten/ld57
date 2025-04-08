@@ -19,12 +19,15 @@ public class UpgradeCard : MonoBehaviour
 	public Transform upgradeSelectButtonsContainer;
 	
 	public AttachedDialogue dialogueAfterFirstUpgrade;
+
+	private AudioSource upgradeAudioSource;
 	
 	public bool shouldPlayDialogue = false;
 	private bool alreadyPlayedDialogue = false;
 
 	public void Start()
 	{
+		upgradeAudioSource = GetComponent<AudioSource>();
 		// spawn the correct number of upgrade select buttons
 		upgradeLevelSelectButtons.Clear();
 		for (int i = 0; i <= myUpgrade.levelCosts.Count; i++)
@@ -81,6 +84,8 @@ public class UpgradeCard : MonoBehaviour
 		World.Instance.player.money -= currentUpgradeCost;
 		UpgradeManager.Instance.UpgradeAnUpgrade(myUpgrade);
 		AdjustUpgradeIcon();
+		// sound
+		SoundManager.PlaySource(upgradeAudioSource);
 		if (!alreadyPlayedDialogue)
 		{
 			shouldPlayDialogue = true;
