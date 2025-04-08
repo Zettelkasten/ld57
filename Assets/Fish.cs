@@ -133,6 +133,14 @@ public class Fish : MonoBehaviour
         {
             i_waypoint = Random.Range(0, waypoints.Length);
         }
+        if(waypoints is null)
+        {
+            return;
+        }
+        if(waypoints.Length == 0)
+        {
+            return;
+        }
         currentwaypoint = waypoints[i_waypoint].position;
     }
 
