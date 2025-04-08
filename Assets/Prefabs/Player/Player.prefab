@@ -1068,7 +1068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userrigidbody: {fileID: 5221533566072193150}
-  armLength: 1.5
+  armLength: 2
   armStrength: 400
   Link1: {fileID: 5145216339790216526}
   Link2: {fileID: 5675311889936740962}
@@ -3083,6 +3083,7 @@ MonoBehaviour:
   speedupgrade: {fileID: 0}
   jumpupgrade: {fileID: 11400000, guid: a7f082630a6821847b0f24853739cdca, type: 2}
   energyupgrade: {fileID: 11400000, guid: 44c355e927d369c4b9c8b8e46723c12a, type: 2}
+  lightUpgradeHandler: {fileID: 0}
   dontMoveTime: 0
   movementAudio: {fileID: 2372597649371104713}
   armGrabSound: {fileID: 5024813436289114667}
