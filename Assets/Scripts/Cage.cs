@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,6 +43,8 @@ public class Cage : MonoBehaviour
     Rigidbody2D playerRigidbody;
     
     private List<FixedJoint2D> joints = new List<FixedJoint2D>();
+
+    private bool gameEndTriggered = false;
 
     void Start()
     {
@@ -167,6 +168,11 @@ public class Cage : MonoBehaviour
 						item.SellDialogue();
 						waitingForSellDialogue = item;
 						sellingItemProgress = 0;
+                        if (item.triggersGameEnd && !gameEndTriggered)
+                        {
+                            gameEndTriggered = true;
+                            World.Instance.aboveSea.gameEndObject.gameObject.SetActive(true);
+                        }
 					}
 				}
 				break;

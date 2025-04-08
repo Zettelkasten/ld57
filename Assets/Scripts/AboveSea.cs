@@ -11,6 +11,8 @@ public class AboveSea : MonoBehaviour
     public ParticleSystem waterSplashParticles;
 
     public AttachedDialogue deathDialogue;
+
+    public GameEndObject gameEndObject;
     
     public void Update()
     {
