@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     int activatedArm = 0;
 
     int [] armStrengths = { 400, 600, 800, 1200 };
-    float [] armLengths = {   2f, 3.5f, 4.5f, 5};
+    float [] armLengths = {   2f, 2.8f, 4.3f, 5f};
 
     int [] gearSpeeds = { 5, 8, 14, 22 };
     float [] gearStrengths = { 1, 1.5f, 2, 3 };
