@@ -16,6 +16,8 @@ public class Treasure : MonoBehaviour
     private Quaternion startRot;
     private Vector3 startScale;
 
+    public bool triggersGameEnd;
+
 	public void Start()
 	{
 		myRB = GetComponent<Rigidbody2D>();
