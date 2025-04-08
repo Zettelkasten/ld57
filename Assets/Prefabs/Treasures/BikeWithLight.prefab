@@ -227,6 +227,7 @@ MonoBehaviour:
   displayScale: 3
   moveTimer: 0
   moveEndTime: 1
+  triggersGameEnd: 0
 --- !u!114 &6177339627421708406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +269,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2083685141861051014}
   - component: {fileID: 2954849235204229269}
-  - component: {fileID: 2916818317813971999}
   m_Layer: 3
   m_Name: Spotlight
   m_TagString: Untagged
@@ -343,26 +343,3 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &2916818317813971999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8463700907748210232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b1a051b7df85f2419dcdc18753aa90c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightUpgrade: {fileID: 0}
-  lightIntensities:
-  - 2
-  - 4
-  - 8
-  - 16
-  lightRanges:
-  - 2
-  - 4
-  - 8
-  - 16

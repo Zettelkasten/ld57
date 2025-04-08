@@ -75,6 +75,8 @@ public class Player : MonoBehaviour
     public AudioSource armReleaseSound;
     public AudioSource jumpSound;
 
+    private bool spotlightActive = false;
+
 // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -100,12 +102,12 @@ public class Player : MonoBehaviour
         directionalChild.transform.rotation = Quaternion.RotateTowards(directionalChild.transform.rotation, Quaternion.Euler(targetRotation), 360 * Time.deltaTime);
 
         var lightActivate = !(World.Instance.cage.state is CageState.OnShip or CageState.Sinking);
-        if (!directionalChild.activeSelf && lightActivate)
+        if (!spotlightActive && lightActivate)
         {
             lightActiveTime = 0;
         }
-        directionalChild.SetActive(lightActivate);
-        if (lightActivate)
+        spotlightActive = lightActivate;
+		if (spotlightActive)
         {
             var turnOffTimeDiff = 1f;
             var turningOff = counterUntilRespawn > turnOffTimeDiff;
@@ -124,8 +126,12 @@ public class Player : MonoBehaviour
                 char flickerState = states[index];
                 // a is dimmest, z is lightest
                 float lightIntensity = (float) (flickerState - 'a') / ('z' - 'a');
-                directionalChild.GetComponentInChildren<Light2D>().intensity = lightIntensity;
+                directionalChild.GetComponentInChildren<Light2D>().intensity = targetLight * lightIntensity;
             }
+        }
+        else
+        {
+            directionalChild.GetComponentInChildren<Light2D>().intensity = 0;
         }
         
         check_cheats();
