@@ -39,6 +39,7 @@ Transform:
   - {fileID: 3535436796145991722}
   - {fileID: 4609056145961212913}
   - {fileID: 3928588741109322238}
+  - {fileID: 5596853098223107793}
   m_Father: {fileID: 2268752021836422439}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3116982389845025422
@@ -83,7 +84,6 @@ Transform:
   - {fileID: 7831557197026497226}
   - {fileID: 5066059304227805140}
   - {fileID: 5814910291013107740}
-  - {fileID: 5596853098223107793}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3391919162592615423
@@ -1110,43 +1110,43 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[1]
+      propertyPath: 'dialogue.Array.data[1]'
       value: Robot:Even the light survived.
       objectReference: {fileID: 0}
     - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[2]
+      propertyPath: 'dialogue.Array.data[2]'
       value: 'Boss:I have no need for it anymore. '
       objectReference: {fileID: 0}
     - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[3]
+      propertyPath: 'dialogue.Array.data[3]'
       value: Robot:Well...
       objectReference: {fileID: 0}
     - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[4]
+      propertyPath: 'dialogue.Array.data[4]'
       value: Boss:Fine you can have it. Will cost you 10 gold.
       objectReference: {fileID: 0}
     - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[5]
+      propertyPath: 'dialogue.Array.data[5]'
       value: Robot:What a coincidence...
       objectReference: {fileID: 0}
     - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[6]
+      propertyPath: 'dialogue.Array.data[6]'
       value: Boss:Im starting to understand why they did not coutinue your model.
       objectReference: {fileID: 0}
     - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[7]
+      propertyPath: 'dialogue.Array.data[7]'
       value: Boss:Go to your upgrade menu and buy the light already!
       objectReference: {fileID: 0}
     - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[8]
+      propertyPath: 'dialogue.Array.data[8]'
       value: Robot:Soo you did not come here for your bike?
       objectReference: {fileID: 0}
     - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[9]
+      propertyPath: 'dialogue.Array.data[9]'
       value: Boss:...
       objectReference: {fileID: 0}
     - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[10]
+      propertyPath: 'dialogue.Array.data[10]'
       value: Boss:No. Just keep searching!
       objectReference: {fileID: 0}
     - target: {fileID: 6121501401365597479, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
@@ -1190,7 +1190,7 @@ PrefabInstance:
       value: 216.615
       objectReference: {fileID: 0}
     - target: {fileID: 6177339627421708406, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
-      propertyPath: dialogue.Array.data[0]
+      propertyPath: 'dialogue.Array.data[0]'
       value: Robot:Another bike? I wonder how it got down here.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1461,7 +1461,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2268752021836422439}
+    m_TransformParent: {fileID: 5814910291013107740}
     m_Modifications:
     - target: {fileID: 1580300060370451180, guid: 682f505b0f201fad381eafa93f913ef3, type: 3}
       propertyPath: m_Name
@@ -9011,7 +9011,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 260967335588762138, guid: f3f31401af0af6fc9b65c12060909246, type: 3}
-      propertyPath: fishsprites.Array.data[0]
+      propertyPath: 'fishsprites.Array.data[0]'
       value: 
       objectReference: {fileID: 8966945178157639174, guid: 894f2ad7a8ede73c980ebbbe85a89a51, type: 3}
     - target: {fileID: 340355301632929173, guid: f3f31401af0af6fc9b65c12060909246, type: 3}
@@ -10201,7 +10201,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 260967335588762138, guid: f3f31401af0af6fc9b65c12060909246, type: 3}
-      propertyPath: fishsprites.Array.data[0]
+      propertyPath: 'fishsprites.Array.data[0]'
       value: 
       objectReference: {fileID: 8966945178157639174, guid: 894f2ad7a8ede73c980ebbbe85a89a51, type: 3}
     - target: {fileID: 340355301632929173, guid: f3f31401af0af6fc9b65c12060909246, type: 3}
@@ -12442,12 +12442,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 54464528936570849}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
+      value: 18.871529
+      objectReference: {fileID: 0}
+    - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 0.31850433
+      value: -20.297386
+      objectReference: {fileID: 0}
+    - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
+      value: 12.0419235
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 32.109413
+      value: 4.672249
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
