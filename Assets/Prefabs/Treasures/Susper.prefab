@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4628311475835766917}
   m_Layer: 8
-  m_Name: Corpse
+  m_Name: Susper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 7376394908062501358}
   - component: {fileID: 7350009831351482318}
   - component: {fileID: 6404080161452150846}
+  - component: {fileID: 1320832831383734872}
   m_Layer: 8
   m_Name: c2
   m_TagString: Untagged
@@ -482,6 +483,31 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!114 &1320832831383734872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6025563258653398839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074125836a4743089923e832e0f05920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Boss:Wow I know who that was!
+  - Robot:Yeah?
+  - Boss:Yup, thats Susber. Bright guy. You can still see his sixpack!
+  - Boss:He just got his masters degree in physics last time we saw each other.
+  - Boss:Then he wanted to create some games or something like that.
+  - Robot:Well, seems like that did not went so well...
+  - Boss:Depends on the player ratings.
+  - Boss:Maybe you playing this can help him to some post-mortem fame?
+  - Boss:By rating this game!
+  - Robot:... cmon thats a bit cheap!
+  - Boss:...
+  trigger: 2
 --- !u!1 &6864640419735365057
 GameObject:
   m_ObjectHideFlags: 0
