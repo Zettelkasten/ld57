@@ -17,6 +17,11 @@ public class UpgradeCard : MonoBehaviour
 	public GameObject upgradeSelectButtonPrefab;
 
 	public Transform upgradeSelectButtonsContainer;
+	
+	public AttachedDialogue dialogueAfterFirstUpgrade;
+	
+	public bool shouldPlayDialogue = false;
+	private bool alreadyPlayedDialogue = false;
 
 	public void Start()
 	{
@@ -32,6 +37,8 @@ public class UpgradeCard : MonoBehaviour
 		}
 		// choose the correct display icon
 		AdjustUpgradeIcon();
+		
+		dialogueAfterFirstUpgrade = GetComponent<AttachedDialogue>();
 	}
 
 	public void Update()
@@ -74,6 +81,11 @@ public class UpgradeCard : MonoBehaviour
 		World.Instance.player.money -= currentUpgradeCost;
 		UpgradeManager.Instance.UpgradeAnUpgrade(myUpgrade);
 		AdjustUpgradeIcon();
+		if (!alreadyPlayedDialogue)
+		{
+			shouldPlayDialogue = true;
+			alreadyPlayedDialogue = true;
+		}
 	}
 
 	public void SelectCertainLevel(int upgradeLevel)

@@ -138,6 +138,17 @@ public class World : MonoBehaviour
         
         openUpgradeScreenButton.SetActive(cage.state == CageState.OnShip && BottomUIAvailable());
         
+        // find all UpgradeCard s in the upgradeScreen
+        foreach (var card in upgradeScreen.GetComponentsInChildren<UpgradeCard>())
+        {
+            Debug.Log("Card: " + card.myUpgrade.name);
+            if (card.shouldPlayDialogue && !DialogueUI.activeSelf)
+            {
+                card.dialogueAfterFirstUpgrade.PlayDialogue();
+                card.shouldPlayDialogue = false;
+            }
+        }
+        
         // audio
         if (SoundManager.Instance != null)
         {
@@ -155,7 +166,8 @@ public class World : MonoBehaviour
     public bool BottomUIAvailable()
     {
         // also to check if player can press E to interact with the cage
-        return !DialogueUI.activeSelf && !upgradeScreen.activeSelf;
+        return !DialogueUI.activeSelf && !upgradeScreen.activeSelf && cage.state != CageState.SellingItems &&
+               cage.showShopAfterDelay <= 0;
     }
 
     public void RespawnPlayer()
