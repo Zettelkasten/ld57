@@ -1,9 +1,15 @@
+using System;
 using UnityEngine;
 
 public class GameEndObject : MonoBehaviour
 {
-    public AttachedDialogue endGameDialogue;
-    
+    private AttachedDialogue endGameDialogue;
+
+    private void Start()
+    {
+        endGameDialogue = GetComponent<AttachedDialogue>();
+    }
+
     void Update()
     {
         // check if below sea level

@@ -1648,16 +1648,44 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4880632743388827231, guid: e9fb7c1ba237134a5b54da44206a50cf, type: 3}
+      propertyPath: triggersGameEnd
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1580300060370451180, guid: e9fb7c1ba237134a5b54da44206a50cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6959236519225247195}
   m_SourcePrefab: {fileID: 100100000, guid: e9fb7c1ba237134a5b54da44206a50cf, type: 3}
 --- !u!4 &207473078833034319 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4628311475835766917, guid: e9fb7c1ba237134a5b54da44206a50cf, type: 3}
   m_PrefabInstance: {fileID: 4817170901382642890}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6283750604119082534 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1580300060370451180, guid: e9fb7c1ba237134a5b54da44206a50cf, type: 3}
+  m_PrefabInstance: {fileID: 4817170901382642890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6959236519225247195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283750604119082534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074125836a4743089923e832e0f05920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Robot:What did you do?
+  - Robot:For this I will have to eliminate you.
+  trigger: 2
 --- !u!1001 &4854590218562362998
 PrefabInstance:
   m_ObjectHideFlags: 0
