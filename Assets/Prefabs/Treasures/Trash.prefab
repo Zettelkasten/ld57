@@ -156,10 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db6a8f2ba4b9454f9d49b06d095a177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: -1000
+  value: -10
   displayScale: 2
   moveTimer: 0
   moveEndTime: 1
+  triggersGameEnd: 0
 --- !u!61 &-6758715565834902451
 BoxCollider2D:
   m_ObjectHideFlags: 0
