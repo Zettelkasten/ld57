@@ -835,19 +835,19 @@ PrefabInstance:
       objectReference: {fileID: 8895421184759984879}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: 6.4743195
+      value: 7.7507706
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 3.1212158
+      value: 3.1097336
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
-      value: 4.05777
+      value: 5.334221
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 3.5376434
+      value: 3.5491257
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
@@ -1068,13 +1068,57 @@ PrefabInstance:
       propertyPath: m_Name
       value: BikeWithLight
       objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: dialogue.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[1]'
+      value: Robot:Even the light survived.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[2]'
+      value: 'Boss:I have no need for it anymore. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[3]'
+      value: Robot:Well...
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[4]'
+      value: Boss:Fine you can have it. Will cost you 10 gold.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[5]'
+      value: Robot:What a coincidence...
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[6]'
+      value: Boss:Im starting to understand why they did not coutinue your model.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[7]'
+      value: Boss:Go to your upgrade menu and buy the light already!
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[8]'
+      value: Robot:Soo you did not come here for your bike?
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[9]'
+      value: Boss:...
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306299214064124754, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[10]'
+      value: Boss:No. Just keep searching!
+      objectReference: {fileID: 0}
     - target: {fileID: 6121501401365597479, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.4
+      value: 72.45
       objectReference: {fileID: 0}
     - target: {fileID: 6121501401365597479, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.3
+      value: 6.76
       objectReference: {fileID: 0}
     - target: {fileID: 6121501401365597479, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1082,7 +1126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121501401365597479, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.31411824
       objectReference: {fileID: 0}
     - target: {fileID: 6121501401365597479, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1094,7 +1138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121501401365597479, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.9493839
       objectReference: {fileID: 0}
     - target: {fileID: 6121501401365597479, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1106,7 +1150,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121501401365597479, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 216.615
+      objectReference: {fileID: 0}
+    - target: {fileID: 6177339627421708406, guid: bec96c5fc395946f3b3f805525f77b7d, type: 3}
+      propertyPath: 'dialogue.Array.data[0]'
+      value: Robot:Another bike? I wonder how it got down here.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1338,19 +1386,19 @@ PrefabInstance:
       objectReference: {fileID: 8154494730620800718}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: 13.766586
+      value: 18.85643
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 7.54541
+      value: 14.273895
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
-      value: 7.6609344
+      value: 2.5710754
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 10.916565
+      value: 4.040268
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
@@ -2618,11 +2666,11 @@ PrefabInstance:
       objectReference: {fileID: 5800279097120227154}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: 6.944763
+      value: 6.944748
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 3.8540878
+      value: 4.863701
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
@@ -2630,7 +2678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 4.2788925
+      value: 3.2692642
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
@@ -3211,19 +3259,19 @@ PrefabInstance:
       objectReference: {fileID: 5410693024819113021}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: 6.944763
+      value: 6.9447556
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 3.8540878
+      value: 4.863701
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
-      value: 4.5223846
+      value: 4.5223923
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 4.2788925
+      value: 3.2692642
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
@@ -3802,19 +3850,19 @@ PrefabInstance:
       objectReference: {fileID: 4390815863614354655}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: -21.062294
+      value: -166.84808
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 16.625343
+      value: 18.308777
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
-      value: 24.191154
+      value: 49.92064
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 23.502419
+      value: 49.749252
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
@@ -5189,19 +5237,19 @@ PrefabInstance:
       objectReference: {fileID: 4444753292136573761}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: 47.322433
+      value: 30.372528
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: -13.246101
+      value: -5.045349
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
-      value: 44.238388
+      value: 27.271881
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 28.543327
+      value: 20.524078
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
@@ -6076,11 +6124,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4628311475835766917, guid: bb510b7c3e34f9437889f895e267df46, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48
+      value: 8.19
       objectReference: {fileID: 0}
     - target: {fileID: 4628311475835766917, guid: bb510b7c3e34f9437889f895e267df46, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 27.5
+      value: 42.77
       objectReference: {fileID: 0}
     - target: {fileID: 4628311475835766917, guid: bb510b7c3e34f9437889f895e267df46, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6216,19 +6264,19 @@ PrefabInstance:
       objectReference: {fileID: 4562751748597253284}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: 0.35727692
+      value: 16.2631
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: -0.40642548
+      value: -2.6028214
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
-      value: 26.38935
+      value: 19.181587
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 13.209389
+      value: 10.997108
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
@@ -6665,19 +6713,19 @@ PrefabInstance:
       objectReference: {fileID: 4095997604439434756}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: 31.488281
+      value: 8.469528
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 10.911888
+      value: 23.227432
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
-      value: 8.68985
+      value: 9.524246
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 25.538414
+      value: 17.20729
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
@@ -7642,19 +7690,19 @@ PrefabInstance:
       objectReference: {fileID: 3259366501515276959}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: -5.1366425
+      value: 1.7789001
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 0.30524445
+      value: 7.368599
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
-      value: 17.272156
+      value: 6.540085
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 8.159416
+      value: 1.0960617
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
@@ -7973,11 +8021,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4628311475835766917, guid: 9519fbc99eec4bd28b7f5f196319f814, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.5
+      value: 11.2
       objectReference: {fileID: 0}
     - target: {fileID: 4628311475835766917, guid: 9519fbc99eec4bd28b7f5f196319f814, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.5
+      value: 28.77
       objectReference: {fileID: 0}
     - target: {fileID: 4628311475835766917, guid: 9519fbc99eec4bd28b7f5f196319f814, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8064,9 +8112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-  - Boss:A bike? What should I do with a bike?
+  - Boss:A bike? And its not even the one  i lost here once!
   - Boss:Whatever. I will give you some money for every item you bring to me.
-  - Boss:You can buy upgrades from that.
   - Boss:Search further until you found what I am looking for!
   trigger: 2
 --- !u!1001 &6185562643125541454
@@ -8976,11 +9023,11 @@ PrefabInstance:
       objectReference: {fileID: 2137555736305562078}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: 6.944763
+      value: 6.944748
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 3.8540878
+      value: 4.863701
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
@@ -8988,7 +9035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 4.2788925
+      value: 3.2692642
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name
@@ -9583,11 +9630,11 @@ PrefabInstance:
       objectReference: {fileID: 1735541703156979687}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: 6.944763
+      value: 6.944748
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 3.8540802
+      value: 4.863693
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
@@ -9595,7 +9642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3220455601416432313, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 4.278885
+      value: 3.2692719
       objectReference: {fileID: 0}
     - target: {fileID: 3783589703275896372, guid: f0c7d1876194c422a9dd765cab94136c, type: 3}
       propertyPath: m_Name

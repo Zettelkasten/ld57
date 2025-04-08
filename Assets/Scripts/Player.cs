@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
     public Upgrade jumpupgrade;
     public Upgrade energyupgrade;
 
+    public LightUpgradeHandler lightUpgradeHandler;
     private float lightActiveTime;
     private string lightFlickerStates = "mmmaaammmaaammmabcdefaaaammmmabcdefmmmaaaa";  // a is dimmest, z ist lightest
     
@@ -108,7 +109,7 @@ public class Player : MonoBehaviour
         {
             var turnOffTimeDiff = 1f;
             var turningOff = counterUntilRespawn > turnOffTimeDiff;
-            var targetLight = turningOff ? 0 : 1;
+            var targetLight = turningOff ? 0 : lightUpgradeHandler.currentIntensity;
             var states = turningOff ? "abcdefaaaammmmabcdefmmmaaaa" : lightFlickerStates;
             
             lightActiveTime += Time.deltaTime;
