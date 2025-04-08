@@ -149,7 +149,7 @@ public class Cage : MonoBehaviour
 				if (itemsToBeSold.Count == 0)
 				{
 					SetState(CageState.OnShip);
-                    showShopAfterDelay = 1.5f;
+                    showShopAfterDelay = gameEndTriggered ? 0f : 1.5f;
 				}
 				else
 				{

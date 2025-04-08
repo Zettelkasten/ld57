@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LightUpgrade
   m_EditorClassIdentifier: 
   upgradeID: LIGHT
-  levelCosts: 0a00000064000000c8000000
+  levelCosts: 0a0000002800000064000000
   sprites:
   - {fileID: -1853091812240255975, guid: 458338b7df01517429b4327b58870ce4, type: 3}
