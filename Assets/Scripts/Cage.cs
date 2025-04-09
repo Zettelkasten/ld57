@@ -69,6 +69,18 @@ public class Cage : MonoBehaviour
                     joints.Clear();
                     foreach (var thing in sinkingAttachedObjects)
                     {
+                        
+                        //if thing is part of corpse, destroy their hinge joints to fix physics glitches
+                        if(thing.name == "c1" || thing.name == "c2" || thing.name == "c3")
+                        {
+                            var hingeJoints = thing.GetComponents<HingeJoint2D>();
+                            foreach (var hingeJoint in hingeJoints)
+                            {
+                                Destroy(hingeJoint);
+                                Debug.Log("Destroying hinge joint of " + thing.name);
+                            }
+                        }
+                        
                         // add a joint
                         FixedJoint2D joint2D = cageRigidbody.gameObject.AddComponent<FixedJoint2D>();
                         joint2D.connectedBody = thing;

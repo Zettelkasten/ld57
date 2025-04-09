@@ -141,7 +141,7 @@ public class World : MonoBehaviour
         // find all UpgradeCard s in the upgradeScreen
         foreach (var card in upgradeScreen.GetComponentsInChildren<UpgradeCard>())
         {
-            Debug.Log("Card: " + card.myUpgrade.name);
+            //Debug.Log("Card: " + card.myUpgrade.name);
             if (card.shouldPlayDialogue && !DialogueUI.activeSelf)
             {
                 // copy the dialogue component

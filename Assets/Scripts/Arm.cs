@@ -122,7 +122,8 @@ public class Arm : MonoBehaviour
                             collider.gameObject != gameObject &&
                             collider.gameObject.layer != LayerMask.NameToLayer("Playerconstruction") &&
                             collider.gameObject.layer != LayerMask.NameToLayer("Player") &&
-                            !collider.gameObject.CompareTag("Cage"))
+                            !collider.gameObject.CompareTag("Cage")&&
+                            collider.gameObject.GetComponent<Spikes>() is null)
                         {
                             hit = collider;
                             break;
